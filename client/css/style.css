@@ -1,0 +1,51 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100vh;
+}
+
+a {
+  color: #00B7FF;
+}
+
+ul {
+    list_style_type: none;
+    padding-left: 10px;
+}
+
+.appCredits {
+    font-size: 50%;
+}
+
+
+.windowContent {
+    /* Ensure main content browsing window is height of viewport minus header */
+    height: -o-calc(100vh - 160px); /* opera */
+    height: -webkit-calc(100vh - 160px); /* google, safari */
+    height: -moz-calc(100vh - 160px); /* firefox */
+}
+
+.internalTableContent {
+    height: 400px;
+}
+
+fieldset.standard {
+  border-style: solid;
+  border-width: 1px;
+}
+
+fieldset.smallForm {
+    width: 400px;
+}
+
+md-list.tableList > md-list-item:nth-child(odd) {
+    background-color: #F4FFFF;
+}
+
+md-list.tableList > md-list-item:nth-child(even) {
+    background-color: #F4F4FF;
+}
+
+#visnetworkgraph {
+    height: 90%;
+    width: 100%;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<div layout="column" ng-if="vm.table.data.length > 0">
+    <md-button ng-if="vm.dropdown" class="md-raised md-primary" ng-click="vm.showDropdown = !vm.showDropdown">
+        <md-icon ng-if="vm.showDropdown === false" md-svg-icon="menu-right"></md-icon>
+        <md-icon ng-if="vm.showDropdown === true" md-svg-icon="menu-down"></md-icon>
+        {{ vm.table.table_name.label }}
+    </md-button>
+    <div layout="row" layout-align="center start" ng-if="!vm.dropdown || (vm.dropdown && vm.showDropdown)" layout-padding ng-cloak layout-fill>
+        <div layout="column" layout-align="center enter" flex>
+            <fieldset class="standard">
+                <legend>
+                    {{ vm.table.table_name.label }}
+                </legend>
+                <ape-table-rows table="vm.table" searchterm="vm.searchterm" detail-table="{{vm.detailTable}}"></ape-table-rows>
+            </fieldset>
+        </div>
+        <md-button ng-if="vm.disableOptions === false" aria-label="Open table options" class="md-icon-button" ng-click="vm.clickOptions()">
+            <md-icon md-menu-origin md-svg-icon="dots-vertical"></md-icon>
+        </md-button>
+        <div ng-if="vm.showOptions === true && vm.disableOptions === false">
+            <ape-table-search table="vm.table" searchterm="vm.searchterm"></ape-table-search>
+        </div>
+    </div>
+</div>

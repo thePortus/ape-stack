@@ -1,0 +1,27 @@
+{
+  "secret": "ape",
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "ape-dev",
+    "port": 5432,
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "ape-test",
+    "port": 5432,
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": null,
+    "database": "ape-production",
+    "port": 5432,
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

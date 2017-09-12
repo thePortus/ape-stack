@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<div layout-align="center center" layout-fill>
+    <md-content class="windowContent">
+        <div layout-padding>
+            <md-input-container class="md-block">
+                <label>Filter Results</label>
+                <input ng-model="vm.searchterm">
+            </md-input-container>
+        </div>
+    <md-divider></md-divider>
+    <div layout-padding>
+        <fieldset class="standard">
+            <legend>Field Options</legend>
+            <div layout-padding>
+                <div ng-repeat="field in vm.table.fields" layout="row" layout-align="start center">
+                    <md-checkbox ng-model="field['display']">{{ field['label'] }}</md-checkbox>
+                    <md-button ng-click="vm.sortField(field['value'])" aria-label="Field Sorting Order" layout="row" flex layout-align="center center">
+                        <div flex></div>
+                        <md-icon md-menu-origin md-svg-icon="circle" ng-if="vm.table.sorting['field'] != field['value']"></md-icon>
+                        <md-icon md-menu-origin md-svg-icon="arrow-down-drop-circle" ng-if="vm.table.sorting['field'] === field['value'] && !vm.table.sorting['reverse']"></md-icon>
+                        <md-icon md-menu-origin md-svg-icon="arrow-up-drop-circle" ng-if="vm.table.sorting['field'] === field['value'] && vm.table.sorting['reverse']"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    </md-content>
+</div>

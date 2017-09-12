@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<md-content flex ng-cloak layout-padding>
+    <md-list class="tableList" flex>
+        <md-list-item class="md-2-line" ng-repeat="item in vm.table.data | filter:vm.searchterm | orderObjectBy:vm.table.sorting.field: vm.table.sorting.reverse" ng-click="vm.details(item['ID'])" aria-label="Get details for entry">
+            <span class="md-avatar" ng-if="vm.table.id_field['display'] === true">
+                <h3>{{ item[vm.table.id_field['label']] }}</h3>
+            </span>
+            <div class="md-list-item-text">
+                <h3 ng-if="vm.table.id_field['display'] === true">{{ item[vm.table.title_field['value']] }}</h3>
+                <p>
+                    <span ng-repeat="field in vm.table.fields" ng-if="field.display && item[field.value] !== null">
+                        {{ field.label }}: {{ item[field.value] }}
+                        <span ng-if="!$last">|</span>
+                    </span>
+                </p>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>

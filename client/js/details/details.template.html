@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<ape-header content="'Details'" style="'md-accent'"></ape-header>
+<md-content class="windowContent">
+    <md-list flex>
+        <md-list-item class="md-2-line" ng-repeat="field in vm.fields" ng-if="vm.details.data[0][field.value]" ng-click="" aria-label="Detailed information field for record">
+            <div class="md-list-item-text">
+                <h3>{{ field.label }}</h3>
+                <md-content>
+                    <p>
+                        <pre>{{ vm.details.data[0][field.value] }}</pre>
+                    </p>
+                </md-content>
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+    </md-list>
+</md-content>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<div layout-fill layout="column" layout-padding>
+    <div flex>
+        <fieldset class="standard" layout="column">
+            <legend>Login</legend>
+            <md-input-container layout-padding>
+                <label>Username</label>
+                <input ng-model="vm.credentials.username" type="text">
+            </md-input-container>
+            <md-input-container layout-padding>
+                <label>Password</label>
+                <input ng-model="vm.credentials.password" type="password">
+            </md-input-container>
+        </fieldset>
+    </div>
+    <md-button class="md-raised md-primary" ng-click="vm.login(vm.credentials.username, vm.credentials.password)">Log in</md-button>
+    <md-list>
+        <md-list-item ng-repeat="error in vm.errors">
+            <small>{{ error }}</small>
+        </md-list-item>
+    </md-list>
+</div>
