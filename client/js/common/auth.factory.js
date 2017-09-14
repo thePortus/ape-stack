@@ -43,8 +43,12 @@
             .catch(loginError);
 
             function loginCB(response) {
-              vm.jsonWebToken = response.data.token;
-              if(response.data.success) {
+
+              if(!response.data.success) {
+                failureCB([response.data.message]);
+              }
+              else {
+                vm.jsonWebToken = response.data.token;
                 vm.username.id = response.data.id;
                 vm.userData.username = username;
                 vm.userData.email = response.data.email;
@@ -54,9 +58,6 @@
                 vm.userData.about = response.data.about;
                 vm.jsonWebToken = response.data.token;
                 successCB(response.data);
-              }
-              else {
-                failureCB([response.data.message]);
               }
             }
 

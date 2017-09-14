@@ -30,6 +30,7 @@
     vm.Interface = Interface;
     vm.login = login;
     vm.logout = logout;
+    vm.register = register;
     vm.openAccount = openAccount;
     vm.openUserList = openUserList;
 
@@ -44,6 +45,10 @@
     function logout() {
       Auth.logout();
       Interface.go('home');
+    }
+
+    function register() {
+      Interface.go('registration');
     }
 
     function openAccount() {

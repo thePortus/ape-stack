@@ -74,10 +74,10 @@
         "/js/table/table.factory.js",
         "/js/details/details.factory.js",
         "/js/users/users.factory.js",
-        "/js/users/users.factory2.js",
         "/js/app/main.controller.js",
         "/js/app/home.controller.js",
         "/js/app/login.controller.js",
+        "/js/app/registration.controller.js",
         "/js/app/account.controller.js",
         "/js/app/userList.controller.js",
         "/js/app/header.directive.js",
@@ -86,10 +86,11 @@
         "/js/table/rows.directive.js",
         "/js/table/search.directive.js",
         "/js/details/details.directive.js",
-        "/js/common/login.directive.js",
+        "/js/users/login.directive.js",
         "/js/users/status.directive.js",
         "/js/users/profile.directive.js",
-        "/js/users/list.directive.js"
+        "/js/users/list.directive.js",
+        "/js/users/register.directive.js"
       ]
     }
   }

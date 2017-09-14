@@ -1,13 +1,13 @@
 (function() {
   'use strict';
 
-  angular.module('ape.common')
+  angular.module('ape.users')
     .directive('apeLogin', apeLogin);
 
   /*Directive Definition*/
   function apeLogin() {
     var directive = {
-      templateUrl: 'js/common/login.template.html',
+      templateUrl: 'js/users/login.template.html',
       scope: {
       },
       controller: apeLoginController,
@@ -39,8 +39,9 @@
 
     function login(username, password) {
       Auth.login(username, password, successCB, failureCB);
+      Interface.go('home');
 
-      function successCB() {
+      function successCB(responseData) {
         Interface.go('home');
       }
 

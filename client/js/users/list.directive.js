@@ -18,7 +18,7 @@
   }
 
   /*Directive Controller*/
-  function apeUserListController(Users2) {
+  function apeUserListController(Users) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -31,7 +31,7 @@
 
     /* Functions */
     function initialize() {
-      Users2.get(initCB);
+      Users.get(initCB);
 
       function initCB(responseData) {
         vm.list = responseData;

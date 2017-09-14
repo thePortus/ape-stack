@@ -57,6 +57,12 @@
           controller: 'LoginCtrl',
           controllerAs: 'vm'
         })
+        .state('registration', {
+          url: '/register',
+          templateUrl: 'js/app/registration.template.html',
+          controller: 'RegistrationCtrl',
+          controllerAs: 'vm'
+        })
         .state('userlist', {
           url: '/userlist',
           templateUrl: 'js/app/userList.template.html',

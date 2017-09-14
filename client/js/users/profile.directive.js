@@ -18,7 +18,7 @@
   }
 
   /*Directive Controller*/
-  function apeProfileController(Auth, Users2) {
+  function apeProfileController(Auth, Users) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -32,7 +32,7 @@
     /* Functions */
     function initialize() {
       if (Auth.jsonWebToken) {
-        vm.profile = Users2.get(Auth.userData.id, initCB);
+        vm.profile = Users.get(Auth.userData.id, initCB);
       }
       function initCB(responseData) {
         vm.profileData = responseData;

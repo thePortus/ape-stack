@@ -3,13 +3,13 @@
 
   /*==== Getting App and Chaining Configuration Functions =====*/
   angular.module('ape.users')
-    .factory('UsersList', usersListFactory);
+    .factory('Users', usersFactory);
 
 
-  function usersListFactory(Api) {
-    return new UsersListModel();
+  function usersFactory(Api) {
+    return new UsersModel();
 
-    function UsersListModel() {
+    function UsersModel() {
       /* jshint validthis: true */
       var vm = this;
 
@@ -20,7 +20,6 @@
       vm.fields = [
         {label: 'ID', value: 'id', display: false},
         {label: 'Username', value: 'username'},
-        {label: 'Password', value: 'password'},
         {label: 'Email', value: 'email'},
         {label: 'First Name', value: 'firstName'},
         {label: 'Last Name', value: 'lastName'},
@@ -32,23 +31,44 @@
 
       /* Methods */
       vm.get = get;
+      vm.getAll = getAll;
+      vm.create = create;
+      vm.update = update;
+      vm.destroy = destroy;
 
       /* Functions */
-      function get(tableFactoryCallBack) {
+      function get(idNum, callBackSuccess, callBackFailure) {
+        // Fetching data and sending it local callback
+        var api = new Api('users', idNum);
+        api.get(callBackSuccess, callBackFailure);
+      }
+
+      function getAll(callBackSuccess, callBackFailure) {
         // Fetching data and sending it local callback
         var api = new Api('users');
-        api.get(transformDataCB);
-
-        function transformDataCB(responseData) {
-
-          // Sending altered data back to controller
-          tableFactoryCallBack(responseData);
-        }
+        api.get(callBackSuccess, callBackFailure);
       }
+
+      function create(userData, callBackSuccess, callBackFailure) {
+        // Fetching data and sending it local callback
+        var api = new Api('users');
+        api.post(userData, callBackSuccess, callBackFailure);
+      }
+
+      function update(idNum, userData, callBackSuccess, callBackFailure) {
+        // Fetching data and sending it local callback
+        var api = new Api('users', idNum);
+        api.post(userData, callBackSuccess, callBackFailure);
+      }
+
+      function destroy(idNum, callBackSuccess, callBackFailure) {
+        // Sending api command to delete the user
+        var api = new Api('users', idNum);
+        api.destroy(callBackSuccess, callBackFailure);
+      }
+
     }
-    /*close UsersListModel*/
-
+    /*close UsersModel*/
   }
-  /*close usersListFactory*/
-
+  /*close usersFactory*/
 })();

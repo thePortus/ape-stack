@@ -4,6 +4,9 @@
         <md-button ng-click="vm.login()" aria-label="Login button">
             <md-icon md-menu-origin md-svg-icon="login"></md-icon>
         </md-button>
+        <md-button ng-click="vm.register()" aria-label="Register button">
+            <md-icon md-menu-origin md-svg-icon="account-plus"></md-icon>
+        </md-button>
     </div>
     <div ng-if="vm.auth.jsonWebToken" layout="row" layout-align="start center">
         <md-button ng-if="vm.auth.userData.role == 'User'" ng-click="vm.logout()" aria-label="Logout button">
