@@ -31,6 +31,17 @@ function buildAssets(source, uglifier, concatName, uglifyName) {
   };
 }
 
+function assetPaths(relativePaths) {
+	var fullPaths = [];
+	// gets list of relative paths for assets in assets.json and returns them with client dir prepended
+	for(var x = 0; x <= relativePaths.length; x += 1) {
+		var relativePath = relativePaths[x];
+		relativePath = './' + assets.dirs.static + relativePath;
+		fullPaths.push(relativePath)
+	}
+	return fullPaths;
+}
+
 gulp.task('default', ['collectStatic', 'jshint', 'build']);
 
 gulp.task('collectStatic', () => {
@@ -49,10 +60,14 @@ gulp.task('jshint', () => {
 });
 
 gulp.task('build', ['buildCssInternal', 'buildCssExternal', 'buildJsInternal', 'buildJsExternal']);
-gulp.task('buildCssInternal', buildAssets(assets.src.css, uglifyCss, 'app.concat.css', 'app.min.css'));
-gulp.task('buildCssExternal', buildAssets(assets.libSrc.css, uglifyCss, 'lib.concat.css', 'lib.min.css'));
-gulp.task('buildJsInternal', buildAssets(assets.src.js, uglifyJs, 'app.concat.js', 'app.min.js'));
-gulp.task('buildJsExternal', buildAssets(assets.libSrc.js, uglifyJs, 'lib.concat.js', 'lib.min.js'));
+
+gulp.task('buildCssExternal', buildAssets(assetPaths(assets.files.css.external), uglifyCss, 'lib.concat.css', 'lib.min.css'));
+
+gulp.task('buildCssInternal', buildAssets(assetPaths(assets.files.css.internal), uglifyCss, 'app.concat.css', 'app.min.css'));
+
+gulp.task('buildJsExternal', buildAssets(assetPaths(assets.files.js.external), uglifyJs, 'lib.concat.js', 'lib.min.js'));
+
+gulp.task('buildJsInternal', buildAssets(assetPaths(assets.files.js.internal), uglifyJs, 'app.concat.js', 'app.min.js'));
 
 gulp.task('watch', () => {
 	// Rebuild whenever CSS or JS file is modified, run JSHint on javascript

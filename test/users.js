@@ -7,31 +7,45 @@ let User = require('../server/models/user');
 //Require the dev-dependencies
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-var server = require('../server/app');
+var server = require('../bin/www');
 let should = chai.should();
 
 chai.use(chaiHttp);
 //Our parent block
 describe('Users', () => {
-    beforeEach((done) => { //Before each test we empty the database
-        User.remove({}, (err) => {
-           done();
-        });
-    });
 /*
   * Test the /GET route
   */
-  describe('/GET user', () => {
-      it('it should GET all the users', (done) => {
-        chai.request(server)
-            .get('/users')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                res.body.length.should.be.eql(0);
-              done();
-            });
-      });
+  describe('/POST user', () => {
+
+    // empty the table before tests
+    console.log(User);
+    User.destroy();
+
+    let user = {
+      username: 'fake',
+      password: 'fake',
+      password2: 'fake',
+      email: 'fake@fake.com',
+      firstName: 'Sue Doe',
+      lastName: 'Von McFakington',
+      role: 'user',
+      about: 'I\'m a cruel mockery of humanity!'
+    };
+
+    it('it should INSERT a user', (done) => {
+      chai.request('http://localhost:3000')
+        .post('/api/users')
+        .send(user)
+        .end((err, res) => {
+          console.log('*********');
+          console.log('Error msg', err);
+          console.log('*********');
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
   });
 
 });

@@ -13,6 +13,12 @@ function create(req, res) {
   if (!username || !email || !password || !password2) {
     return res.status(400).send({
       message: 'Missing username, email, or passwords',
+      data_recieved: {
+        username: username,
+        email: email,
+        password: password,
+        password2: password2
+      }
     });
   }
 

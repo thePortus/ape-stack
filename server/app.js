@@ -26,12 +26,13 @@ const usersApiRoute = require('./routes/api/users.js');
 
 const app = express();
 
+/* Set JSON / Body Parser */
 app.use(jsonParser);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-
+/* Set Authentication Strategies */
 app.use(passport.initialize());
 
 var jwtOptions = {};
