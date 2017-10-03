@@ -1,29 +1,30 @@
 {
   "dirs": {
-    "static": "client",
-    "external": "lib",
-    "dist": "dist"
+      "dependencies": "node_modules",
+      "static": "client",
+      "lib": "lib",
+      "dist": "dist"
   },
-  "files": {
-    "css": {
-      "external": [
-        "/lib/angular-material.css",
-        "/lib/vis.css"
+  "dependencies": {
+      "css": [
+          "angular-material/angular-material.css",
+          "angular-ui-grid/ui-grid.css"
       ],
-      "internal": [
-        "/css/style.css"
+      "js": [
+          "angular/angular.js",
+          "angular-animate/angular-animate.js",
+          "angular-aria/angular-aria.js",
+          "angular-messages/angular-messages.js",
+          "angular-material/angular-material.js",
+          "@uirouter/angularjs/release/angular-ui-router.js",
+          "angular-ui-grid/ui-grid.js"
       ]
-    },
-    "js": {
-      "external": [
-        "/lib/angular.js",
-        "/lib/angular-animate.js",
-        "/lib/angular-aria.js",
-        "/lib/angular-material.js",
-        "/lib/angular-ui-router.js",
-        "/lib/vis.js"
-      ],
-      "internal": [
+  },
+  "source": {
+    "css": [
+        "/css/style.css"
+    ],
+    "js": [
         "/js/app/app.config.js",
         "/js/common/common.config.js",
         "/js/users/users.config.js",
@@ -52,7 +53,6 @@
         "/js/users/profile.directive.js",
         "/js/users/list.directive.js",
         "/js/users/register.directive.js"
-      ]
-    }
+    ]
   }
 }

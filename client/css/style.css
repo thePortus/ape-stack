@@ -44,8 +44,3 @@ md-list.tableList > md-list-item:nth-child(odd) {
 md-list.tableList > md-list-item:nth-child(even) {
     background-color: #F4F4FF;
 }
-
-#visnetworkgraph {
-    height: 90%;
-    width: 100%;
-}

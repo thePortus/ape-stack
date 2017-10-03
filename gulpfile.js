@@ -10,9 +10,9 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const assets = require('./assets.json');
 
-// Gulp plumber error handler
+// Gulp plumber error handlergul
 var onError = function(err) {
-	console.log(err);
+  console.log(err);
 };
 
 function buildAssets(source, uglifier, concatName, uglifyName) {
@@ -37,28 +37,41 @@ function assetPaths(relativePaths) {
 	for(var x = 0; x <= relativePaths.length; x += 1) {
 		var relativePath = relativePaths[x];
 		relativePath = './' + assets.dirs.static + relativePath;
-		fullPaths.push(relativePath)
+		fullPaths.push(relativePath);
 	}
 	return fullPaths;
 }
 
-gulp.task('default', ['collectStatic', 'jshint', 'build']);
+gulp.task('default', ['collectStatic']);
 
 gulp.task('collectStatic', () => {
-  /* Moves front end dependencies from the node_modules folder to the client library directory*/
-  var destination = path.join('./', assets.dirs.static, assets.dirs.external);
-  var source = assets.libSrc.css.concat(assets.libSrc.js);
+  /* Copies client-side dependencies from the node_modules folder into client/lib */
+
+  var destination = path.join('./', assets.dirs.static, assets.dirs.lib, 'css');
+  var source = assets.nodeModules.css;
   gulp.src(source)
     .pipe(gulp.dest(destination));
 });
 
+
+
+
+/*
+
 gulp.task('jshint', () => {
-	return gulp.src(assets.src.js)
+  // Running JSHint on development files
+	return gulp.src(assets.files.js)
 		.pipe(plumber({errorHandler: onError}))
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
 
+*/
+
+
+
+
+/*
 gulp.task('build', ['buildCssInternal', 'buildCssExternal', 'buildJsInternal', 'buildJsExternal']);
 
 gulp.task('buildCssExternal', buildAssets(assetPaths(assets.files.css.external), uglifyCss, 'lib.concat.css', 'lib.min.css'));
@@ -73,6 +86,7 @@ gulp.task('watch', () => {
 	// Rebuild whenever CSS or JS file is modified, run JSHint on javascript
 	gulp.watch(assets.src.css, ['buildCssInternal']);
 	gulp.watch(assets.src.js, ['jshint', 'buildJsInternal']);
-	gulp.watch(assets.libSrc.css, ['buildCssExternal']);
-	gulp.watch(assets.libSrc.js, ['jshint', 'buildJsExternal']);
+	gulp.watch(assets.lib.css, ['buildCssExternal']);
+	gulp.watch(assets.lib.js, ['jshint', 'buildJsExternal']);
 });
+*/
