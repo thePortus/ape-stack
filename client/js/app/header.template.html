@@ -13,7 +13,8 @@
             <div layout="column" layout-align="center center">
                 <md-menu>
                     <md-button aria-label="Open navigation menu" class="md-icon-button" ng-mouseenter="vm.openMenu($mdMenu, $event)">
-                        <md-icon md-menu-origin md-svg-icon="dots-vertical"></md-icon>
+                        <!--<md-icon md-menu-origin md-svg-icon="dots-vertical"></md-icon>-->
+                        <ng-md-icon icon="twitter" style="fill" size="40" 
                     </md-button>
                     <md-menu-content ng-mouseleave="$mdMenu.close()" md-menu-align-target layout-padding>
                         <md-menu-item ng-repeat="menuItem in vm.menuItems">

@@ -6,28 +6,20 @@ const path = require('path');
 const fs = require('fs');
 const passport = require('passport');
 
-const assets = require('../../assets.json');
+const assets = require('../utils/assets');
 
 router.use(passport.initialize());
 router.use(passport.session());
 
 /* Serve basic index page with assets determined by environment */
 router.get('/', (req, res, next) => {
-  var assetPaths = {
-    'css': [],
-    'js': []
+  // use assets util to determine which assets used
+  var runtimeAssets = {
+    'css': new assets.runtime('css').assets,
+    'js': new assets.runtime('js').assets
   };
-  var environment = process.env.NODE_ENV;
-  if (environment === 'production' || environment === 'testing') {
-    assetPaths.css = ['/dist/lib.min.css', '/dist/app.min.css'];
-    assetPaths.js = ['/dist/lib.min.js', '/dist/app.min.js'];
-  }
-  else {
-    assetPaths.css = assets.files.css.external.concat(assets.files.css.internal);
-    assetPaths.js = assets.files.js.external.concat(assets.files.js.internal);
-  }
-  // Send app index page
-  res.render('index', { assets: assetPaths });
+  // Send app index page with assets
+  res.render('index', { assets: runtimeAssets });
 });
 
 module.exports = router;

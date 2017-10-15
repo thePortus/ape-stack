@@ -8,55 +8,90 @@ const plumber = require('gulp-plumber');
 const jshint = require('gulp-jshint');
 const sourcemaps = require('gulp-sourcemaps');
 
-const assets = require('./assets.json');
+const assetsJson = require('./assets.json');
+const assets = require('./server/utils/assets');
 
-// Gulp plumber error handlergul
+gulp.task('default', ['collect']);
+
+gulp.task('collect', () => {
+  const jsCollections = new assets.collect('css');
+  const cssCollections = new assets.collect('js');
+  return gulp.src(cssCollections.dependencies.concat(jsCollections.dependencies))
+    .pipe(gulp.dest(cssCollections.target));
+});
+
+function buildAssets(assetObject) {
+  var uglifier = null;
+  var destinationPath = assetObject.target;
+  if (assetObject.type === 'css') {
+    uglifier = uglifyCss;
+  }
+  else if (assetObject.type === 'js') {
+    uglifier = uglifyJs;
+  }
+  return gulp.src(assetObject.sources)
+    .pipe(sourcemaps.init())
+    .pipe(concat('concat.' + assetObject.type))
+    .pipe(uglifier({
+        compress: {hoist_funs: true}
+      }))
+    .pipe(rename(assetObject.filename))
+    .pipe(gulp.dest(assetObject.target));
+}
+
+gulp.task('build', () => {
+  buildAssets(new assets.build('css', 'external'));
+  buildAssets(new assets.build('css', 'internal'));
+  buildAssets(new assets.build('js', 'external'));
+  buildAssets(new assets.build('js', 'internal'));
+
+});
+
+/*
+function buildAssets(type, category) {
+  var uglifier = null;
+  var sources = null;
+  var filename = null;
+  var destinationDir = assets.dirs.dist;
+  if (type === 'css') {
+    uglifier = uglifyCss;
+  }
+  else {
+    uglifier = uglifyJs;
+  }
+  if (category === 'dependencies') {
+    sources = assets.dependencies(type);
+    filename = 'lib.min.' + type;
+  }
+  else {
+    sources = assets.sources(type);
+    filename = 'app.min.' + type;
+  }
+  gulp.src(sources)
+    .pipe(sourcemaps.init())
+    .pipe(concat('tempfile'))
+    .pipe(uglifier({
+        compress: {hoist_funs: true}
+      }))
+    .pipe(rename(filename))
+    .pipe(gulp.dest(path.join(destinationDir)));
+}
+
+gulp.task('build', () => {
+  // building internal css files
+  buildAssets('css', 'dependencies');
+  buildAssets('js', 'dependencies');
+  buildAssets('css', 'sources');
+  buildAssets('js', 'sources');
+});
+*/
+
+/*
+
+// Gulp plumber error handler
 var onError = function(err) {
   console.log(err);
 };
-
-function buildAssets(source, uglifier, concatName, uglifyName) {
-  // CB function to concatenate & uglify
-  return () => {
-		var destination = path.join(__dirname, assets.dirs.static, assets.dirs.dist);
-    gulp.src(source)
-      .pipe(sourcemaps.init())
-      .pipe(concat(concatName))
-      .pipe(uglifier({
-				compress: { hoist_funs: false }
-			}))
-      .pipe(rename(uglifyName))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest(destination));
-  };
-}
-
-function assetPaths(relativePaths) {
-	var fullPaths = [];
-	// gets list of relative paths for assets in assets.json and returns them with client dir prepended
-	for(var x = 0; x <= relativePaths.length; x += 1) {
-		var relativePath = relativePaths[x];
-		relativePath = './' + assets.dirs.static + relativePath;
-		fullPaths.push(relativePath);
-	}
-	return fullPaths;
-}
-
-gulp.task('default', ['collectStatic']);
-
-gulp.task('collectStatic', () => {
-  /* Copies client-side dependencies from the node_modules folder into client/lib */
-
-  var destination = path.join('./', assets.dirs.static, assets.dirs.lib, 'css');
-  var source = assets.nodeModules.css;
-  gulp.src(source)
-    .pipe(gulp.dest(destination));
-});
-
-
-
-
-/*
 
 gulp.task('jshint', () => {
   // Running JSHint on development files
@@ -68,25 +103,9 @@ gulp.task('jshint', () => {
 
 */
 
-
-
-
 /*
-gulp.task('build', ['buildCssInternal', 'buildCssExternal', 'buildJsInternal', 'buildJsExternal']);
-
-gulp.task('buildCssExternal', buildAssets(assetPaths(assets.files.css.external), uglifyCss, 'lib.concat.css', 'lib.min.css'));
-
-gulp.task('buildCssInternal', buildAssets(assetPaths(assets.files.css.internal), uglifyCss, 'app.concat.css', 'app.min.css'));
-
-gulp.task('buildJsExternal', buildAssets(assetPaths(assets.files.js.external), uglifyJs, 'lib.concat.js', 'lib.min.js'));
-
-gulp.task('buildJsInternal', buildAssets(assetPaths(assets.files.js.internal), uglifyJs, 'app.concat.js', 'app.min.js'));
-
 gulp.task('watch', () => {
 	// Rebuild whenever CSS or JS file is modified, run JSHint on javascript
-	gulp.watch(assets.src.css, ['buildCssInternal']);
-	gulp.watch(assets.src.js, ['jshint', 'buildJsInternal']);
-	gulp.watch(assets.lib.css, ['buildCssExternal']);
-	gulp.watch(assets.lib.js, ['jshint', 'buildJsExternal']);
+	gulp.watch(assetsJson, ['buildAssets']);
 });
 */
