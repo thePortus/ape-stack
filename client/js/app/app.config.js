@@ -9,6 +9,7 @@
         'ngAria',
         'ngAnimate',
         'ngMaterial',
+        'ngMdIcons',
         'ape.common',
         'ape.users',
         'ape.table',

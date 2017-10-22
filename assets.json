@@ -5,7 +5,7 @@
       "lib": "lib",
       "dist": "dist"
   },
-  "dependencies": {
+  "vendor": {
       "css": [
           "angular-material/angular-material.css",
           "angular-ui-grid/ui-grid.css",
@@ -19,12 +19,13 @@
           "angular-material/angular-material.js",
           "@uirouter/angularjs/release/angular-ui-router.js",
           "angular-ui-grid/ui-grid.js",
-          "angular-material-icons/angular-material-icons.js"
+          "angular-material-icons/angular-material-icons.js",
+          "less/dist/less.js"
       ]
   },
   "source": {
     "css": [
-        "style.css"
+        "style.less"
     ],
     "js": [
         "app/app.config.js",
@@ -32,6 +33,7 @@
         "users/users.config.js",
         "table/table.config.js",
         "details/details.config.js",
+        "app/features.factory.js",
         "common/api.factory.js",
         "common/interface.factory.js",
         "common/auth.factory.js",

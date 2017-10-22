@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
@@ -6,21 +7,34 @@ const uglifyJs = require('gulp-uglify');
 const uglifyCss = require('gulp-uglifycss');
 const plumber = require('gulp-plumber');
 const jshint = require('gulp-jshint');
+const less = require('gulp-less');
 const sourcemaps = require('gulp-sourcemaps');
 
 const assetsJson = require('./assets.json');
 const assets = require('./server/utils/assets');
 
-gulp.task('default', ['collect']);
+// ===Tasks defined in this file===
+//
+// - Main Tasks -
+// collect
+// build
+// watch
+//
+// - Subtasks -
+// less
+// jshint
+// buildAssets
+// ================================
 
-gulp.task('collect', () => {
-  const jsCollections = new assets.collect('css');
-  const cssCollections = new assets.collect('js');
-  return gulp.src(cssCollections.dependencies.concat(jsCollections.dependencies))
-    .pipe(gulp.dest(cssCollections.target));
-});
+// === FUNCTIONS ===
 
-function buildAssets(assetObject) {
+// Gulp plumber error handler
+var onError = (err) => {
+  console.log(err);
+};
+
+// Gulp css/js asset concatenation
+var buildAssets = (assetObject) => {
   var uglifier = null;
   var destinationPath = assetObject.target;
   if (assetObject.type === 'css') {
@@ -37,9 +51,68 @@ function buildAssets(assetObject) {
       }))
     .pipe(rename(assetObject.filename))
     .pipe(gulp.dest(assetObject.target));
+};
+
+// === END FUNCTIONS ===
+
+
+// Setting Default Task
+//
+// if in production or testing environment, set default gulp task to build
+if (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production') {
+  gulp.task('default', ['build']);
+}
+// otherwise assume dev environment and set default task to collect static files
+else {
+  gulp.task('default', ['collect']);
 }
 
-gulp.task('build', () => {
+// === MAIN TASKS ===
+
+// invokes subtasks to perform the entire build process
+gulp.task('build', ['less', 'jshint', 'buildAssets']);
+
+// collects vendor dependencies from download folder and moves inside static folder
+gulp.task('collect', () => {
+  const jsCollections = new assets.collect('css');
+  const cssCollections = new assets.collect('js');
+  return gulp.src(cssCollections.dependencies.concat(jsCollections.dependencies))
+    .pipe(gulp.dest(cssCollections.target));
+});
+
+gulp.task('watch', () => {
+	// Rebuild whenever CSS or JS file is modified, run JSHint on javascript
+	gulp.watch(assetsJson, ['buildAssets']);
+});
+
+// === END MAIN TASKS ===
+
+// === SUBTASKS ===
+
+// compile less files into css
+gulp.task('less', () => {
+  var sources = new assets.less().files;
+  var destination = path.join(__dirname, assetsJson.dirs.static, 'css');
+  return gulp.src(sources)
+    .pipe(sourcemaps.init())
+    .pipe(less({
+      'paths': [path.join(__dirname, assetsJson.dirs.static, 'less', 'includes')]
+    }))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(destination));
+});
+
+// run jshint internal source files
+gulp.task('jshint', () => {
+  // Running JSHint on development files
+	return gulp.src(assetsJson.source.js)
+		.pipe(plumber({errorHandler: onError}))
+		.pipe(jshint())
+		.pipe(jshint.reporter('default'));
+});
+
+// concat and uglify js and (previously compiled) css files
+gulp.task('buildAssets', () => {
   buildAssets(new assets.build('css', 'external'));
   buildAssets(new assets.build('css', 'internal'));
   buildAssets(new assets.build('js', 'external'));
@@ -47,65 +120,4 @@ gulp.task('build', () => {
 
 });
 
-/*
-function buildAssets(type, category) {
-  var uglifier = null;
-  var sources = null;
-  var filename = null;
-  var destinationDir = assets.dirs.dist;
-  if (type === 'css') {
-    uglifier = uglifyCss;
-  }
-  else {
-    uglifier = uglifyJs;
-  }
-  if (category === 'dependencies') {
-    sources = assets.dependencies(type);
-    filename = 'lib.min.' + type;
-  }
-  else {
-    sources = assets.sources(type);
-    filename = 'app.min.' + type;
-  }
-  gulp.src(sources)
-    .pipe(sourcemaps.init())
-    .pipe(concat('tempfile'))
-    .pipe(uglifier({
-        compress: {hoist_funs: true}
-      }))
-    .pipe(rename(filename))
-    .pipe(gulp.dest(path.join(destinationDir)));
-}
-
-gulp.task('build', () => {
-  // building internal css files
-  buildAssets('css', 'dependencies');
-  buildAssets('js', 'dependencies');
-  buildAssets('css', 'sources');
-  buildAssets('js', 'sources');
-});
-*/
-
-/*
-
-// Gulp plumber error handler
-var onError = function(err) {
-  console.log(err);
-};
-
-gulp.task('jshint', () => {
-  // Running JSHint on development files
-	return gulp.src(assets.files.js)
-		.pipe(plumber({errorHandler: onError}))
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'));
-});
-
-*/
-
-/*
-gulp.task('watch', () => {
-	// Rebuild whenever CSS or JS file is modified, run JSHint on javascript
-	gulp.watch(assetsJson, ['buildAssets']);
-});
-*/
+// === END SUBTASKS ===

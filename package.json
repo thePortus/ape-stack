@@ -25,6 +25,7 @@
     "gulp-cli": "^1.4.0",
     "jshint": "^2.9.5",
     "jsonwebtoken": "^8.0.0",
+    "less": "^2.7.2",
     "morgan": "~1.8.1",
     "passport": "^0.3.2",
     "passport-jwt": "^3.0.0",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "gulp-concat": "^2.6.1",
     "gulp-jshint": "^2.0.4",
+    "gulp-less": "^3.3.2",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.1",

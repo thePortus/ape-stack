@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width", initial-scale=1.0 />
         <% assets.css.forEach((asset) => { %><link rel="stylesheet" href="<%= asset %>">
         <% }) %>
+        <% assets.less.forEach((asset) => { %><link rel="stylesheet/less" href="<%= asset %>">
+        <% }) %>
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
     </head>
     <body ng-controller="mainController as vm" layout-fill>
         <div layout="column" layout-fill>

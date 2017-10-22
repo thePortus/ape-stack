@@ -2,7 +2,7 @@
     <md-toolbar class="md-primary md-toolbar-tools md-whiteframe-8dp" layout="row" layout-align="left center" ng-cloak>
         <div layout="row" flex>
             <div layout="column" layout-align="center start" ng-click="vm.go('home')" flex>
-                <div>
+                <div class="headerTitle">
                     <h3><b>{{ vm.app_title }}:</b></h3>
                 </div>
                 <div class="appCredits">
@@ -14,12 +14,13 @@
                 <md-menu>
                     <md-button aria-label="Open navigation menu" class="md-icon-button" ng-mouseenter="vm.openMenu($mdMenu, $event)">
                         <!--<md-icon md-menu-origin md-svg-icon="dots-vertical"></md-icon>-->
-                        <ng-md-icon icon="twitter" style="fill" size="40" 
+                        <ng-md-icon icon="menu" style="fill"></ng-md-icon>
                     </md-button>
                     <md-menu-content ng-mouseleave="$mdMenu.close()" md-menu-align-target layout-padding>
                         <md-menu-item ng-repeat="menuItem in vm.menuItems">
                             <span ng-click="vm.go(menuItem['value'])">{{ menuItem['label'] }}</span>
                         </md-menu-item>
+                    </md-menu-content>
                 </md-menu>
             </div>
         </div>

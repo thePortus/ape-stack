@@ -64,7 +64,7 @@ class CollectionAssets extends AbstractAssets {
   get dependencies() {
     return this.addToPaths(
       path.join(root, assets.dirs.dependencies),
-      assets.dependencies[this.type]
+      assets.vendor[this.type]
     );
   }
 
@@ -102,7 +102,7 @@ class BuildAssets extends AbstractAssets {
     }
     return this.addToPaths(
       path.join(root, assets.dirs.dependencies),
-      assets.dependencies[this.type]
+      assets.vendor[this.type]
     );
   }
 } // BuildAssets
@@ -116,35 +116,87 @@ class RuntimeAssets extends AbstractAssets {
 
   // setting getter properties
   get assets() {
-    console.log(this.getAssetType());
     return this.getAssetType();
   }
 
   getAssetType() {
     // in live or test mode, use built files
     if (this.env === 'testing' || this.env === 'production') {
+      // return empty list for less resources, they are not used in live mode
+      if (this.type === 'less') {
+        return [];
+      }
+      // return 2 item list, one to compiled vendors scripts, other to internal compiled scripts
       return [
           path.join(assets.dirs.dist, 'lib.min.' + this.type),
           path.join(assets.dirs.dist, 'app.min.' + this.type)
       ];
     }
     // otherwise, use individual source files for vendor and internal files
-    return this.addToPaths(
-      assets.dirs.lib,
-      this.getPathsFilenames(assets.dependencies[this.type])
-    ).concat(
-      this.addToPaths(
-        this.type, assets.source[this.type]
-      )
+    else {
+      // return vendor and internal filenames, unless type is less
+      if (this.type !== 'less') {
+        // build vendor paths
+        return this.addToPaths(
+          assets.dirs.lib,
+          this.getPathsFilenames(assets.vendor[this.type])
+        // concatenate with internal paths
+        ).concat(
+          this.addToPaths(
+            this.type,
+            assets.source[this.type]
+          )
+        );
+      }
+      // if type is less, no vendor files and use 'css' property for internal dependencies
+      else {
+        // build internal paths, using less subfolder and files found in css property of json
+        return this.addToPaths(
+          'less',
+          assets.source.css
+        );
+      }
+    }
+  } // end getAssetType
+
+}
+
+
+class LessAssets extends AbstractAssets {
+
+  constructor() {
+    super('less');
+    this.files = this.addToPaths(
+      path.join(root, assets.dirs.static, 'less'),
+      assets.source.css
     );
+  }
+
+  get assets() {
+    return this.getAssets();
+  }
+
+  // makes list of files for less compiling, with properties for the
+  // source (less) and the target (css) files
+  getAssets() {
+    var assetObjects = [];
+    for(var x = 0; x < this.files.length; x += 1) {
+      var dirPath = path.dirname(this.files[x]);
+      var filename = path.basename(this.files[x], path.extname(this.files[x]));
+      assetObjects.push({
+        'source': this.files[x],
+        'target': path.join(dirPath, filename + '.css')
+      });
+    }
+    return assetObjects;
   }
 
 }
 
 
-
 module.exports = {
   'collect': CollectionAssets,
   'build': BuildAssets,
-  'runtime': RuntimeAssets
+  'runtime': RuntimeAssets,
+  'less': LessAssets
 };
