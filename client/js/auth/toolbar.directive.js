@@ -2,13 +2,13 @@
   'use strict';
 
   /*Directive Definition*/
-  angular.module('ape.users')
+  angular.module('ape.auth')
     .directive('apeUserStatus', apeUserStatus);
 
   /*Directive Definition*/
   function apeUserStatus() {
     var directive = {
-      templateUrl: 'js/users/status.template.html',
+      templateUrl: 'js/auth/toolbar.template.html',
       scope: {},
       controller: apeUserStatusController,
       controllerAs: 'vm',

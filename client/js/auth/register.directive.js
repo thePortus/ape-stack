@@ -2,13 +2,13 @@
   'use strict';
 
   /*Directive Definition*/
-  angular.module('ape.users')
+  angular.module('ape.auth')
     .directive('apeRegister', apeRegister);
 
   /*Directive Definition*/
   function apeRegister() {
     var directive = {
-      templateUrl: 'js/users/register.template.html',
+      templateUrl: 'js/auth/register.template.html',
       scope: {},
       controller: apeRegisterController,
       controllerAs: 'vm',

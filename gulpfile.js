@@ -8,10 +8,11 @@ const uglifyCss = require('gulp-uglifycss');
 const plumber = require('gulp-plumber');
 const jshint = require('gulp-jshint');
 const less = require('gulp-less');
+const googleWebFonts = require('gulp-google-webfonts');
 const sourcemaps = require('gulp-sourcemaps');
 
 const assetsJson = require('./assets.json');
-const assets = require('./server/utils/assets');
+const assets = require('./utils/assets');
 
 // ===Tasks defined in this file===
 //
@@ -22,6 +23,8 @@ const assets = require('./server/utils/assets');
 //
 // - Subtasks -
 // less
+// fonts
+// collectStatic
 // jshint
 // buildAssets
 // ================================
@@ -69,16 +72,11 @@ else {
 
 // === MAIN TASKS ===
 
-// invokes subtasks to perform the entire build process
-gulp.task('build', ['less', 'jshint', 'buildAssets']);
+// download google web fonts and gather dependencies
+gulp.task('collect', ['fonts', 'collectStatic']);
 
-// collects vendor dependencies from download folder and moves inside static folder
-gulp.task('collect', () => {
-  const jsCollections = new assets.collect('css');
-  const cssCollections = new assets.collect('js');
-  return gulp.src(cssCollections.dependencies.concat(jsCollections.dependencies))
-    .pipe(gulp.dest(cssCollections.target));
-});
+// invokes subtasks to perform the entire build process
+gulp.task('build', ['fonts', 'less', 'jshint', 'buildAssets']);
 
 gulp.task('watch', () => {
 	// Rebuild whenever CSS or JS file is modified, run JSHint on javascript
@@ -88,6 +86,14 @@ gulp.task('watch', () => {
 // === END MAIN TASKS ===
 
 // === SUBTASKS ===
+
+// download and gather google web fonts as well as generate stylesheet
+gulp.task('fonts', function () {
+	return gulp.src('./fonts.txt')
+		.pipe(googleWebFonts({}))
+		.pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, 'fonts')))
+		;
+	});
 
 // compile less files into css
 gulp.task('less', () => {
@@ -100,6 +106,14 @@ gulp.task('less', () => {
     }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(destination));
+});
+
+// collects vendor dependencies from download folder and moves inside static folder
+gulp.task('collectStatic', () => {
+  const jsCollections = new assets.collect('css');
+  const cssCollections = new assets.collect('js');
+  return gulp.src(cssCollections.dependencies.concat(jsCollections.dependencies))
+    .pipe(gulp.dest(cssCollections.target));
 });
 
 // run jshint internal source files

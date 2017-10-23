@@ -23,6 +23,7 @@
     "express": "~4.15.2",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.4.0",
+    "gulp-google-webfonts": "0.0.14",
     "jshint": "^2.9.5",
     "jsonwebtoken": "^8.0.0",
     "less": "^2.7.2",

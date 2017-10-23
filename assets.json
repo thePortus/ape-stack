@@ -30,6 +30,7 @@
     "js": [
         "app/app.config.js",
         "common/common.config.js",
+        "auth/auth.config.js",
         "users/users.config.js",
         "table/table.config.js",
         "details/details.config.js",
@@ -48,15 +49,15 @@
         "app/userList.controller.js",
         "app/header.directive.js",
         "common/header.directive.js",
+        "auth/register.directive.js",
+        "auth/login.directive.js",
+        "auth/toolbar.directive.js",
         "table/table.directive.js",
         "table/rows.directive.js",
         "table/search.directive.js",
         "details/details.directive.js",
-        "users/login.directive.js",
-        "users/status.directive.js",
         "users/profile.directive.js",
-        "users/list.directive.js",
-        "users/register.directive.js"
+        "users/list.directive.js"
     ]
   },
   "buildfilePrefixes": {

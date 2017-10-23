@@ -162,41 +162,8 @@ class RuntimeAssets extends AbstractAssets {
 }
 
 
-class LessAssets extends AbstractAssets {
-
-  constructor() {
-    super('less');
-    this.files = this.addToPaths(
-      path.join(root, assets.dirs.static, 'less'),
-      assets.source.css
-    );
-  }
-
-  get assets() {
-    return this.getAssets();
-  }
-
-  // makes list of files for less compiling, with properties for the
-  // source (less) and the target (css) files
-  getAssets() {
-    var assetObjects = [];
-    for(var x = 0; x < this.files.length; x += 1) {
-      var dirPath = path.dirname(this.files[x]);
-      var filename = path.basename(this.files[x], path.extname(this.files[x]));
-      assetObjects.push({
-        'source': this.files[x],
-        'target': path.join(dirPath, filename + '.css')
-      });
-    }
-    return assetObjects;
-  }
-
-}
-
-
 module.exports = {
   'collect': CollectionAssets,
   'build': BuildAssets,
-  'runtime': RuntimeAssets,
-  'less': LessAssets
+  'runtime': RuntimeAssets
 };

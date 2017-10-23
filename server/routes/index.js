@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const passport = require('passport');
 
-const assets = require('../utils/assets');
+const assets = require('../../utils/assets');
 
 router.use(passport.initialize());
 router.use(passport.session());

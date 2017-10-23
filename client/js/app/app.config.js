@@ -11,6 +11,7 @@
         'ngMaterial',
         'ngMdIcons',
         'ape.common',
+        'ape.auth',
         'ape.users',
         'ape.table',
         'ape.details'
