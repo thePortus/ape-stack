@@ -25,6 +25,9 @@
   },
   "source": {
     "css": [
+
+    ],
+    "less": [
         "style.less"
     ],
     "js": [
@@ -48,6 +51,7 @@
         "app/account.controller.js",
         "app/userList.controller.js",
         "app/header.directive.js",
+        "app/features.directive.js",
         "common/header.directive.js",
         "auth/register.directive.js",
         "auth/login.directive.js",

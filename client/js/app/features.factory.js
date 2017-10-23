@@ -23,7 +23,7 @@
           'col': 2
         },
         'backgroundClass': 'backgroundBeige',
-        'iconClass': 'pixel64wide'
+        'iconClass': 'featureLogoWide'
       },{
         'label': 'PostgreSQL',
         'caption': 'PostgreSQL: Open source database',
@@ -34,7 +34,7 @@
           'col': 1
         },
         'backgroundClass': 'backgroundAliceBlue',
-        'iconClass': 'pixel64'
+        'iconClass': 'featureLogo'
       },{
         'label': 'Sequelize',
         'src': 'imgs/vendor_icons/sequelize.svg',
@@ -45,7 +45,7 @@
           'col': 1
         },
         'backgroundClass': 'lavenderBackground',
-        'iconClass': 'pixel64'
+        'iconClass': 'featureLogo'
       },{
         'label': 'Express',
         'src': 'imgs/vendor_icons/express.svg',
@@ -56,7 +56,7 @@
           'col': 2
         },
         'backgroundClass': 'paleGreenBackground',
-        'iconClass': 'pixel64wide'
+        'iconClass': 'featureLogoWide'
       },{
         'label': 'AngularJS',
         'src': 'imgs/vendor_icons/angular.svg',
@@ -67,7 +67,7 @@
           'col': 2
         },
         'backgroundClass': 'lavenderBlushBackground',
-        'iconClass': 'pixel64wide'
+        'iconClass': 'featureLogoWide'
       },{
         'label': 'PassportJS',
         'src': 'imgs/vendor_icons/passport.svg',
@@ -78,7 +78,7 @@
           'col': 1
         },
         'backgroundClass': 'darkSlateGreyBackground',
-        'iconClass': 'pixel64'
+        'iconClass': 'featureLogo'
       },{
         'label': 'Yeoman',
         'src': 'imgs/vendor_icons/yeoman.svg',
@@ -89,7 +89,7 @@
           'col': 1
         },
         'backgroundClass': 'whiteBackground',
-        'iconClass': 'pixel64'
+        'iconClass': 'featureLogo'
       },{
         'label': 'Gulp',
         'src': 'imgs/vendor_icons/gulp.svg',
@@ -100,7 +100,7 @@
           'col': 1
         },
         'backgroundClass': 'lavenderBlushBackground',
-        'iconClass': 'pixel64'
+        'iconClass': 'featureLogo'
       },{
         'label': 'Protractor',
         'src': 'imgs/vendor_icons/protractor.svg',
@@ -110,8 +110,8 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'lavenderBlushBackground',
-        'iconClass': 'pixel64'
+        'backgroundClass': 'whiteBackground',
+        'iconClass': 'featureLogo'
       },{
         'label': 'Mocha',
         'src': 'imgs/vendor_icons/mocha.svg',
@@ -122,7 +122,7 @@
           'col': 1
         },
         'backgroundClass': 'backgroundBeige',
-        'iconClass': 'pixel64'
+        'iconClass': 'featureLogo'
       },{
         'label': 'Less',
         'src': 'imgs/vendor_icons/less.svg',
@@ -132,8 +132,8 @@
           'row': 1,
           'col': 2
         },
-        'backgroundClass': 'DarkSlateGrey',
-        'iconClass': 'pixel64wide'
+        'backgroundClass': 'darkSlateGreyBackground',
+        'iconClass': 'featureLogoWide'
       }];
 
       /* Methods */
