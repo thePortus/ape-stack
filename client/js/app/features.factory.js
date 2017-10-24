@@ -124,6 +124,17 @@
         'backgroundClass': 'backgroundBeige',
         'iconClass': 'featureLogo'
       },{
+        'label': 'Chai',
+        'src': 'imgs/vendor_icons/chai.svg',
+        'caption': 'Chai: An assertion library for NodeJS',
+        'link': 'http://chaijs.com/',
+        'span': {
+          'row': 1,
+          'col': 1
+        },
+        'backgroundClass': 'lavenderBlushBackground',
+        'iconClass': 'featureLogo'
+      },{
         'label': 'Less',
         'src': 'imgs/vendor_icons/less.svg',
         'caption': 'Less: CSS precompiler',

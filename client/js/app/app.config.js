@@ -10,6 +10,7 @@
         'ngAnimate',
         'ngMaterial',
         'ngMdIcons',
+        'ui.grid',
         'ape.common',
         'ape.auth',
         'ape.users',

@@ -48,6 +48,10 @@ function create(req, res) {
 }
 
 function list(req, res) {
+  // if not logged in, return empty object
+  if (!req.user) {
+    return [];
+  }
   return User
       .findAll({
         attributes: [
@@ -66,6 +70,10 @@ function list(req, res) {
 }
 
 function read(req, res) {
+  // if not logged in, return empty object
+  if (!req.user) {
+    return {};
+  }
   return User
     .findById(req.params.user_id, {
       attributes: [

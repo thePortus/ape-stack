@@ -121,7 +121,7 @@ class RuntimeAssets extends AbstractAssets {
 
   getAssetType() {
     // in live or test mode, use built files
-    if (this.env === 'testing' || this.env === 'production') {
+    if (this.env === 'test' || this.env === 'production') {
       // return empty list for less resources, they are not used in live mode
       if (this.type === 'less') {
         return [];

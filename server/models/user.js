@@ -1,7 +1,7 @@
 'use strict';
 
 function UserModel(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+  return sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -74,7 +74,6 @@ function UserModel(sequelize, DataTypes) {
       }
     }
   });
-  return User;
 }
 
 module.exports = UserModel;

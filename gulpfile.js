@@ -62,7 +62,7 @@ var buildAssets = (assetObject) => {
 // Setting Default Task
 //
 // if in production or testing environment, set default gulp task to build
-if (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
   gulp.task('default', ['build']);
 }
 // otherwise assume dev environment and set default task to collect static files
