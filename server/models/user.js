@@ -1,6 +1,6 @@
 'use strict';
 
-function UserModel(sequelize, DataTypes) {
+const UserModel = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
     id: {
       allowNull: false,
@@ -75,6 +75,6 @@ function UserModel(sequelize, DataTypes) {
     }
   });
   return User;
-}
+};
 
 module.exports = UserModel;

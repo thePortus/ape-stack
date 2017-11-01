@@ -10,6 +10,7 @@
         'ngAnimate',
         'ngMaterial',
         'ngMdIcons',
+        'ape.utils',
         'ape.common',
         'ape.auth',
         'ape.users',
@@ -21,7 +22,8 @@
     .constant('APP_VERSION', '0.0.0')
     .constant('APP_CREDITS', 'By David Thomas')
     .constant('APP_RIGHTS', 'Copyright, © 2017')
-    .constant('API_ROUTE', '/api/')
+    .constant('API_ROUTE', 'api')
+    .constant('API_VERSION', 'v1')
     .config(mdThemeConfig)
     .config(mdIconConfig)
     .config(['$stateProvider', '$urlRouterProvider', configRouter]);

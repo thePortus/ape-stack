@@ -6,7 +6,7 @@
     .factory('Auth', authFactory);
 
     /*Factory function definition, put Angular services here*/
-    function authFactory($http, API_ROUTE) {
+    function authFactory($http, $location, Paths) {
       return new Auth();
 
       function Auth() {
@@ -27,7 +27,7 @@
         function login(username, password, successCB, failureCB) {
           var req = {
             method: 'POST',
-            url: API_ROUTE + 'authenticate/',
+            url: Paths.api + '/auth/',
             headers: {
              'Content-Type': 'application/json'
             },

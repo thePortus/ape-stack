@@ -21,6 +21,7 @@
     "debug": "~2.6.3",
     "ejs": "^2.5.7",
     "express": "~4.15.2",
+    "express-subdomain": "^1.0.5",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.4.0",
     "gulp-google-webfonts": "0.0.14",

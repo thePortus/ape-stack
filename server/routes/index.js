@@ -1,12 +1,13 @@
 'use strict';
 
-const express = require('express');
-const router = express.Router();
-const path = require('path');
-const fs = require('fs');
-const passport = require('passport');
+const express = require('express'),
+  path = require('path'),
+  passport = require('passport');
 
-const assets = require('../../utils/assets');
+const assets = require('../../utils/assets'),
+  apiIndex = require('./api/index.js');
+
+const router = express.Router();
 
 router.use(passport.initialize());
 router.use(passport.session());

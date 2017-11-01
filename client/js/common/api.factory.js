@@ -6,7 +6,7 @@
     .factory('Api', apiFactory);
 
     /*Table factory function definition*/
-    function apiFactory($http, Auth) {
+    function apiFactory($http, $location, Auth, Paths) {
       return apiCall;
 
     function apiCall(item_type, item_id, item_subtable) {
@@ -44,7 +44,7 @@
         /* close initialize */
 
         function makeCall(options, callBackSuccess, callBackFailure) {
-          var path = '/api/' + vm.item_type + '/';
+          var path = Paths.api + vm.item_type + '/';
           if(vm.item_id !== null) {
             path += vm.item_id;
           }

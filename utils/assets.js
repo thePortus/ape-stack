@@ -14,7 +14,7 @@
 
 const path = require('path');
 
-const assets = require('../../assets.json');
+const assets = require('../assets.json');
 
 // Path to project root
 var root = path.join(__dirname, '../../');

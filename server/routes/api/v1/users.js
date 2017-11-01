@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-const controllers = require('../../controllers');
+const controllers = require('../../../controllers');
 
 router.get('/', passport.authenticate('jwt', { session: false }), controllers.users.list);
 router.post('/', controllers.users.create);

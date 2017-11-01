@@ -1,5 +1,5 @@
 /**
- * [/server/controllers/index.js]
+ * [/server/utils/index.js]
  * @file
  * Auto index for a node module. File reads names of other .js files in this directory
  * and makes them available to any file that requires this module. Each file

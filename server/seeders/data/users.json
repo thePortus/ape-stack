@@ -1,0 +1,10 @@
+{
+  "username": "admin",
+  "email": "your@email.com",
+  "password": "hashedPassword",
+  "salt": "salt",
+  "role": "Super Admin",
+  "firstName": "Admin",
+  "lastName": "Admin",
+  "about": "I am the super admin"
+}
