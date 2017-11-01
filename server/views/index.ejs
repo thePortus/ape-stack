@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html ng-app="ape.app">
     <head>
+<<<<<<< HEAD
         <title>APE-Stack Server</title>
+=======
+        <title>APE-Stack</title>
+>>>>>>> 3fe8f845a97c4fbfd2261eccb398e83ad45eacb1
         <meta name="viewport" content="width=device-width", initial-scale=1.0 />
         <link rel="stylesheet" href="/fonts/fonts.css" />
         <!-- Vendor and internal CSS -->
@@ -14,7 +18,7 @@
     <body ng-controller="mainController as vm" layout-fill>
         <div layout="column" layout-fill>
                 <ape-site-header></ape-site-header>
-                <div ui-view layout-padding></ui-view>
+                <div ui-view layout-padding fill></div>
         </div>
         <% assets.js.forEach((asset) => { %><script type="text/javascript" src="<%= asset %>"></script>
         <% }) %>

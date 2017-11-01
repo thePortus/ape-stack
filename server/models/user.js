@@ -1,7 +1,12 @@
 'use strict';
 
+<<<<<<< HEAD
 const UserModel = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
+=======
+function UserModel(sequelize, DataTypes) {
+  return sequelize.define('User', {
+>>>>>>> 3fe8f845a97c4fbfd2261eccb398e83ad45eacb1
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -74,7 +79,11 @@ const UserModel = (sequelize, DataTypes) => {
       }
     }
   });
+<<<<<<< HEAD
   return User;
 };
+=======
+}
+>>>>>>> 3fe8f845a97c4fbfd2261eccb398e83ad45eacb1
 
 module.exports = UserModel;

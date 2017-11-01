@@ -1,0 +1,28 @@
+# test in nodejs
+language: node_js
+# node versions tested
+node_js:
+  - "8"
+  - "7"
+# enable the use of sudo
+sudo: required
+# operating system to use
+os: linux
+# distribution to use
+dist: precise
+# setting environment variables
+env:
+  - PACKAGE_VERSION=0.0.0
+  - NODE_ENV=test
+# install dependencies and build project files
+install:
+  - npm install
+  - gulp
+# run tests
+script:
+  - npm test
+after_success:
+  coveralls
+notifications:
+  on_success: never
+  on_failure: never

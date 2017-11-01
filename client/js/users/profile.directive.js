@@ -23,6 +23,7 @@
     var vm = this;
 
     /* Properties */
+    vm.gridOptions = null;
     vm.profile = null;
     vm.profileData = null;
 
@@ -31,11 +32,19 @@
 
     /* Functions */
     function initialize() {
+        vm.gridOptions = {
+        enableSorting: true,
+        fastWatch: true,
+        columnDefs: [],
+        data: []
+      };
+
       if (Auth.jsonWebToken) {
         vm.profile = Users.get(Auth.userData.id, initCB);
       }
       function initCB(responseData) {
         vm.profileData = responseData;
+        vm.gridOptions.data = vm.profileData;
       }
     }
   }

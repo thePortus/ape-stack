@@ -1,0 +1,17 @@
+<div layout="column" layout-padding fill>
+    <h3>{{vm.message}}</h3>
+    <md-content class="featuresContent">
+        <md-grid-list md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px" >
+            <md-grid-tile ng-repeat="feature in vm.features" md-rowspan="{{feature.span.row}}" md-colspan="{{feature.span.col}}" md-colspan-sm="1" md-colspan-xs="1" ng-class="feature.backgroundClass" >
+                <a ng-href="{{feature.link}}" target="_">
+                    <md-icon md-svg-src="{{feature.src}}" ng-class="feature.iconClass"></md-icon>
+                    <md-grid-tile-footer layout-padding>
+                        <small>
+                            {{feature.caption}}
+                        </small>
+                    </md-grid-tile-footer>
+                </a>
+            </md-grid-tile>
+        </md-grid-list>
+    </md-content>
+</div>

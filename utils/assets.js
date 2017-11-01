@@ -17,7 +17,7 @@ const path = require('path');
 const assets = require('../assets.json');
 
 // Path to project root
-var root = path.join(__dirname, '../../');
+var root = path.join(__dirname, '../');
 
 
 class AbstractAssets {
@@ -121,7 +121,7 @@ class RuntimeAssets extends AbstractAssets {
 
   getAssetType() {
     // in live or test mode, use built files
-    if (this.env === 'testing' || this.env === 'production') {
+    if (this.env === 'test' || this.env === 'production') {
       // return empty list for less resources, they are not used in live mode
       if (this.type === 'less') {
         return [];
@@ -150,10 +150,10 @@ class RuntimeAssets extends AbstractAssets {
       }
       // if type is less, no vendor files and use 'css' property for internal dependencies
       else {
-        // build internal paths, using less subfolder and files found in css property of json
+        // build internal paths
         return this.addToPaths(
-          'less',
-          assets.source.css
+          this.type,
+          assets.source[this.type]
         );
       }
     }
@@ -162,8 +162,41 @@ class RuntimeAssets extends AbstractAssets {
 }
 
 
+class LessAssets extends AbstractAssets {
+
+  constructor() {
+    super('less');
+    this.files = this.addToPaths(
+      path.join(root, assets.dirs.static, 'less'),
+      assets.source.css
+    );
+  }
+
+  get assets() {
+    return this.getAssets();
+  }
+
+  // makes list of files for less compiling, with properties for the
+  // source (less) and the target (css) files
+  getAssets() {
+    var assetObjects = [];
+    for(var x = 0; x < this.files.length; x += 1) {
+      var dirPath = path.dirname(this.files[x]);
+      var filename = path.basename(this.files[x], path.extname(this.files[x]));
+      assetObjects.push({
+        'source': this.files[x],
+        'target': path.join(dirPath, filename + '.css')
+      });
+    }
+    return assetObjects;
+  }
+
+}
+
+
 module.exports = {
   'collect': CollectionAssets,
   'build': BuildAssets,
-  'runtime': RuntimeAssets
+  'runtime': RuntimeAssets,
+  'less': LessAssets
 };
