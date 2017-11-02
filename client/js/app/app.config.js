@@ -10,11 +10,8 @@
         'ngAnimate',
         'ngMaterial',
         'ngMdIcons',
-<<<<<<< HEAD
         'ape.utils',
-=======
         'ui.grid',
->>>>>>> 3fe8f845a97c4fbfd2261eccb398e83ad45eacb1
         'ape.common',
         'ape.auth',
         'ape.users',

@@ -1,8 +1,8 @@
 'use strict';
 
-const PriviledgeModel = (sequelize, DataTypes) => {
+function PriviledgeModel(sequelize, DataTypes) {
   var Priviledge = sequelize.define('Priviledge', {
-    id: {
+    privilege_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -28,6 +28,6 @@ const PriviledgeModel = (sequelize, DataTypes) => {
     }
   });
   return Priviledge;
-};
+}
 
 module.exports = PriviledgeModel;

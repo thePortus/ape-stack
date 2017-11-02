@@ -1,8 +1,8 @@
 'use strict';
 
-const RoleModel = (sequelize, DataTypes) => {
+function RoleModel(sequelize, DataTypes) {
   var Role = sequelize.define('Role', {
-    id: {
+    role_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -28,6 +28,6 @@ const RoleModel = (sequelize, DataTypes) => {
     }
   });
   return Role;
-};
+}
 
 module.exports = RoleModel;
