@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<div layout-fill layout="column" layout-padding>
+    <div flex>
+        <form name="registrationForm">
+            <fieldset class="standard" layout="column">
+                    <legend>Register an Account</legend>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>Username</label>
+                        <input name="username" ng-model="vm.form.username" type="text" required>
+                        <span style="color:red" ng-show="registrationForm.username.$dirty && registrationForm.user.$invalid">
+                            <span ng-show="registrationForm.username.$error.required">Username is required.</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>Email</label>
+                        <input name="email" ng-model="vm.form.email" type="email" required>
+                        <span style="color:red" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">
+                            <span ng-show="registrationForm.email.$error.required">Email is required.</span>
+                            <span ng-show="registrationForm.email.$error.email">Invalid email address.</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>Password</label>
+                        <input name="password" ng-model="vm.form.password" type="password" required>
+                        <span style="color:red" ng-show="registrationForm.password.$dirty && registrationForm.password.$invalid">
+                            <span ng-show="registrationForm.password.$error.required">Password is required.</span>
+                            <span ng-show="registrationForm.password.$error.password">Invalid password.</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>Re-enter Password</label>
+                        <input name="password2" ng-model="vm.form.password2" type="password" required>
+                        <span style="color:red" ng-show="registrationForm.password2.$dirty && registrationForm.password2.$invalid">
+                            <span ng-show="registrationForm.password2.$error.required">Password confirmation is required.</span>
+                            <span ng-show="registrationForm.password2.$error.email">Invalid password confirmation.</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>First Name</label>
+                        <input name="firstName" ng-model="vm.form.firstName" type="text">
+                        <span style="color:red" ng-show="registrationForm.firstName.$dirty && registrationForm.firstName.$invalid">
+                            <span ng-show="registrationForm.firstName.$error.firstName">Invalid first name value.</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>Last Name</label>
+                        <input name="lastName" ng-model="vm.form.lastName" type="text">
+                        <span style="color:red" ng-show="registrationForm.lastName.$dirty && registrationForm.lastName.$invalid">
+                            <span ng-show="registrationForm.lastName.$error.lastName">Invalid last name value.</span>
+                        </span>
+                    </md-input-container>
+                    <md-input-container class="md-block" layout-padding>
+                        <label>About</label>
+                        <textarea name="about" ng-model="vm.form.about" md-select-on-focus></textarea>
+                        <span style="color:red" ng-show="registrationForm.about.$dirty && registrationForm.about.$invalid">
+                            <span ng-show="registrationForm.about.$error.about">Invalid about value.</span>
+                        </span>
+                    </md-input-container>
+                    <md-list>
+                        <md-list-item ng-repeat="error in vm.errors">
+                            <span style="color:red">
+                                {{ error }}
+                            </span>
+                        </md-list-item>
+                    </md-list>
+            </fieldset>
+        </form>
+    </div>
+    <md-button class="md-raised md-primary" ng-click="vm.register()">Register Account</md-button>
+</div>

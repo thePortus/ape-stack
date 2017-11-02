@@ -9,7 +9,11 @@
         'ngAria',
         'ngAnimate',
         'ngMaterial',
+        'ngMdIcons',
+        'ape.utils',
+        'ui.grid',
         'ape.common',
+        'ape.auth',
         'ape.users',
         'ape.table',
         'ape.details'
@@ -19,7 +23,8 @@
     .constant('APP_VERSION', '0.0.0')
     .constant('APP_CREDITS', 'By David Thomas')
     .constant('APP_RIGHTS', 'Copyright, © 2017')
-    .constant('API_ROUTE', '/api/')
+    .constant('API_ROUTE', 'api')
+    .constant('API_VERSION', 'v1')
     .config(mdThemeConfig)
     .config(mdIconConfig)
     .config(['$stateProvider', '$urlRouterProvider', configRouter]);
@@ -55,6 +60,12 @@
           url: '/login',
           templateUrl: 'js/app/login.template.html',
           controller: 'LoginCtrl',
+          controllerAs: 'vm'
+        })
+        .state('registration', {
+          url: '/register',
+          templateUrl: 'js/app/registration.template.html',
+          controller: 'RegistrationCtrl',
           controllerAs: 'vm'
         })
         .state('userlist', {

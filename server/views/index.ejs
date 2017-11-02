@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html ng-app="ape.app">
     <head>
-        <title>ape Server</title>
+        <title>APE-Stack Server</title>
         <meta name="viewport" content="width=device-width", initial-scale=1.0 />
+        <link rel="stylesheet" href="/fonts/fonts.css" />
+        <!-- Vendor and internal CSS -->
         <% assets.css.forEach((asset) => { %><link rel="stylesheet" href="<%= asset %>">
+        <% }) %>
+        <!-- LESS stylesheets for development mode -->
+        <% assets.less.forEach((asset) => { %><link rel="stylesheet/less" href="<%= asset %>">
         <% }) %>
     </head>
     <body ng-controller="mainController as vm" layout-fill>
         <div layout="column" layout-fill>
                 <ape-site-header></ape-site-header>
-                <div ui-view layout-padding></ui-view>
+                <div ui-view layout-padding fill></div>
         </div>
         <% assets.js.forEach((asset) => { %><script type="text/javascript" src="<%= asset %>"></script>
         <% }) %>

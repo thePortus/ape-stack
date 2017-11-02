@@ -1,5 +1,6 @@
 {
   "secret": "ape",
+  "appPort": 3000,
   "development": {
     "username": "postgres",
     "password": null,

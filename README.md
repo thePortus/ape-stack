@@ -12,7 +12,13 @@ By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePortus.com](http://thePo
 6. Move inside the repo `cd eleusis-node`
 7. Install local dependencies `npm install`
 8. Move client-side dependencies with gulp `gulp`
-9. Run the schema creation script `node server/models/build_schema.js`
-10. Connect to your postgres database and upload the data found in server/import to each table
+9. Create databases with
+    1. `createdb ape-dev`,
+    2. `createdb ape-test`
+    3. `createdb ape-production`
+    4. or whatever you set in config.json
+10. Migrate and seed the environment database (defaults to development)
+    1. `sequelize db:migrate`
+    2. `sequelize db:seed:all`
 11. Start the server `npm start`
 12. Go to `localhost:3000`

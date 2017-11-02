@@ -6,7 +6,7 @@
     .factory('Api', apiFactory);
 
     /*Table factory function definition*/
-    function apiFactory($http, Auth) {
+    function apiFactory($http, $location, Auth, Paths) {
       return apiCall;
 
     function apiCall(item_type, item_id, item_subtable) {
@@ -43,8 +43,8 @@
         }
         /* close initialize */
 
-        function makeCall(options, callBack) {
-          var path = '/api/' + vm.item_type + '/';
+        function makeCall(options, callBackSuccess, callBackFailure) {
+          var path = Paths.api + vm.item_type + '/';
           if(vm.item_id !== null) {
             path += vm.item_id;
           }
@@ -61,7 +61,7 @@
               url: path,
               headers: {
                'Authorization': Auth.jsonWebToken
-             },
+              },
               data: options.data
             })
               // Retrieving data
@@ -72,7 +72,8 @@
           else{
             $http({
               method: options.method,
-              url: path
+              url: path,
+              data: options.data
             })
               // Retrieving data
               .then(get_info_complete)
@@ -80,47 +81,56 @@
               .catch(get_info_error);
           }
             function get_info_complete(response) {
-              callBack(response.data);
+              if(typeof(callBackSuccess) === 'function') {
+                callBackSuccess(response.data);
+              }
             }
             /* close get_info_complete */
 
             function get_info_error(error) {
-              if(typeof error.data !== 'undefined') {
-                console.log('Error:' + error.status);
-                console.log(error.data);
+              if(typeof(error.data) !== 'undefined') {
+                console.log('Error:' + error.status + ': ', error.data);
+              }
+              // running failure CB, if passed
+              if(typeof(callBackFailure) === 'function') {
+                callBackFailure(error);
+              }
+              // defaulting to success CB, if no failure CB passed
+              else if(typeof(callBackSuccess) === 'function') {
+                callBackSuccess(error);
               }
             }
             /* close get_info_error */
         }
         /* close makeCall */
 
-        function get(callBack) {
+        function get(callBackSuccess, callBackFailure) {
           vm.makeCall({
             'method': 'GET'
-          }, callBack);
+          }, callBackSuccess, callBackFailure);
         }
         /* close get */
 
-        function post(userData, callBack) {
+        function post(userData, callBackSuccess, callBackFailure) {
           vm.makeCall({
             'method': 'POST',
             'data': userData
-          }, callBack);
+          }, callBackSuccess, callBackFailure);
         }
         /* close post */
 
-        function update(userData, callBack) {
+        function update(userData, callBackSuccess, callBackFailure) {
           vm.makeCall({
             'method': 'UPDATE',
             'data': userData
-          }, callBack);
+          }, callBackSuccess, callBackFailure);
         }
         /* close update*/
 
-        function destroy(callBack) {
+        function destroy(callBackSuccess, callBackFailure) {
           vm.makeCall({
             'method': 'DELETE',
-          }, callBack);
+          }, callBackSuccess, callBackFailure);
         }
         /*close destroy */
     }

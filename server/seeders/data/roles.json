@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Super Admin"
+  },
+  {
+    "name": "Admin"
+  },
+  {
+    "name": "Publisher"
+  },
+  {
+    "name": "Editor"
+  },
+  {
+    "name": "User"
+  },
+  {
+    "name": "Guest"
+  }
+]

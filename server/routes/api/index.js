@@ -1,77 +1,29 @@
-(function() {
-  'use strict';
+/**
+ * [/server/routes/api/v1/]
+ * @file
+ * Index for API routes. File reads dir names of all available API routes
+ * and makes them available to any file that requires this module. Each folder
+ * will be available in the property of this module matching their folder name
+ *
+ * e.g. subdir 'sample' would be require('this_module').sample
+ */
+'use strict';
 
-  const express = require('express');
-  const passport = require('passport');
-  const jwt = require('jsonwebtoken');
-  const bcrypt = require('bcrypt');
-  const router = express.Router();
+const fs = require('fs'),
+  path = require('path'),
+  basename = path.basename(module.filename),
+  env = process.env.NODE_ENV || 'development';
 
-  const config = require('../../../config.json');
-  const Models = require('../../models');
+var exports = {};
 
-  router.get('/', (req, res) => res.status(200).send({
-    message: 'Welcome to the ape API',
-    routes: ['authenticate', 'users']
-  }));
-
-  // Authenticate the user and get a JSON Web Token to include in the header of future requests.
-  router.post('/authenticate', function(req, res) {
-    Models.User.findOne({
-      where: {
-        username: req.body.username
-      }
-    }).then(function(user) {
-      if (!user) {
-        res.send(
-          {
-            action: 'authenticate',
-            success: false,
-            user: req.body.username,
-            message: 'Authentication failed. User not found.'
-          }
-        );
-      } else {
-        var password = req.body.password;
-        var hashedPassword = bcrypt.hashSync(password, user.salt);
-        // Check if password matches
-        if(hashedPassword === user.password) {
-          var token = jwt.sign(
-            {
-              username: user.username,
-              password: user.password
-            },
-            config.secret,
-            {
-              expiresIn: 10080 // in seconds
-            }
-          );
-          res.json({
-            action: 'authenticate',
-            success: true,
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            role: user.role,
-            about: user.about,
-            token: 'JWT ' + token
-          }
-          );
-        }
-        else {
-          res.send({
-            action: 'authenticate',
-            success: false,
-            user: req.body.username,
-            message: 'Authentication failed. Passwords did not match.'
-          });
-        }
-      }
-    });
+// read contents of this directory and limit to .js files
+fs.readdirSync(__dirname)
+  .filter(function(subdir) {
+    return fs.statSync(__dirname + '/' + subdir).isDirectory();
+  })
+  // require each file into export's properties
+  .forEach(function(subdir) {
+    exports[subdir] = require('./' + subdir);
   });
 
-  module.exports = router;
-
-})();
+module.exports = exports;

@@ -2,13 +2,13 @@
   'use strict';
 
   /*Directive Definition*/
-  angular.module('ape.users')
+  angular.module('ape.auth')
     .directive('apeUserStatus', apeUserStatus);
 
   /*Directive Definition*/
   function apeUserStatus() {
     var directive = {
-      templateUrl: 'js/users/status.template.html',
+      templateUrl: 'js/auth/toolbar.template.html',
       scope: {},
       controller: apeUserStatusController,
       controllerAs: 'vm',
@@ -30,6 +30,7 @@
     vm.Interface = Interface;
     vm.login = login;
     vm.logout = logout;
+    vm.register = register;
     vm.openAccount = openAccount;
     vm.openUserList = openUserList;
 
@@ -44,6 +45,10 @@
     function logout() {
       Auth.logout();
       Interface.go('home');
+    }
+
+    function register() {
+      Interface.go('registration');
     }
 
     function openAccount() {

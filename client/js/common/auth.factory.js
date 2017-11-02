@@ -6,7 +6,7 @@
     .factory('Auth', authFactory);
 
     /*Factory function definition, put Angular services here*/
-    function authFactory($http, API_ROUTE) {
+    function authFactory($http, $location, Paths) {
       return new Auth();
 
       function Auth() {
@@ -27,7 +27,7 @@
         function login(username, password, successCB, failureCB) {
           var req = {
             method: 'POST',
-            url: API_ROUTE + 'authenticate/',
+            url: Paths.api + '/auth/',
             headers: {
              'Content-Type': 'application/json'
             },
@@ -43,8 +43,12 @@
             .catch(loginError);
 
             function loginCB(response) {
-              vm.jsonWebToken = response.data.token;
-              if(response.data.success) {
+
+              if(!response.data.success) {
+                failureCB([response.data.message]);
+              }
+              else {
+                vm.jsonWebToken = response.data.token;
                 vm.username.id = response.data.id;
                 vm.userData.username = username;
                 vm.userData.email = response.data.email;
@@ -54,9 +58,6 @@
                 vm.userData.about = response.data.about;
                 vm.jsonWebToken = response.data.token;
                 successCB(response.data);
-              }
-              else {
-                failureCB([response.data.message]);
               }
             }
 

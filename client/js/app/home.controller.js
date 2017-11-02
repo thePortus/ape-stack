@@ -8,8 +8,6 @@
     /* jshint validthis: true */
     var vm = this;
 
-    vm.message = 'Welcome to APE (Angular, Postgres, Express, Node).';
-
   }
 
 })();

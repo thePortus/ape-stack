@@ -1,0 +1,12 @@
+# List of all Google Web Fonts used.
+# Gulp uses this to download fonts and auto-generate a stylesheet
+
+# To change the site's default title and body fonts...
+# 1. Change fonts below according Google's URL formatting
+# 2. Change the default font settings in client/less/includes/variables.less
+
+# Title font
+Roboto+Slab:400
+
+# Body font
+Ubuntu+Condensed:400

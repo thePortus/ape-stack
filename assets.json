@@ -1,96 +1,73 @@
 {
   "dirs": {
-    "static": "client",
+      "dependencies": "node_modules",
+      "static": "client",
+      "lib": "lib",
+      "dist": "dist"
+  },
+  "vendor": {
+      "css": [
+          "angular-material/angular-material.css",
+          "angular-ui-grid/ui-grid.css",
+          "angular-material-icons/angular-material-icons.css"
+      ],
+      "js": [
+          "angular/angular.js",
+          "angular-animate/angular-animate.js",
+          "angular-aria/angular-aria.js",
+          "angular-messages/angular-messages.js",
+          "angular-material/angular-material.js",
+          "@uirouter/angularjs/release/angular-ui-router.js",
+          "angular-ui-grid/ui-grid.js",
+          "angular-material-icons/angular-material-icons.js",
+          "less/dist/less.js"
+      ]
+  },
+  "source": {
+    "css": [
+
+    ],
+    "less": [
+        "style.less"
+    ],
+    "js": [
+        "app/app.config.js",
+        "utils/utils.config.js",
+        "common/common.config.js",
+        "auth/auth.config.js",
+        "users/users.config.js",
+        "table/table.config.js",
+        "details/details.config.js",
+        "app/features.factory.js",
+        "utils/paths.factory.js",
+        "common/api.factory.js",
+        "common/interface.factory.js",
+        "common/auth.factory.js",
+        "table/table.factory.js",
+        "details/details.factory.js",
+        "users/users.factory.js",
+        "app/main.controller.js",
+        "app/home.controller.js",
+        "app/login.controller.js",
+        "app/registration.controller.js",
+        "app/account.controller.js",
+        "app/userList.controller.js",
+        "app/header.directive.js",
+        "app/features.directive.js",
+        "common/header.directive.js",
+        "auth/register.directive.js",
+        "auth/login.directive.js",
+        "auth/toolbar.directive.js",
+        "table/table.directive.js",
+        "table/rows.directive.js",
+        "table/search.directive.js",
+        "details/details.directive.js",
+        "users/profile.directive.js",
+        "users/list.directive.js"
+    ]
+  },
+  "buildfilePrefixes": {
     "external": "lib",
-    "dist": "dist"
-  },
-  "libSrc": {
-    "css": [
-      "./node_modules/angular-material/*.css",
-      "./node_modules/vis/dist/*.css",
-      "!./node_modules/angular-material/*.min.css",
-      "!./node_modules/vis/dist/*.min.css"
-    ],
-    "js": [
-      "./node_modules/angular/*.js",
-      "./node_modules/angular-animate/*.js",
-      "./node_modules/angular-aria/*.js",
-      "./node_modules/@uirouter/angularjs/release/*.js",
-      "./node_modules/angular-material/*.js",
-      "./node_modules/vis/dist/*.js",
-      "!./node_modules/angular/index.js",
-      "!./node_modules/angular/*.min.js",
-      "!./node_modules/angular/index.js",
-      "!./node_modules/angular-animate/*.min.js",
-      "!./node_modules/angular-animate/index.js",
-      "!./node_modules/angular-aria/*.min.js",
-      "!./node_modules/angular-aria/index.js",
-      "!./node_modules/angular-material/*.min.js",
-      "!./node_modules/angular-material/index.js",
-      "!./node_modules/angular-material/angular-material-mocks.js",
-      "!./node_modules/vis/dist/*.min.js",
-      "!./node_modules/@uirouter/angularjs/release/*.min.js",
-      "!./node_modules/@uirouter/angularjs/release/ui-router-angularjs*",
-      "!./node_modules/@uirouter/angularjs/release/resolveService*",
-      "!./node_modules/@uirouter/angularjs/release/stateEvents*"
-    ]
-  },
-  "src": {
-    "css": [
-      "./client/css/**/*.css"
-    ],
-    "js": [
-      "./client/js/**/*.js"
-    ]
-  },
-  "files": {
-    "css": {
-      "external": [
-        "/lib/angular-material.css",
-        "/lib/vis.css"
-      ],
-      "internal": [
-        "/css/style.css"
-      ]
-    },
-    "js": {
-      "external": [
-        "/lib/angular.js",
-        "/lib/angular-animate.js",
-        "/lib/angular-aria.js",
-        "/lib/angular-material.js",
-        "/lib/angular-ui-router.js",
-        "/lib/vis.js"
-      ],
-      "internal": [
-        "/js/app/app.config.js",
-        "/js/common/common.config.js",
-        "/js/users/users.config.js",
-        "/js/table/table.config.js",
-        "/js/details/details.config.js",
-        "/js/common/api.factory.js",
-        "/js/common/interface.factory.js",
-        "/js/common/auth.factory.js",
-        "/js/table/table.factory.js",
-        "/js/details/details.factory.js",
-        "/js/users/users.factory.js",
-        "/js/users/users.factory2.js",
-        "/js/app/main.controller.js",
-        "/js/app/home.controller.js",
-        "/js/app/login.controller.js",
-        "/js/app/account.controller.js",
-        "/js/app/userList.controller.js",
-        "/js/app/header.directive.js",
-        "/js/common/header.directive.js",
-        "/js/table/table.directive.js",
-        "/js/table/rows.directive.js",
-        "/js/table/search.directive.js",
-        "/js/details/details.directive.js",
-        "/js/common/login.directive.js",
-        "/js/users/status.directive.js",
-        "/js/users/profile.directive.js",
-        "/js/users/list.directive.js"
-      ]
-    }
+    "internal": "app"
   }
 }
