@@ -1,4 +1,4 @@
-{
+[{
   "username": "admin",
   "email": "your@email.com",
   "password": "hashedPassword",
@@ -7,4 +7,4 @@
   "firstName": "Admin",
   "lastName": "Admin",
   "about": "I am the super admin"
-}
+}]

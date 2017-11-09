@@ -1,15 +1,16 @@
 <div layout-padding>
     <md-toolbar class="md-primary md-toolbar-tools md-whiteframe-8dp" layout="row" layout-align="left center" ng-cloak>
+        <!-- Title & Credits -->
         <div layout="row" flex>
             <div layout="column" layout-align="center start" ng-click="vm.go('home')" flex>
-                <div class="headerTitle">
+                <div class="titleFont">
                     <h3><b>{{ vm.app_title }}:</b></h3>
                 </div>
                 <div class="appCredits">
                     <small>{{ vm.app_credits }}, {{ vm.app_rights }}</small>
                 </div>
             </div>
-            <ape-user-status></ape-user-status>
+            <!-- Navigation Menu -->
             <div layout="column" layout-align="center center">
                 <md-menu>
                     <md-button aria-label="Open navigation menu" class="md-icon-button" ng-mouseenter="vm.openMenu($mdMenu, $event)">
@@ -21,6 +22,12 @@
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
+            </div>
+            <!-- User Panel Button -->
+            <div>
+                <md-button aria-label="Open user panel" class="md-icon-button" ng-click="vm.openPanel()">
+                    <ng-md-icon icon="settings" style="fill"></ng-md-icon>
+                </md-button>
             </div>
         </div>
     </md-toolbar>

@@ -14,22 +14,11 @@ function RoleModel(sequelize, DataTypes) {
     },
     order: {
       type: DataTypes.INTEGER,
-      unique: true
     }
   });
-
-  /*
-   model associations
-   */
-
   Role.associate = (models) => {
     // put model associations here
     Role.associate = (models) => {
-      Role.hasMany(models.User, {
-        foreignKey: 'role',
-        targetKey: 'role'
-      });
-
       Role.belongsToMany(models.Privilege, {
         as: "Privileges",
         through: "RolePrivileges",
@@ -38,7 +27,6 @@ function RoleModel(sequelize, DataTypes) {
     };
   };
   return Role;
-
 }
 
 module.exports = RoleModel;

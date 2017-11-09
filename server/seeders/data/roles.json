@@ -1,20 +1,26 @@
 [
   {
-    "name": "Super Admin"
+    "role": "Super Admin",
+    "order": 1
   },
   {
-    "name": "Admin"
+    "role": "Admin",
+    "order": 2
   },
   {
-    "name": "Publisher"
+    "role": "Publisher",
+    "order": 3
   },
   {
-    "name": "Editor"
+    "role": "Editor",
+    "order": 4
   },
   {
-    "name": "User"
+    "role": "User",
+    "order": 5
   },
   {
-    "name": "Guest"
+    "role": "Guest",
+    "order": 6
   }
 ]

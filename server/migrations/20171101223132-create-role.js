@@ -3,13 +3,8 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.createTable('Roles', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
+      role: {
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -19,21 +14,7 @@ module.exports = {
       },
       order: {
         type: Sequelize.INTEGER,
-        autoIncrement: true
-      },
-      createdAt: {
-        type: Sequelize.DATE,
-        defaultValue: new Date(),
-        validate: {
-          isDate: true
-        }
-      },
-      updatedAt: {
-        type: Sequelize.DATE,
-        defaultValue: new Date(),
-        validate: {
-          isDate: true
-        }
+        unique: true
       }
     });
   },

@@ -12,8 +12,9 @@ pids
 *.seed
 *.pid.lock
 
-# Coverage report directories
+# Testing and Coverage report directories
 .nyc_output
+/coverage
 
 # Dependency directories
 node_modules/

@@ -1,45 +1,37 @@
 'use strict';
+
 const bcrypt = require('bcrypt');
+
+const seederData = require('./data/users.json');
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    const password = 'password';
-    const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+    var processedRecords = [];
+    for(var x = 0; x < seederData.length; x += 1) {
+      var currentRecord = seederData[x];
+      // get and encrypt passwords
+      var password = currentRecord.password;
+      var salt = bcrypt.genSaltSync();
+      var hashedPassword = bcrypt.hashSync(password, salt);
+      // insert into table, generating dates
+      processedRecords.push({
+        username: currentRecord.username,
+        email: currentRecord.email,
+        password: hashedPassword,
+        salt: salt,
+        role: currentRecord.role,
+        firstName: currentRecord.firstName,
+        lastName: currentRecord.lastName,
+        about: currentRecord.about,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      });
 
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
-    return queryInterface.bulkInsert('Users', [{
-      username: 'admin',
-      email: 'your@email.com',
-      password: hashedPassword,
-      salt: salt,
-      role: 'Super Admin',
-      firstName: 'Admin',
-      lastName: 'Admin',
-      about: 'I am the super admin',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+    }
+    return queryInterface.bulkInsert('Users', processedRecords);
   },
 
   down: function (queryInterface, Sequelize) {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
-    return queryInterface.bulkDelete('User', [{
-      username: 'admin'
-    }]);
+    return queryInterface.bulkDelete('User', seederData);
   }
 };

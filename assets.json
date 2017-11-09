@@ -28,7 +28,10 @@
 
     ],
     "less": [
-        "style.less"
+        "main.less",
+        "userPanel.less",
+        "features.less",
+        "grid.less"
     ],
     "js": [
         "app/app.config.js",
@@ -38,6 +41,7 @@
         "users/users.config.js",
         "table/table.config.js",
         "details/details.config.js",
+        "app/userPanel.factory.js",
         "app/features.factory.js",
         "utils/paths.factory.js",
         "common/api.factory.js",
@@ -62,6 +66,7 @@
         "table/rows.directive.js",
         "table/search.directive.js",
         "details/details.directive.js",
+        "users/panel.directive.js",
         "users/profile.directive.js",
         "users/list.directive.js"
     ]
