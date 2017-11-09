@@ -1,9 +1,10 @@
 'use strict';
 
+const Role = require('./role');
+
 function UserModel(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     id: {
-      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
@@ -27,19 +28,14 @@ function UserModel(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-      }
     },
     salt: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-      }
     },
     role: {
       type: DataTypes.STRING,
-      defaultValue: 'User',
-      allowNull: false,
+      allowNull: false
     },
     firstName: {
       type: DataTypes.STRING,
@@ -67,13 +63,14 @@ function UserModel(sequelize, DataTypes) {
         isDate: true
       }
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  User.associate = (models) => {
+    // put model associations here
+    User.belongsTo(models.Role, {
+      foreignKey: 'role',
+      targetKey: 'role'
+    });
+  };
   return User;
 }
 

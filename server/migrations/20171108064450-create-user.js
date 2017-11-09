@@ -1,5 +1,7 @@
 'use strict';
 
+const models = require('../models');
+
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.createTable('Users', {
@@ -39,8 +41,7 @@ module.exports = {
       },
       role: {
         type: Sequelize.STRING,
-        defaultValue: 'User',
-        allowNull: false,
+        allowNull: false
       },
       firstName: {
         type: Sequelize.STRING,

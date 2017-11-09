@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 /* Sets the servers error behavior */
 const errorHandler = (app) => {
   // catch 404 and forward to error handler

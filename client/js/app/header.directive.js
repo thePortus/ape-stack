@@ -18,7 +18,7 @@
   }
 
   /*Directive Controller*/
-  function apeSiteHeaderController(APP_TITLE, APP_VERSION, APP_CREDITS, APP_RIGHTS, Interface) {
+  function apeSiteHeaderController(APP_TITLE, APP_VERSION, APP_CREDITS, APP_RIGHTS, Interface, UserPanel) {
     /* jshint validthis: true */
     var vm = this;
     var originatorEv;
@@ -34,6 +34,7 @@
 
     /* Methods */
     vm.openMenu = openMenu;
+    vm.openPanel = openPanel;
     vm.go = go;
 
     /* Functions */
@@ -41,6 +42,10 @@
     function openMenu($mdMenu, ev) {
       originatorEv = ev;
       $mdMenu.open(ev);
+    }
+
+    function openPanel() {
+      UserPanel.open = !UserPanel.open;
     }
 
     function go(toState) {

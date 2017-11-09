@@ -1,6 +1,6 @@
 'use strict';
 
-const seederData = require('./data/roles.json');
+const seederData = require('./data/rolePrivileges.json');
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -9,13 +9,13 @@ module.exports = {
       var seedRecord = seederData[x];
       processedRecords.push({
         'role': seedRecord.role,
-        'order': seedRecord.order
+        'privilege': seedRecord.privilege,
       });
     }
-    return queryInterface.bulkInsert('Roles', processedRecords);
+    return queryInterface.bulkInsert('RolePrivileges', processedRecords);
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Roles', seederData);
+    return queryInterface.bulkDelete('RolePrivileges', seederData);
   }
 };

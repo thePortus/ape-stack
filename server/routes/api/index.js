@@ -7,6 +7,7 @@
  *
  * e.g. subdir 'sample' would be require('this_module').sample
  */
+
 'use strict';
 
 const fs = require('fs'),

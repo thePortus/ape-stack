@@ -1,16 +1,10 @@
 'use strict';
 
-const express = require('express'),
-  path = require('path'),
-  passport = require('passport');
+const express = require('express');
 
-const assets = require('../../utils/assets'),
-  apiIndex = require('./api/index.js');
+const assets = require('../../utils/assets');
 
 const router = express.Router();
-
-router.use(passport.initialize());
-router.use(passport.session());
 
 /* Serve basic index page with assets determined by environment */
 router.get('/', (req, res, next) => {

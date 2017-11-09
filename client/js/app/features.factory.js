@@ -22,7 +22,7 @@
           'row': 1,
           'col': 2
         },
-        'backgroundClass': 'backgroundBeige',
+        'backgroundClass': 'featureBgBeige',
         'iconClass': 'featureLogoWide'
       },{
         'label': 'PostgreSQL',
@@ -33,7 +33,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'backgroundAliceBlue',
+        'backgroundClass': 'featureBgAliceBlue',
         'iconClass': 'featureLogo'
       },{
         'label': 'Sequelize',
@@ -44,7 +44,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'lavenderBackground',
+        'backgroundClass': 'featureBgLavender',
         'iconClass': 'featureLogo'
       },{
         'label': 'Express',
@@ -55,7 +55,7 @@
           'row': 1,
           'col': 2
         },
-        'backgroundClass': 'paleGreenBackground',
+        'backgroundClass': 'featureBgPaleGreen',
         'iconClass': 'featureLogoWide'
       },{
         'label': 'AngularJS',
@@ -66,7 +66,7 @@
           'row': 1,
           'col': 2
         },
-        'backgroundClass': 'lavenderBlushBackground',
+        'backgroundClass': 'featureBgLavenderBlush',
         'iconClass': 'featureLogoWide'
       },{
         'label': 'PassportJS',
@@ -77,7 +77,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'darkSlateGreyBackground',
+        'backgroundClass': 'featureBgDarkSlateGrey',
         'iconClass': 'featureLogo'
       },{
         'label': 'Yeoman',
@@ -88,7 +88,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'whiteBackground',
+        'backgroundClass': 'featureBgWhite',
         'iconClass': 'featureLogo'
       },{
         'label': 'Gulp',
@@ -99,7 +99,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'lavenderBlushBackground',
+        'backgroundClass': 'featureBgLavenderBlush',
         'iconClass': 'featureLogo'
       },{
         'label': 'Protractor',
@@ -110,7 +110,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'whiteBackground',
+        'backgroundClass': 'featureBgWhite',
         'iconClass': 'featureLogo'
       },{
         'label': 'Mocha',
@@ -121,7 +121,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'backgroundBeige',
+        'backgroundClass': 'featureBgBeige',
         'iconClass': 'featureLogo'
       },{
         'label': 'Chai',
@@ -132,7 +132,7 @@
           'row': 1,
           'col': 1
         },
-        'backgroundClass': 'lavenderBlushBackground',
+        'backgroundClass': 'featureBgLavenderBlush',
         'iconClass': 'featureLogo'
       },{
         'label': 'Less',
@@ -143,7 +143,7 @@
           'row': 1,
           'col': 2
         },
-        'backgroundClass': 'darkSlateGreyBackground',
+        'backgroundClass': 'featureBgDarkSlateGrey',
         'iconClass': 'featureLogoWide'
       }];
 

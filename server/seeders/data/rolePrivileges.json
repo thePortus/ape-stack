@@ -1,0 +1,73 @@
+[{
+  "role": "Super Admin",
+  "privilege": "create_users"
+}, {
+  "role": "Super Admin",
+  "privilege": "alter_users"
+}, {
+  "role": "Super Admin",
+  "privilege": "delete_users"
+}, {
+  "role": "Super Admin",
+  "privilege": "view_users"
+}, {
+  "role": "Super Admin",
+  "privilege": "create_tables"
+}, {
+  "role": "Super Admin",
+  "privilege": "delete_tables"
+}, {
+  "role": "Super Admin",
+  "privilege": "edit_tables"
+}, {
+  "role": "Super Admin",
+  "privilege": "view_tables"
+}, {
+  "role": "Admin",
+  "privilege": "alter_users"
+}, {
+  "role": "Admin",
+  "privilege": "view_users"
+}, {
+  "role": "Admin",
+  "privilege": "create_tables"
+}, {
+  "role": "Admin",
+  "privilege": "delete_tables"
+}, {
+  "role": "Admin",
+  "privilege": "edit_tables"
+}, {
+  "role": "Admin",
+  "privilege": "view_tables"
+}, {
+  "role": "Publisher",
+  "privilege": "view_users"
+}, {
+  "role": "Publisher",
+  "privilege": "create_tables"
+}, {
+  "role": "Publisher",
+  "privilege": "edit_tables"
+}, {
+  "role": "Publisher",
+  "privilege": "view_tables"
+}, {
+  "role": "Editor",
+  "privilege": "view_users"
+}, {
+  "role": "Editor",
+  "privilege": "edit_tables"
+}, {
+  "role": "Editor",
+  "privilege": "view_tables"
+}, {
+  "role": "User",
+  "privilege": "view_users"
+}, {
+  "role": "User",
+  "privilege": "view_tables"
+}, {
+  "role": "Gues",
+  "privilege": "view_tables"
+}]

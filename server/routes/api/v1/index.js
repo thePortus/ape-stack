@@ -1,11 +1,7 @@
 'use strict';
 
 const express = require('express'),
-  path = require('path'),
   passport = require('passport');
-
-const users = require('./users'),
-  auth = require('./auth');
 
 const router = express.Router();
 
@@ -13,13 +9,15 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 // serve basic api index page */
-router.get('/', (req, res) => res.status(200).send({
-    message: 'Welcome to the APE API, v1',
-    routes: ['auth', 'users']
-  }));
+router.get('/', (req, res) => {
+  return res.status(200).send({
+    message: 'Welcome to the APE-Stack API Sitemap.'
+  });
+});
 
 // set api subrouters
-router.get('/users', users);
-router.get('/auth', auth);
+router.use('/auth', require('./auth'));
+router.use('/users', require('./users'));
+router.use('/roles', require('./roles'));
 
 module.exports = router;

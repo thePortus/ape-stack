@@ -8,6 +8,7 @@
  *
  * e.g. sample.js would be require('this_module').sample
  */
+
 'use strict';
 
 const fs = require('fs'),

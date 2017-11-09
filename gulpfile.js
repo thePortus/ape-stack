@@ -1,6 +1,29 @@
+/**
+ * /gulpfile.js
+ * @file
+ *
+ * ===Tasks defined in this file===
+ *
+ * - Main Tasks -
+ * setup
+ * build
+ * watch
+ *
+ * - Subtasks -
+ * less
+ * fonts
+ * collectStatic
+ * jshint
+ * buildAssets
+ * ================================
+ */
+
+'use strict';
+
 const path = require('path');
 const fs = require('fs');
 const gulp = require('gulp');
+const shell = require('gulp-shell');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const uglifyJs = require('gulp-uglify');
@@ -14,20 +37,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const assetsJson = require('./assets.json');
 const assets = require('./utils/assets');
 
-// ===Tasks defined in this file===
-//
-// - Main Tasks -
-// collect
-// build
-// watch
-//
-// - Subtasks -
-// less
-// fonts
-// collectStatic
-// jshint
-// buildAssets
-// ================================
 
 // === FUNCTIONS ===
 
@@ -67,13 +76,15 @@ if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
 }
 // otherwise assume dev environment and set default task to collect static files
 else {
-  gulp.task('default', ['collect']);
+  gulp.task('default', ['setup']);
 }
+
 
 // === MAIN TASKS ===
 
+
 // download google web fonts and gather dependencies
-gulp.task('collect', ['fonts', 'collectStatic']);
+gulp.task('setup', ['installGlobals', 'fonts', 'collectStatic']);
 
 // invokes subtasks to perform the entire build process
 gulp.task('build', ['fonts', 'less', 'jshint', 'buildAssets']);
@@ -83,9 +94,17 @@ gulp.task('watch', () => {
 	gulp.watch(assetsJson, ['buildAssets']);
 });
 
+
 // === END MAIN TASKS ===
 
+
 // === SUBTASKS ===
+
+// issue command line arguments to install certain packages that need to be global
+// these packages are not found package.json
+gulp.task('installGlobals', shell.task([
+  'npm install -g nyc@">=11.2.1 <11.3"',
+]));
 
 // download and gather google web fonts as well as generate stylesheet
 gulp.task('fonts', function () {
