@@ -37,6 +37,7 @@ function RoleModel(sequelize, DataTypes) {
       });
     };
   };
+
   return Role;
 
 }
