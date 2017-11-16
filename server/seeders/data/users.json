@@ -1,7 +1,7 @@
 [{
   "username": "admin",
   "email": "your@email.com",
-  "password": "hashedPassword",
+  "password": "password",
   "salt": "salt",
   "role": "Super Admin",
   "firstName": "Admin",
