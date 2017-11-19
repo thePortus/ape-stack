@@ -1,17 +1,7 @@
-[{
-  "privilege": "create_users"
-},{
-  "privilege": "alter_users"
-},{
-  "privilege": "delete_users"
-},{
-  "privilege": "view_users"
-},{
-  "privilege": "create_tables"
-},{
-  "privilege": "delete_tables"
-},{
-  "privilege": "edit_tables"
-},{
-  "privilege": "view_tables"
-}]
+[
+  "SELECT",
+  "INSERT",
+  "UPDATE",
+  "DELETE",
+  "TRUNCATE"
+]
