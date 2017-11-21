@@ -80,12 +80,7 @@ class BuildAssets extends AbstractAssets {
     if (this.category !== 'external' && this.category !== 'internal') {
       throw new Error('BuildAssets category argument must be either internal or external');
     }
-    if (category === 'internal') {
-      this.filename = 'app.min.' + this.type;
-    }
-    else {
-      this.filename = 'lib.min.' + this.type;
-    }
+    this.filename = (category === 'internal') ? 'app.min.' + this.type : 'lib.min.' + this.type;
   }
 
   get sources() {
