@@ -115,7 +115,7 @@
       },{
         'label': 'Mocha',
         'src': 'imgs/vendor_icons/mocha.svg',
-        'caption': 'Mocha is a feature-rich JavaScript test framework',
+        'caption': 'Feature-Rich JavaScript test framework',
         'link': 'https://mochajs.org/',
         'span': {
           'row': 1,
@@ -145,6 +145,17 @@
         },
         'backgroundClass': 'featureBgDarkSlateGrey',
         'iconClass': 'featureLogoWide'
+      },{
+        'label': 'Istanbul',
+        'src': 'imgs/vendor_icons/istanbul.svg',
+        'caption': 'JavaScript test coverage made simple',
+        'link': 'https://istanbul.js.org/',
+        'span': {
+          'row': 1,
+          'col': 1
+        },
+        'backgroundClass': 'featureBgBeige',
+        'iconClass': 'featureLogo'
       }];
 
       /* Methods */

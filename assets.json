@@ -18,6 +18,13 @@
           "angular-messages/angular-messages.js",
           "angular-material/angular-material.js",
           "@uirouter/angularjs/release/angular-ui-router.js",
+          "angular-i18n/*.js",
+          "angular-dynamic-locale/dist/tmhDynamicLocal.js",
+          "angular-translate/dist/angular-translate.js",
+          "angular-translate-loader-static-files/angular-translate-loader-static-files.js",
+          "angular-translate-storage-cookie/angular-translate-storage-cookie.js",
+          "angular-translate-storage-local/angular-translate-storage-local.js",
+          "angular-translate-handler-log/angular-translate-handler-log.js",
           "angular-ui-grid/ui-grid.js",
           "angular-material-icons/angular-material-icons.js",
           "less/dist/less.js"
