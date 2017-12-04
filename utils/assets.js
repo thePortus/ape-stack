@@ -13,11 +13,12 @@
 "use strict";
 
 const path = require('path');
+const fs = require('fs');
 
 const assets = require('../assets.json');
 
 // Path to project root
-var root = path.join(__dirname, '../');
+const root = path.join(__dirname, '../');
 
 
 class AbstractAssets {
@@ -27,18 +28,17 @@ class AbstractAssets {
   }
 
   getPathsFilenames(paths) {
-    var filenames = [];
-    for (var x = 0; x < paths.length; x += 1) {
-      filenames.push(path.basename(paths[x]));
-    }
+    let filenames = [];
+    paths.forEach((currentPath) => {
+      filenames.push(path.basename(currentPath));
+    });
     return filenames;
   }
 
   addToPaths(prefix, paths, suffix) {
     var newPaths = [];
     // loop through paths, get each, make changes and push to newPaths
-    for (var x = 0; x < paths.length; x += 1){
-      var currentPath = paths[x];
+    paths.forEach((currentPath) => {
       // if a prefix was sent, prepend to path
       if (typeof(prefix) !== 'undefined' && typeof(prefix) !== null) {
         currentPath = path.join(prefix, currentPath);
@@ -49,10 +49,31 @@ class AbstractAssets {
       }
       // add the modified path to newPaths
       newPaths.push(currentPath);
-    }
+    });
     return newPaths;
   } // /addToPaths
 } // AbstractAssets
+
+class LocaleAssets extends AbstractAssets {
+
+  constructor() {
+    super('js');
+    this.target = path.join(root, assets.dirs.static, assets.dirs.lib, assets.dirs.locales);
+  } // constructor
+
+  get sources() {
+    return this.sourceGetter;
+  }
+
+  sourceGetter() {
+    let sources = [];
+    assets.localesSrc.forEach((localeSrc) => {
+      sources.push(path.join(root, assets.dirs.dependencies, localeSrc));
+    });
+    return sources;
+  }
+
+} // LocaleAssets
 
 class CollectionAssets extends AbstractAssets {
 
@@ -112,7 +133,7 @@ class RuntimeAssets extends AbstractAssets {
   // setting getter properties
   get assets() {
     return this.getAssetType();
-  }
+  } // assets
 
   getAssetType() {
     // in live or test mode, use built files
@@ -152,9 +173,8 @@ class RuntimeAssets extends AbstractAssets {
         );
       }
     }
-  } // end getAssetType
-
-}
+  } // getAssetType
+} // RuntimeAssets
 
 
 class LessAssets extends AbstractAssets {
@@ -163,7 +183,7 @@ class LessAssets extends AbstractAssets {
     super('less');
     this.files = this.addToPaths(
       path.join(root, assets.dirs.static, 'less'),
-      assets.source.css
+      assets.source.less
     );
   }
 
@@ -175,23 +195,23 @@ class LessAssets extends AbstractAssets {
   // source (less) and the target (css) files
   getAssets() {
     var assetObjects = [];
-    for(var x = 0; x < this.files.length; x += 1) {
-      var dirPath = path.dirname(this.files[x]);
-      var filename = path.basename(this.files[x], path.extname(this.files[x]));
+    this.files.forEach((currentFile) => {
+      let dirPath = path.dirname(currentFile);
+      let filename = path.basename(currentFile, path.extname(currentFile));
       assetObjects.push({
-        'source': this.files[x],
+        'source': currentFile,
         'target': path.join(dirPath, filename + '.css')
       });
-    }
+    });
     return assetObjects;
   }
 
-}
-
+} // LessAssets
 
 module.exports = {
   'collect': CollectionAssets,
   'build': BuildAssets,
   'runtime': RuntimeAssets,
-  'less': LessAssets
+  'less': LessAssets,
+  'locale': LocaleAssets
 };

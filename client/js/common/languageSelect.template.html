@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<div class="language-select" ng-if="vm.visible">
+    <label>
+        {{ common.languageSelect.directive.message | translate}}:
+        <select ng-model="vm.currentLocaleDisplayName" ng-options="localesDisplayName for localesDisplayName in vm.localesDisplayNames" ng-change="vm.changeLanguage(vm.currentLocaleDisplayName)">
+        {{ localesDisplayName }}
+        </select>
+    </label>
+</div>

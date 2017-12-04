@@ -145,17 +145,6 @@
         },
         'backgroundClass': 'featureBgDarkSlateGrey',
         'iconClass': 'featureLogoWide'
-      },{
-        'label': 'Istanbul',
-        'src': 'imgs/vendor_icons/istanbul.svg',
-        'caption': 'JavaScript test coverage made simple',
-        'link': 'https://istanbul.js.org/',
-        'span': {
-          'row': 1,
-          'col': 1
-        },
-        'backgroundClass': 'featureBgBeige',
-        'iconClass': 'featureLogo'
       }];
 
       /* Methods */

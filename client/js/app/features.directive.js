@@ -23,7 +23,7 @@
     var vm = this;
 
     /* Properties */
-    vm.message = 'Welcome to Ape-Stack, powered by...';
+    vm.message = 'Welcome to Ape-Stack, powered by the following technologies...';
     vm.features = AppFeatures.features;
 
   }

@@ -2,7 +2,18 @@
     'use strict';
 
   // Module Definition
-  angular.module('ape.table', [])
+  angular.module('ape.table', [
+    'ngAria',
+    'ngAnimate',
+    'ngCookies',
+    'ngSanitize',
+    'ngMaterial',
+    'ngMdIcons',
+    'pascalprecht.translate',
+    'angular-translate-loader-pluggable',
+    'tmh.dynamicLocale',
+    'ui.grid'
+  ])
     .filter('orderObjectBy', orderObjectBy);
 
   /* Custom Filters */
