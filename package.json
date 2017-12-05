@@ -2,13 +2,47 @@
   "name": "ape",
   "version": "0.0.0",
   "private": true,
+  "description": "Angular, PostgreSQL, ExpressJS (APE) Stack, A Fast Deploying Full-Stack Framework to get your projects off the ground quickly.",
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "angularjs",
+    "postgresql",
+    "full-stack"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thePortus/ape-stack.git"
+  },
+  "homepage": "https://github.com/thePortus",
+  "author": "David J. Thomas <dave.a.base@gmail.com> (http://thePortus.com)",
+  "maintainers": [
+    "David J. Thomas <dave.a.base@gmail.com> (http://thePortus.com)"
+  ],
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "bugs": {
+    "url": "https://github.com/thePortus/ape-stack/issues",
+    "email": "dave.a.base@gmail.com"
+  },
+  "main": "./bin/www",
   "scripts": {
     "start": "supervisor ./bin/www",
-    "test": "nyc --reporter=html --reporter=text mocha \"./!(client)/**/tests/**/*spec.js\" --recursive --timeout 10000",
+    "postinstall": "gulp && cd ./node_modules/angular-translate-storage-cookie && npm install && cd ../../ && jshint **/*.js --exclude=node_modules/**/*.js",
+    "test": "jshint **/*.js --exclude=node_modules/**/*.js && nyc --reporter=html --reporter=text mocha \"./!(client)/**/tests/**/*spec.js\" --recursive --timeout 10000",
     "coveralls": "nyc report --reporter=text-lcov | coveralls mocha \"./!(client)/**/tests/**/*spec.js\" --recursive --timeout 10000",
+    "prepublish": "",
+    "postpublish": "",
     "setup": "gulp",
-    "setupDev": "gulp setupDev",
-    "setupProduction": "gulp setupProduction",
+    "gather": "gulp setupDev",
+    "make": "gulp setupProduction",
     "clean": "gulp clean",
     "reset": "gulp reset",
     "remove": "gulp remove"

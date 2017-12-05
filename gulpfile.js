@@ -174,7 +174,7 @@ gulp.task('compileDistributionCssJS', (done) => {
   done();
 });
 
-// deletes the node module depenency folder
+// deletes the font libraries folder
 gulp.task('cleanNodeModules', (done) => {
   return cleanupPath(done, path.join(__dirname, assetsJson.dirs.dependencies));
 });
@@ -208,35 +208,6 @@ gulp.task('cleanTestFiles', (done) => {
 gulp.task('cleanCoverageFiles', (done) => {
   return cleanupPath(done, path.join(__dirname, 'coverage'));
 });
-
-gulp.task('moveToSubDependencyModule', (done) => {
-  const source = path.join(__dirname, assetsJson.dirs.dependencies, 'angular-translate-storage-cookie');
-  const shell = spawn('cd', [source]);
-  shell.stderr.on('data', onError);
-  shell.on('exit', () => { done(); });
-});
-
-gulp.task('installModuleDependencies', (done) => {
-  const shell = spawn('npm', ['install']);
-  shell.stderr.on('data', onError);
-  shell.on('exit', () => { done(); });
-});
-
-gulp.task('moveToProjectRoot', (done) => {
-  const shell = spawn('cd', [__dirname]);
-  shell.stderr.on('data', onError);
-  shell.on('exit', () => { done(); });
-});
-
-// builds and moves certain necessary sub-dependencies
-// created because angular-translate-storage-cookie only works with the version of angular-cookies in its package.json. But, it can be modified to work with multiple dependencies
-gulp.task('installNodeSubDependency',
-  gulp.series(
-    'moveToSubDependencyModule',
-    'installModuleDependencies',
-    'moveToProjectRoot'
-  )
-);
 
 // creates a database with the named specified in config.json under the current node_env
 gulp.task('createDatabase', (done) => {
@@ -304,7 +275,6 @@ gulp.task('resetDatabase',
 gulp.task('setupDev',
   gulp.series(
     'installGlobals',
-    'installNodeSubDependency',
     'installGoogleFonts',
     'collectStatic',
     'setupDatabase'
@@ -350,13 +320,13 @@ gulp.task('remove',
 
 // === END MAIN TASKS ===
 
-// Setting Default Task
-//
-// if in production or testing environment, set default gulp task to build
+
+// Setting based on node environment
+// if in production env, switch to full setup, compiling and gathering
 if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'production') {
   gulp.task('default', gulp.series('setupProduction'));
 }
-// otherwise assume dev environment and set default task to collect static files
+// otherwise assume a dev env
 else {
   gulp.task('default', gulp.series('setupDev'));
 }

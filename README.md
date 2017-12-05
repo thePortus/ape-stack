@@ -15,8 +15,11 @@ By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePortus.com](http://thePo
 git clone https://github.com/thePortus/ape-stack.git
 cd ape-stack
 
-# install npm packages then run gulp file and database setup tasks
-npm install && npm run setup
+# install npm packages
+npm install
+
+# postinstall process will automatically collect/compile files
+# and create a db as defined in config.json
 
 # ready to go, launch the server
 npm start
@@ -25,3 +28,15 @@ npm start
 Now go to [http://localhost:3000](http://localhost:3000) in your browser to see the home page.
 
 To change the port, simply edit `bin/www`
+
+---
+
+## For Developers
+
+Simply ensure your node env is production or testing and run the setup script
+```bash
+# Set the environment manually or in a pre-hook
+export NODE_ENV=production
+# This will launch gulp which will detect the change in environment and compile distribution scripts
+npm run setup
+```
