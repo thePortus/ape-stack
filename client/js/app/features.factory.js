@@ -115,7 +115,7 @@
       },{
         'label': 'Mocha',
         'src': 'imgs/vendor_icons/mocha.svg',
-        'caption': 'Mocha is a feature-rich JavaScript test framework',
+        'caption': 'Feature-Rich JavaScript test framework',
         'link': 'https://mochajs.org/',
         'span': {
           'row': 1,

@@ -17,19 +17,26 @@
   }
 
   /*Directive Controller*/
-  function apeUserPanelController(UserPanel) {
+  function apeUserPanelController($filter, UserPanel) {
     /* jshint validthis: true */
     var vm = this;
 
     /* Properties */
-    vm.panel = UserPanel;
+    vm.titleMessage = null;
+    vm.closeButtonCaption = null;
 
     /* Methods */
     vm.$onInit = initialize;
+    vm.openPanel = openPanel;
 
     /* Functions */
     function initialize() {
+      vm.titleMessage = $filter('translate')('users.panel.directive.titleMessage');
+      vm.closeButtonCaption = $filter('translate')('users.panel.directive.closeButtonCaption');
+    }
 
+    function openPanel() {
+      UserPanel.open = !UserPanel.open;
     }
   }
   /*close apeUserPanelController*/

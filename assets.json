@@ -1,78 +1,95 @@
 {
-  "dirs": {
-      "dependencies": "node_modules",
-      "static": "client",
-      "lib": "lib",
-      "dist": "dist"
-  },
-  "vendor": {
-      "css": [
-          "angular-material/angular-material.css",
-          "angular-ui-grid/ui-grid.css",
-          "angular-material-icons/angular-material-icons.css"
-      ],
-      "js": [
-          "angular/angular.js",
-          "angular-animate/angular-animate.js",
-          "angular-aria/angular-aria.js",
-          "angular-messages/angular-messages.js",
-          "angular-material/angular-material.js",
-          "@uirouter/angularjs/release/angular-ui-router.js",
-          "angular-ui-grid/ui-grid.js",
-          "angular-material-icons/angular-material-icons.js",
-          "less/dist/less.js"
-      ]
-  },
-  "source": {
-    "css": [
-
-    ],
-    "less": [
-        "main.less",
-        "userPanel.less",
-        "features.less",
-        "grid.less"
-    ],
-    "js": [
-        "app/app.config.js",
-        "utils/utils.config.js",
-        "common/common.config.js",
-        "auth/auth.config.js",
-        "users/users.config.js",
-        "table/table.config.js",
-        "details/details.config.js",
-        "app/userPanel.factory.js",
-        "app/features.factory.js",
-        "utils/paths.factory.js",
-        "common/api.factory.js",
-        "common/interface.factory.js",
-        "common/auth.factory.js",
-        "table/table.factory.js",
-        "details/details.factory.js",
-        "users/users.factory.js",
-        "app/main.controller.js",
-        "app/home.controller.js",
-        "app/login.controller.js",
-        "app/registration.controller.js",
-        "app/account.controller.js",
-        "app/userList.controller.js",
-        "app/header.directive.js",
-        "app/features.directive.js",
-        "common/header.directive.js",
-        "auth/register.directive.js",
-        "auth/login.directive.js",
-        "auth/toolbar.directive.js",
-        "table/table.directive.js",
-        "table/rows.directive.js",
-        "table/search.directive.js",
-        "details/details.directive.js",
-        "users/panel.directive.js",
-        "users/profile.directive.js",
-        "users/list.directive.js"
-    ]
-  },
-  "buildfilePrefixes": {
-    "external": "lib",
-    "internal": "app"
-  }
+	"dirs": {
+		"dependencies": "node_modules",
+		"static": "client",
+		"lib": "lib",
+		"dist": "dist",
+		"fonts": "fonts",
+		"locales": "locales",
+		"css": "css",
+		"js": "js",
+		"less": "less"
+	},
+	"localesSrc": [
+		"angular-i18n/*.js"
+	],
+	"vendor": {
+		"css": [
+			"angular-material/angular-material.css",
+			"angular-ui-grid/ui-grid.css",
+			"angular-material-icons/angular-material-icons.css"
+		],
+		"js": [
+			"angular/angular.js",
+			"angular-animate/angular-animate.js",
+			"angular-aria/angular-aria.js",
+			"angular-sanitize/angular-sanitize.js",
+			"angular-messages/angular-messages.js",
+			"angular-material/angular-material.js",
+			"@uirouter/angularjs/release/angular-ui-router.js",
+			"angular-dynamic-locale/dist/tmhDynamicLocale.js",
+			"angular-translate/dist/angular-translate.js",
+			"angular-translate-loader-pluggable/dist/angular-translate-loader-pluggable.min.js",
+			"angular-translate-storage-local/angular-translate-storage-local.js",
+			"angular-translate-storage-cookie/angular-translate-storage-cookie.js",
+			"angular-cookies/angular-cookies.js",
+			"angular-translate-loader-static-files/angular-translate-loader-static-files.js",
+			"angular-translate-handler-log/angular-translate-handler-log.js",
+			"angular-ui-grid/ui-grid.js",
+			"angular-material-icons/angular-material-icons.js",
+			"less/dist/less.js"
+		]
+	},
+	"source": {
+		"css": [],
+		"less": [
+			"main.less",
+			"userPanel.less",
+			"features.less",
+			"grid.less"
+		],
+		"js": [
+			"app/app.config.js",
+			"utils/utils.config.js",
+			"common/common.config.js",
+			"auth/auth.config.js",
+			"users/users.config.js",
+			"table/table.config.js",
+			"details/details.config.js",
+			"app/userPanel.factory.js",
+			"app/features.factory.js",
+			"utils/paths.factory.js",
+			"common/locale.factory.js",
+			"common/api.factory.js",
+			"common/interface.factory.js",
+			"common/auth.factory.js",
+			"table/table.factory.js",
+			"details/details.factory.js",
+			"users/users.factory.js",
+			"app/main.controller.js",
+			"app/home.controller.js",
+			"app/login.controller.js",
+			"app/registration.controller.js",
+			"app/account.controller.js",
+			"app/userList.controller.js",
+			"app/header.directive.js",
+			"app/features.directive.js",
+			"common/header.directive.js",
+			"common/languageSelect.directive.js",
+			"auth/register.directive.js",
+			"auth/login.directive.js",
+			"auth/toolbar.directive.js",
+			"table/table.directive.js",
+			"table/rows.directive.js",
+			"table/search.directive.js",
+			"details/details.directive.js",
+			"users/panel.directive.js",
+			"users/profile.directive.js",
+			"users/list.directive.js"
+		]
+	},
+	"buildfilePrefixes": {
+		"external": "lib",
+		"internal": "app"
+	}
 }

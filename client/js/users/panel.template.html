@@ -1,6 +1,34 @@
 <!DOCTYPE html>
-<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="vm.panel.open">
-    <div>
-        Side Panel!
-    </div>
+<md-sidenav class="md-sidenav-right userPanel" md-component-id="right" md-is-locked-open="vm.panel.open" layout="column" layout-align="start center" layout-padding ng-cloak>
+
+    <!-- Header and Close Button -->
+    <md-toolbar class="md-primary md-toolbar-tools md-whiteframe-8dp">
+        <div layout="row" layout-align="start center" flex>
+            <div flex>
+                {{ vm.titleMessage }} Settings
+            </div>
+            <md-button aria-label="Open user panel" class="md-button md-raised" ng-click="vm.openPanel()">
+                {{ vm.closeButtonCaption | translate }} Close
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="userPanelContent">
+        <!-- Language Selection -->
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+        <ape-language-select></ape-language-select>
+    </md-content>
 </md-sidenav>

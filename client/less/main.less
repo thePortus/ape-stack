@@ -1,16 +1,16 @@
 // include default variables
-@import "./includes/main";
+@import "./includes/global";
 
 body {
-  font-family: @defaultFont;
-  height: 100vh;
-  width: 100vh;
+    font-family: @defaultFont;
+    height: 100vh;
+    width: 100vh;
 }
 
 .appContainer {
-  width: @appWidth;
-  margin-left: auto;
-  margin-right: auto;
+    width: @appWidth;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .titleFont {
@@ -19,10 +19,10 @@ body {
 
 a,
 .link {
-  color: @linkColor;
+    color: @linkColor;
 }
 a:hover {
-  color: @linkColorHover;
+    color: @linkColorHover;
 }
 
 .appCredits {
@@ -31,14 +31,14 @@ a:hover {
 
 .windowContent {
     /* Ensure main content browsing window is height of viewport minus header */
-    height: -o-calc(100vh - @headerHeight); /* opera */
-    height: -webkit-calc(100vh - headerHeight); /* google, safari */
-    height: -moz-calc(100vh - headerHeight); /* firefox */
+    height: -o-calc(@contentHeight); /* opera */
+    height: -webkit-calc(@contentHeight); /* google, safari */
+    height: -moz-calc(@contentHeight); /* firefox */
 }
 
 fieldset.standard {
-  border-style: solid;
-  border-width: 1px;
+    border-style: solid;
+    border-width: 1px;
 }
 
 fieldset.smallForm {
@@ -47,4 +47,35 @@ fieldset.smallForm {
 
 .font64 {
     font-size: 64px;
+}
+
+.bordered {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.bordered-vertical {
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+
+.bordered-horizontal {
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+.bordered-faint {
+    border-color: #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.bordered-faint-vertical {
+    .bordered-faint;
+    .bordered-vertical;
+}
+
+.bordered-faint-horizontal {
+    .bordered-faint;
+    .bordered-horizontal;
 }
