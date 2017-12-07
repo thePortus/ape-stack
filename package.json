@@ -4,11 +4,16 @@
   "private": true,
   "description": "Angular, PostgreSQL, ExpressJS (APE) Stack, A Fast Deploying Full-Stack Framework to get your projects off the ground quickly.",
   "keywords": [
+    "web",
     "nodejs",
     "expressjs",
-    "angularjs",
+    "angular",
     "postgresql",
-    "full-stack"
+    "material-design",
+    "angular-material",
+    "full-stack",
+    "scaffold",
+    "framework"
   ],
   "license": "MIT",
   "repository": {

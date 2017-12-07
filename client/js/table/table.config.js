@@ -14,6 +14,7 @@
     'tmh.dynamicLocale',
     'ui.grid'
   ])
+    .config(translationConfig)
     .filter('orderObjectBy', orderObjectBy);
 
   /* Custom Filters */
@@ -32,5 +33,16 @@
         return filtered;
       };
     }
+
+  /* component i18n localization configuration */
+  function translationConfig($translateProvider, translatePluggableLoaderProvider) {
+    // set translation file locations
+    const staticLoader = $translateProvider.useStaticFilesLoader({
+      'prefix': 'js/table/resources/locale-',
+      'suffix': '.json'
+    });
+    translatePluggableLoaderProvider.useLoader(staticLoader);
+  }
+
 
 })();

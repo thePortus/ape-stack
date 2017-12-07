@@ -1,5 +1,5 @@
 // include default variables
-@import "./includes/main";
+@import "./includes/global";
 
 body {
     font-family: @defaultFont;
@@ -31,9 +31,9 @@ a:hover {
 
 .windowContent {
     /* Ensure main content browsing window is height of viewport minus header */
-    height: -o-calc(100vh - @headerHeight); /* opera */
-    height: -webkit-calc(100vh - headerHeight); /* google, safari */
-    height: -moz-calc(100vh - headerHeight); /* firefox */
+    height: -o-calc(@contentHeight); /* opera */
+    height: -webkit-calc(@contentHeight); /* google, safari */
+    height: -moz-calc(@contentHeight); /* firefox */
 }
 
 fieldset.standard {
@@ -54,8 +54,28 @@ fieldset.smallForm {
     border-width: 1px;
 }
 
+.bordered-vertical {
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+
+.bordered-horizontal {
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
 .bordered-faint {
     border-color: #CCCCCC;
     border-style: solid;
     border-width: 1px;
+}
+
+.bordered-faint-vertical {
+    .bordered-faint;
+    .bordered-vertical;
+}
+
+.bordered-faint-horizontal {
+    .bordered-faint;
+    .bordered-horizontal;
 }

@@ -21,7 +21,7 @@
         'ape.auth',
         'ape.users',
         'ape.table',
-        'ape.details'
+        'ape.details'/* leave me here */
     ]
   )
     .constant('DEBUG_MODE', /*DEBUG_MODE*/true/*DEBUG_MODE*/)
@@ -126,6 +126,8 @@
           controller: 'AccountCtrl',
           controllerAs: 'vm'
         });
+        /* leave me here */
+
     } // UI Router Configuration
 
 })();

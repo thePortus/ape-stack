@@ -12,10 +12,12 @@
         <% }) %>
     </head>
     <body ng-controller="mainController as vm" layout-fill>
-        <ape-user-panel class="userPanel"></ape-user-panel>
-        <div class="appContainer" layout="column">
-            <ape-site-header></ape-site-header>
-            <div ui-view flex></div>
+        <div layout="row">
+            <div class="appContainer" layout="column">
+                <ape-site-header></ape-site-header>
+                <div ui-view flex></div>
+            </div>
+            <ape-user-panel class="userPanel"></ape-user-panel>
         </div>
         <% assets.js.forEach((asset) => { %><script type="text/javascript" src="<%= asset %>"></script>
         <% }) %>

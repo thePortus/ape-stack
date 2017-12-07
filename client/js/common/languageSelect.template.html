@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <div class="language-select" ng-if="vm.visible">
+    <md-input-container>
     <label>
-        {{ common.languageSelect.directive.message | translate}}:
-        <select ng-model="vm.currentLocaleDisplayName" ng-options="localesDisplayName for localesDisplayName in vm.localesDisplayNames" ng-change="vm.changeLanguage(vm.currentLocaleDisplayName)">
-        {{ localesDisplayName }}
-        </select>
+        {{ common.languageSelect.displayMessage | translate }} Language
     </label>
+    <md-select ng-model="vm.currentLocaleDisplayName" ng-change="vm.changeLanguage(vm.currentLocaleDisplayName)">
+        <md-option ng-repeat="localesDisplayName in vm.localesDisplayNames" ng-value="localesDisplayName">
+            {{ localesDisplayName }}
+        </md-option>
+    </md-select>
+    </md-input-container>
 </div>

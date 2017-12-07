@@ -18,7 +18,7 @@
   } // apeLanguageSelect
 
   /*Directive Controller*/
-  function apeLanguageSelectController($log, LocaleService) {
+  function apeLanguageSelectController(LocaleService) {
     /* jshint validthis: true */
     var vm = this;
 
