@@ -2,35 +2,7 @@
  * /gulpfile.js
  * @file
  *
- * ===Tasks defined in this file===
  *
- * - Main Tasks -
- * setup
- * build
- * watch
- * clean
- * remove
- * reset
- *
- * - Subtasks -
- * less
- * fonts
- * collectStatic
- * jshint
- * buildAssets
- * cleanNodeModules
- * cleanFontFiles
- * cleanLibFiles
- * cleanBuildFiles
- * cleanTestFiles
- * cleanCoverageFiles
- * buildSubDependencies
- * resetDatabase
- * createDatabase
- * dropDatabase
- * migrateDatabase
- * seedDatabase
- * ================================
  */
 
 'use strict';
@@ -211,6 +183,7 @@ gulp.task('cleanCoverageFiles', (done) => {
 
 // creates a database with the named specified in config.json under the current node_env
 gulp.task('createDatabase', (done) => {
+  let node_env = process.env.NODE_ENV || 'development';
   const shell = spawn('createdb', [config[process.env.NODE_ENV].database]);
   shell.stderr.on('data', (err) => {
     done();

@@ -21,7 +21,7 @@
         'ape.auth',
         'ape.users',
         'ape.table',
-        'ape.details'/* leave me here */
+        'ape.details'/* leave me here: auto module addition */
     ]
   )
     .constant('DEBUG_MODE', /*DEBUG_MODE*/true/*DEBUG_MODE*/)
@@ -125,8 +125,7 @@
           templateUrl: 'js/app/account.template.html',
           controller: 'AccountCtrl',
           controllerAs: 'vm'
-        });
-        /* leave me here */
+        });/* leave me here: auto route addition */
 
     } // UI Router Configuration
 
