@@ -1,6 +1,10 @@
 {
   "secret": "ape",
   "appPort": 3000,
+  "api": {
+    "versions": ["v1"],
+    "default": "v1"
+  },
   "development": {
     "username": "postgres",
     "password": null,

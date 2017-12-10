@@ -58,6 +58,7 @@ function buildAssets(assetObject) {
       .pipe(rename(assetObject.filename))
       .pipe(gulp.dest(assetObject.target));
   }
+  return false;
 }
 
 // Gulp directory/file cleanup, skips if not present
@@ -72,78 +73,119 @@ function cleanupPath(done, target) {
 
 // === SUBTASKS ===
 
-gulp.task('installGlobals', (done) => {
-  const shell = spawn('npm', ['install', '-g', 'nyc@">=11.2.1 <11.3"']);
-  shell.on('exit', () => {
-    const subshell_1 = spawn('npm', ['install', '-g', 'sequelize-cli@"^2.7.0"']);
-    subshell_1.on('exit', () => { return true; });
-  });
-  done();
-});
 
-// download and gather google web fonts as well as generate stylesheet
-gulp.task('installGoogleFonts', function () {
-	return gulp.src('./fonts.txt')
-		.pipe(googleWebFonts({}))
-		.pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, 'fonts')));
-});
+// TODO:  use gulp.series with anonymous functions instead of this mess?
+gulp.task('installGlobals',
 
-// gathers angular i18n locale libraries into static directory
-gulp.task('copyLocalesToStatic', function () {
-  const localeAssets = new assets.locale();
-  return gulp.src(localeAssets.sources())
-    .pipe(gulp.dest(localeAssets.target));
-});
+  gulp.series([
+    // install sequelize ORM
+    (done) => {
+      spawn('npm', ['install', '-g', 'sequelize-cli@~2.7.0'])
+        .stderr.on('data', (data) => {
+          console.log(`Error: ${data}`);
+        })
+        .on('exit', done);
+    },
+    // install mocha test package
+    (done) => {
+      spawn('npm', ['install', '-g', 'mocha@~4.0.1'])
+        .stderr.on('data', (data) => {
+          console.log(`Error: ${data}`);
+        })
+        .on('exit', done);
+    },
+    // install istanbul coverage
+    (done) => {
+      spawn('npm', ['install', '-g', 'nyc@>=11.2.1 <11.3'])
+        .stderr.on('data', (data) => {
+          console.log(`Error: ${data}`);
+        })
+        .on('exit', done);
+    },
+    // install protractor angular test package
+    (done) => {
+      spawn('npm', ['install', '-g', 'protractor@~5.2.1'])
+        .stderr.on('data', (data) => {
+          console.log(`Error: ${data}`);
+        })
+        .on('exit', done);
+    },
+    // update selenium web driver
+    (done) => {
+      spawn('webdriver-manager', ['update'])
+        .stderr.on('data', (data) => {
+          console.log(`Error: ${data}`);
+        })
+        .on('exit', done);
+    }
+  ])
+);
 
 // collects vendor dependencies from download folder and moves inside static folder
-gulp.task('copyCssJsToStatic', () => {
+gulp.task('collectStatic', (done) => {
   const sources = new assets.collect('css').dependencies.concat(new assets.collect('js').dependencies);
   if (sources.length) {
+    // copy css & js to lib files
     return gulp.src(sources)
-      .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib)));
+      .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib)))
+      .on('end', () => {
+        // then copy locale assets
+        const localeAssets = new assets.locale();
+        return gulp.src(localeAssets.sources())
+          .pipe(gulp.dest(localeAssets.target))
+          .on('end', () => {
+            // then install google fonts as specified in fonts.txt
+            return gulp.src('./fonts.txt')
+          		.pipe(googleWebFonts({}))
+          		.pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, 'fonts')))
+                .on('end', () => { done(); });
+          });
+      });
   }
-  console.log('No CSS/JS files found to compile');
-  return true;
-});
-
-// gathers CSS, JS, and i18n to static folder
-gulp.task('collectStatic', gulp.series('copyCssJsToStatic', 'copyLocalesToStatic'));
-
-// compile less files into css
-gulp.task('compileLessToCSS', () => {
-  const sources = new assets.less().files;
-  const destination = path.join(__dirname, assetsJson.dirs.static, 'css');
-  if (sources.length) {
-    return gulp.src(sources)
-      .pipe(sourcemaps.init())
-      .pipe(less({
-        'paths': [path.join(__dirname, assetsJson.dirs.static, 'less', 'includes')]
-      }))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(destination));
-  }
-  console.log('No LESS files found to compile');
   return true;
 });
 
 // run jshint internal source files
-gulp.task('jsHintOnSourceFiles', () => {
+gulp.task('jsHintOnSourceFiles', (done) => {
   // target development js source files
   const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.js, '**/*.js');
   // add error handler and reporter and run jshint
 	return gulp.src(target)
 		.pipe(jshint())
-    .on('error', onError)
-		.pipe(jshint.reporter('default'));
+      .on('error', onError)
+		.pipe(jshint.reporter('default'))
+      .on('end', () => { done(); });
 });
 
-// concat and uglify js and (previously compiled) css files
-gulp.task('compileDistributionCssJS', (done) => {
-  buildAssets(new assets.build('css', 'external'));
-  buildAssets(new assets.build('css', 'internal'));
-  buildAssets(new assets.build('js', 'external'));
-  buildAssets(new assets.build('js', 'internal'));
-  done();
+// compile less files into css
+gulp.task('compile', (done) => {
+  const lessSources = new assets.less().files;
+
+  if (lessSources.length) {
+    // compile less and save css in static dir
+    return gulp.src(lessSources)
+      .pipe(sourcemaps.init())
+      .pipe(less({
+        'paths': [path.join(__dirname, assetsJson.dirs.static, 'less', 'includes')]
+      }))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, 'css')))
+        .on('end', () => {
+          const assetConfigs = [
+            { 'type': 'css', 'category': 'external' },
+            { 'type': 'css', 'category': 'internal' },
+            { 'type': 'js', 'category': 'external' },
+            { 'type': 'js', 'category': 'internal' }
+          ];
+          // then concatenate and uglify vendor and source css & js files for distribution
+          for(let x = 0; x < assetConfigs.length; x += 1) {
+            let builtAssets = new assets.build(assetConfigs[x].type, assetConfigs[x].category);
+            // TODO: use gulp.series with anonymous functions instead of this mess?
+          }
+
+          done();
+        }); // build less
+  }
 });
 
 // deletes the font libraries folder
@@ -248,7 +290,6 @@ gulp.task('resetDatabase',
 gulp.task('setupDev',
   gulp.series(
     'installGlobals',
-    'installGoogleFonts',
     'collectStatic',
     'setupDatabase'
   )
@@ -258,9 +299,8 @@ gulp.task('setupDev',
 gulp.task('setupProduction',
   gulp.series(
     'setupDev',
-    'compileLessToCSS',
-    'jsHintOnSourceFiles',
-    'compileDistributionCssJS'
+//    'jsHintOnSourceFiles',
+    'compile'
   )
 );
 

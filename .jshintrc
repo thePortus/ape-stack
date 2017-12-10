@@ -116,7 +116,7 @@
 	    "confirm"              : false,
 	    "context"              : false,
 	    "describe"             : false,
-	    "expect"               : false,
+	    "expect"               : true,
 	    "it"                   : false,
 	    "jasmine"              : false,
 	    "JSHINT"               : false,
