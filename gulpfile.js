@@ -35,7 +35,7 @@ function onExit(done) {
 
 // Gulp plumber error handler
 function onError(err) {
-  console.log(err.toString());
+  throw new Error(err.toString());
 }
 
 // Gulp css/js asset concatenation
@@ -73,53 +73,58 @@ function cleanupPath(done, target) {
 
 // === SUBTASKS ===
 
+let runSpawnCommand = (command, args, done) => {
+  return spawn(command, args)
+    .stderr.on('data', onError)
+    .on('exit', onExit(done));
+};
 
-// TODO:  use gulp.series with anonymous functions instead of this mess?
-gulp.task('installGlobals',
+gulp.task('installSequelizeCLI', (done) => {runSpawnCommand('npm', ['install', '-g', 'sequelize-cli@~2.7.0'], done);});
+gulp.task('installMocha', (done) => {runSpawnCommand('npm', ['install', '-g', 'mocha@~4.0.1'], done);});
+gulp.task('installIstanbul', (done) => {runSpawnCommand('npm', ['install', '-g', 'nyc@>=11.2.1 <11.3'], done);});
+gulp.task('installProtractor', (done) => {runSpawnCommand('npm', ['install', '-g', 'protractor@~5.2.1'], done);});
+gulp.task('updateSeleniumWebDriver', (done) => {runSpawnCommand('webdriver-manager', ['updated'], done);});
 
-  gulp.series([
-    // install sequelize ORM
-    (done) => {
-      spawn('npm', ['install', '-g', 'sequelize-cli@~2.7.0'])
-        .stderr.on('data', (data) => {
-          console.log(`Error: ${data}`);
-        })
-        .on('exit', done);
-    },
-    // install mocha test package
-    (done) => {
+gulp.task('installGlobals', gulp.series(
+  'installSequelizeCLI',
+  'installMocha',
+  'installIstanbul',
+  'installProtractor',
+  'updateSeleniumWebDriver'
+));
+
+/*
+// install sequelize ORM
+gulp.task('installGlobals', (done) => {
+  spawn('npm', ['install', '-g', 'sequelize-cli@~2.7.0'])
+    .stderr.on('data', onError)
+    .on('exit', () => {
+      // install mocha test package
       spawn('npm', ['install', '-g', 'mocha@~4.0.1'])
-        .stderr.on('data', (data) => {
-          console.log(`Error: ${data}`);
-        })
-        .on('exit', done);
-    },
-    // install istanbul coverage
-    (done) => {
-      spawn('npm', ['install', '-g', 'nyc@>=11.2.1 <11.3'])
-        .stderr.on('data', (data) => {
-          console.log(`Error: ${data}`);
-        })
-        .on('exit', done);
-    },
-    // install protractor angular test package
-    (done) => {
-      spawn('npm', ['install', '-g', 'protractor@~5.2.1'])
-        .stderr.on('data', (data) => {
-          console.log(`Error: ${data}`);
-        })
-        .on('exit', done);
-    },
-    // update selenium web driver
-    (done) => {
-      spawn('webdriver-manager', ['update'])
-        .stderr.on('data', (data) => {
-          console.log(`Error: ${data}`);
-        })
-        .on('exit', done);
-    }
-  ])
-);
+        .stderr.on('data', onError)
+        .on('exit', () => {
+          // install istanbul coverage
+          spawn('npm', ['install', '-g', 'nyc@>=11.2.1 <11.3'])
+            .stderr.on('data', onError)
+            .on('exit', () => {
+              // install protractor angular test package
+              spawn('npm', ['install', '-g', 'protractor@~5.2.1'])
+                .stderr.on('data', onError)
+                .on('exit', () => {
+                  // update selenium web driver
+                  spawn('webdriver-manager', ['updated'])
+                    .stderr.on('data', onError)
+                    .on('exit', () => { done(); });
+                  done();
+                }); // selenium
+              done();
+            }); // protractor
+          done();
+        }); // istanbul
+      done();
+    }); // mocha
+});
+*/
 
 // collects vendor dependencies from download folder and moves inside static folder
 gulp.task('collectStatic', (done) => {
