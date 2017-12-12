@@ -13,8 +13,6 @@ const path = require('path'),
   concat = require('gulp-concat'),
   rename = require('gulp-rename'),
   clean = require('gulp-clean'),
-  uglifyJs = require('gulp-uglify'),
-  uglifyCss = require('gulp-uglifycss'),
   plumber = require('gulp-plumber'),
   jshint = require('gulp-jshint'),
   less = require('gulp-less'),
@@ -24,7 +22,8 @@ const path = require('path'),
 
 const assetsJson = require('./assets.json'),
   config = require('./config.json'),
-  assets = require('./utils/assets');
+  assets = require('./utils/assets'),
+  utils = require('./utils');
 
 // === FUNCTIONS ===
 
@@ -34,100 +33,44 @@ function onExit(done) {
 }
 
 // Gulp plumber error handler
+function onData(data) {
+  console.log(`${data}`);
+}
+
+// Gulp plumber error handler
 function onError(err) {
-  throw new Error(err.toString());
-}
-
-// Gulp css/js asset concatenation
-function buildAssets(assetObject) {
-  let uglifier = null;
-  let destinationPath = assetObject.target;
-  if (assetObject.type === 'css') {
-    uglifier = uglifyCss;
-  }
-  else if (assetObject.type === 'js') {
-    uglifier = uglifyJs;
-  }
-  if (assetObject.sources.length) {
-    return gulp.src(assetObject.sources)
-      .pipe(sourcemaps.init())
-      .pipe(concat('concat.' + assetObject.type))
-      .pipe(uglifier({
-          compress: {hoist_funs: true}
-        }))
-      .pipe(rename(assetObject.filename))
-      .pipe(gulp.dest(assetObject.target));
-  }
-  return false;
-}
-
-// Gulp directory/file cleanup, skips if not present
-function cleanupPath(done, target) {
-  if (fs.existsSync(target)) {
-    return gulp.src(target, {read: false}).pipe(clean()).on('error', onError).on('end', () => { done(); });
-  }
-  done();
+  console.error(`\n${err}`);
 }
 
 // === END FUNCTIONS ===
 
 // === SUBTASKS ===
 
-let runSpawnCommand = (command, args, done) => {
-  return spawn(command, args)
-    .stderr.on('data', onError)
-    .on('exit', onExit(done));
-};
-
-gulp.task('installSequelizeCLI', (done) => {runSpawnCommand('npm', ['install', '-g', 'sequelize-cli@~2.7.0'], done);});
-gulp.task('installMocha', (done) => {runSpawnCommand('npm', ['install', '-g', 'mocha@~4.0.1'], done);});
-gulp.task('installIstanbul', (done) => {runSpawnCommand('npm', ['install', '-g', 'nyc@>=11.2.1 <11.3'], done);});
-gulp.task('installProtractor', (done) => {runSpawnCommand('npm', ['install', '-g', 'protractor@~5.2.1'], done);});
-gulp.task('updateSeleniumWebDriver', (done) => {runSpawnCommand('webdriver-manager', ['updated'], done);});
-
-gulp.task('installGlobals', gulp.series(
-  'installSequelizeCLI',
-  'installMocha',
-  'installIstanbul',
-  'installProtractor',
-  'updateSeleniumWebDriver'
-));
-
-/*
-// install sequelize ORM
-gulp.task('installGlobals', (done) => {
+gulp.task('globals', (done) => {
   spawn('npm', ['install', '-g', 'sequelize-cli@~2.7.0'])
     .stderr.on('data', onError)
     .on('exit', () => {
-      // install mocha test package
       spawn('npm', ['install', '-g', 'mocha@~4.0.1'])
         .stderr.on('data', onError)
         .on('exit', () => {
-          // install istanbul coverage
           spawn('npm', ['install', '-g', 'nyc@>=11.2.1 <11.3'])
             .stderr.on('data', onError)
             .on('exit', () => {
-              // install protractor angular test package
               spawn('npm', ['install', '-g', 'protractor@~5.2.1'])
                 .stderr.on('data', onError)
                 .on('exit', () => {
-                  // update selenium web driver
-                  spawn('webdriver-manager', ['updated'])
+                  spawn('webdriver-manager', ['update'])
                     .stderr.on('data', onError)
                     .on('exit', () => { done(); });
-                  done();
-                }); // selenium
-              done();
+                }); // webdriver-manager
             }); // protractor
-          done();
-        }); // istanbul
-      done();
+        }); // nyc
     }); // mocha
+  done();
 });
-*/
 
 // collects vendor dependencies from download folder and moves inside static folder
-gulp.task('collectStatic', (done) => {
+gulp.task('static', (done) => {
   const sources = new assets.collect('css').dependencies.concat(new assets.collect('js').dependencies);
   if (sources.length) {
     // copy css & js to lib files
@@ -151,7 +94,7 @@ gulp.task('collectStatic', (done) => {
 });
 
 // run jshint internal source files
-gulp.task('jsHintOnSourceFiles', (done) => {
+gulp.task('jshint', (done) => {
   // target development js source files
   const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.js, '**/*.js');
   // add error handler and reporter and run jshint
@@ -165,7 +108,6 @@ gulp.task('jsHintOnSourceFiles', (done) => {
 // compile less files into css
 gulp.task('compile', (done) => {
   const lessSources = new assets.less().files;
-
   if (lessSources.length) {
     // compile less and save css in static dir
     return gulp.src(lessSources)
@@ -184,48 +126,34 @@ gulp.task('compile', (done) => {
           ];
           // then concatenate and uglify vendor and source css & js files for distribution
           for(let x = 0; x < assetConfigs.length; x += 1) {
-            let builtAssets = new assets.build(assetConfigs[x].type, assetConfigs[x].category);
-            // TODO: use gulp.series with anonymous functions instead of this mess?
+            let assetsToBuild = new assets.build(assetConfigs[x].type, assetConfigs[x].category);
+              // TODO: use gulp.series with anonymous functions instead of this mess?
+              utils.gulp.buildAssets(assetsToBuild);
           }
-
           done();
         }); // build less
   }
 });
 
-// deletes the font libraries folder
-gulp.task('cleanNodeModules', (done) => {
-  return cleanupPath(done, path.join(__dirname, assetsJson.dirs.dependencies));
-});
-
-// deletes the font libraries folder
-gulp.task('cleanFontFiles', (done) => {
-  return cleanupPath(done, path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.fonts));
-});
-
-// deletes the development library (lib) folder
-gulp.task('cleanLibFiles', (done) => {
-  return cleanupPath(done, path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib));
-});
-
-// deletes compiled CSS files created by less
-gulp.task('cleanLessFiles', (done) => {
-  return cleanupPath(done, path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.css));
-});
-
-// deletes the production build (dist) folder
-gulp.task('cleanBuildFiles', (done) => {
-  return cleanupPath(done, path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist));
-});
-
-// deletes testing and coverage files
-gulp.task('cleanTestFiles', (done) => {
-  return cleanupPath(done, path.join(__dirname, '.nyc_output'));
-});
-
-// deletes testing and coverage files
-gulp.task('cleanCoverageFiles', (done) => {
-  return cleanupPath(done, path.join(__dirname, 'coverage'));
+// cleans up all folders installed or built by this application
+gulp.task('clean', (done) => {
+  const targetPaths = [
+    // npm modules
+    path.join(__dirname, assetsJson.dirs.dependencies),
+    // font libraries
+    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.fonts),
+    // static libraries
+    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib),
+    // built css files
+    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.css),
+    // compiled js
+    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist),
+    // istanbul
+    path.join(__dirname, '.nyc_output'),
+    // coverage
+    path.join(__dirname, 'coverage')
+  ];
+  // TODO: ADD STUFF TO CLEAN THE PATHS HERE
 });
 
 // creates a database with the named specified in config.json under the current node_env
@@ -294,8 +222,8 @@ gulp.task('resetDatabase',
 // download google web fonts and gather dependencies
 gulp.task('setupDev',
   gulp.series(
-    'installGlobals',
-    'collectStatic',
+    'globals',
+    'static',
     'setupDatabase'
   )
 );
@@ -304,7 +232,7 @@ gulp.task('setupDev',
 gulp.task('setupProduction',
   gulp.series(
     'setupDev',
-//    'jsHintOnSourceFiles',
+//    'jshint',
     'compile'
   )
 );
@@ -314,25 +242,12 @@ gulp.task('watch', () => {
 	gulp.watch(assetsJson, gulp.series('build'));
 });
 
-// wipes all libraries and build files, but leaves the database and npm dependencies in place
-gulp.task('clean',
-  gulp.series(
-    'cleanFontFiles',
-    'cleanLibFiles',
-    'cleanLessFiles',
-    'cleanBuildFiles',
-    'cleanTestFiles',
-    'cleanCoverageFiles'
-  )
-);
-
 // resets to pre-install state, with only repo files left
 // drops the database, deletes npm modules, libraries, and build files
 gulp.task('remove',
   gulp.series(
     'clean',
-    'dropDatabase',
-    'cleanNodeModules'
+    'dropDatabase'
   )
 );
 
