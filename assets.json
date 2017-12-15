@@ -4,11 +4,13 @@
 		"static": "client",
 		"lib": "lib",
 		"dist": "dist",
+        "vendor": "vendor",
 		"fonts": "fonts",
 		"locales": "locales",
-		"css": "css",
+		"less": "less",
+        "css": "css",
 		"js": "js",
-		"less": "less"
+        "maps": "maps"
 	},
 	"localesSrc": [
 		"angular-i18n/*.js"
@@ -38,7 +40,8 @@
 			"angular-ui-grid/ui-grid.js",
 			"angular-material-icons/angular-material-icons.js",
 			"less/dist/less.js"
-		]
+		],
+        "fonts": "fonts.txt"
 	},
 	"source": {
 		"css": [],
@@ -87,9 +90,5 @@
 			"users/profile.directive.js",
 			"users/list.directive.js"
 		]
-	},
-	"buildfilePrefixes": {
-		"external": "lib",
-		"internal": "app"
 	}
 }
