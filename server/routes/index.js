@@ -1,10 +1,11 @@
 'use strict';
 
-const express = require('express');
-
-const assets = require('../../utils/assets');
+const express = require('express'),
+  path = require('path');
 
 const router = express.Router();
+
+const assetsJson = require('../../assets.json');
 
 /* Serve basic index page with assets determined by environment */
 router.get('/', (req, res, next) => {

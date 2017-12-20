@@ -41,13 +41,17 @@
   "main": "./bin/www",
   "scripts": {
     "start": "supervisor ./bin/www",
-    "postinstall": "gulp && cd ./node_modules/angular-translate-storage-cookie && npm install",
+    "preinstall": "echo \"Installing npm dependencies...\"",
+    "postinstall": "echo \"Dependencies installed successfully!\" && gulp && cd ./node_modules/angular-translate-storage-cookie && npm install",
     "test": "jshint **/*.js --exclude=node_modules/**/*.js,coverage/**/*.js && nyc --reporter=html --reporter=text mocha \"./!(client)/**/tests/**/*spec.js\" --recursive --timeout 10000 && protractor conf.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls mocha \"./!(client)/**/tests/**/*spec.js\" --recursive --timeout 10000",
     "prepublish": "",
     "postpublish": "",
     "setup": "gulp",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "clean": "gulp Clean",
+    "remove": "gulp Remove",
+    "reset": "gulp Remove && gulp"
   },
   "dependencies": {
     "@uirouter/angularjs": "~1.0.5",

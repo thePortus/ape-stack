@@ -45,11 +45,12 @@ function onError(err) {
   console.error(`\n${err}`);
 }
 
-// checks if OS is Windows or not
-function checkOS(command) {
+// checks if OS is Windows or not, if so adds .cmd to command
+function ensureOS(command) {
   if (/^win/.test(process.platform)) {
     return command + '.cmd';
   }
+  return command;
 }
 // === END FUNCTIONS ===
 
@@ -57,37 +58,37 @@ function checkOS(command) {
 
 // Installs Sequelize, an ORM
 gulp.task('InstallSequelize', (done) => {
-    spawn(checkOS('npm'), ['install', '-g', 'sequelize-cli@^2.7.0'])
-      .stderr.on('data', onError);
-      done();
+  return spawn(ensureOS('npm'), ['install', '-g', 'sequelize-cli@~2.7.0'])
+    .stderr.on('data', onError)
+    .on('exit', onExit);
 });
 
 // Installs Mocha, testing framework for Node
 gulp.task('InstallMocha', (done) => {
-  spawn(checkOS('npm'), ['install', '-g', 'mocha@~4.0.1'])
-    .stderr.on('data', onError);
-    done();
+  return spawn(ensureOS('npm'), ['install', '-g', 'mocha@~4.0.1'])
+    .stderr.on('data', onError)
+    .on('exit', onExit);
 });
 
 // Installs Istanbul, a testing coverage library
 gulp.task('InstallIstanbul', (done) => {
-  spawn(checkOS('npm'), ['install', '-g', 'nyc@>=11.2.1 <11.3'])
-    .stderr.on('data', onError);
-    done();
+  return spawn(ensureOS('npm'), ['install', '-g', 'nyc@>=11.2.1 <11.3'])
+    .stderr.on('data', onError)
+    .on('exit', onExit);
 });
 
 // installs Protractor, testing framework for Angular
 gulp.task('InstallProtractor', (done) => {
-  spawn(checkOS('npm'), ['install', '-g', 'protractor@~5.2.1'])
-    .stderr.on('data', onError);
-    done();
+  return spawn(ensureOS('npm'), ['install', '-g', 'protractor@~5.2.1'])
+    .stderr.on('data', onError)
+    .on('exit', onExit);
 });
 
 // updates the Selenium web driver installed with protractor, used for testing
 gulp.task('UpdateSelenium', (done) => {
-  spawn(checkOS('webdriver-manager'), ['update'])
-    .stderr.on('data', onError);
-    done();
+  return spawn(ensureOS('webdriver-manager'), ['update'])
+    .stderr.on('data', onError)
+    .on('exit', onExit);
 });
 
 // gathers all external js into the libraray css directory
@@ -255,7 +256,7 @@ gulp.task('CleanUpNPM', (done) => {
 gulp.task('CreateDB', (done) => {
   try {
     console.log(config[process.env.NODE_ENV || 'development'].database);
-    return spawn(checkOS('createdb'), [config[process.env.NODE_ENV || 'development'].database])
+    return spawn(ensureOS('createdb'), [config[process.env.NODE_ENV || 'development'].database])
     .stderr.on('data', onError)
     .on('exit', () => { done(); });
   }
@@ -267,7 +268,7 @@ gulp.task('CreateDB', (done) => {
 // deletes a database with the named specified in config.json under the current node_env
 gulp.task('DropDB', (done) => {
   try {
-    return spawn(checkOS('dropdb'), [config[process.env.NODE_ENV || 'development'].database])
+    return spawn(ensureOS('dropdb'), [config[process.env.NODE_ENV || 'development'].database])
     .stderr.on('data', onError)
     .on('exit', () => { done(); });
   }
@@ -279,7 +280,7 @@ gulp.task('DropDB', (done) => {
 // deletes a database with the named specified in config.json under the current node_env
 gulp.task('MigrateDB', (done) => {
   try {
-    return spawn(checkOS('sequelize'),  ['db:migrate'])
+    return spawn(ensureOS('sequelize'),  ['db:migrate'])
     .stderr.on('data', onError)
     .on('exit', () => { done(); });
   }
@@ -291,7 +292,7 @@ gulp.task('MigrateDB', (done) => {
 // deletes a database with the named specified in config.json under the current node_env
 gulp.task('SeedDB', (done) => {
   try {
-    return spawn(checkOS('sequelize'),  ['db:seed:all'])
+    return spawn(ensureOS('sequelize'),  ['db:seed:all'])
     .stderr.on('data', onError)
     .on('exit', () => { done(); });
   }

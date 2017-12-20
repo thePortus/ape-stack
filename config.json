@@ -7,25 +7,28 @@
   },
   "development": {
     "username": "postgres",
-    "password": "ylruc",
+    "password": "password",
     "database": "ape-dev",
     "port": 5432,
+    "appPort": 3000,
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "ylruc",
+    "password": "password",
     "database": "ape-test",
     "port": 5432,
+    "appPort": 3000,
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "ylruc",
+    "password": "password",
     "database": "ape-production",
     "port": 5432,
+    "appPort": 3000,
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
