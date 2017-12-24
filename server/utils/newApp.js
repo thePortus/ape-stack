@@ -1,11 +1,8 @@
 /**
- * /server/utils/config.js
- * @file
- *
- * This module returns a new express app, with initial configurations set.
- * Additional configurations will be called by /server/app.js which
- * use other modules within utils. This module, however, is the first and
- * creates the app object.
+ * @file /server/utils/newApp.js
+ * @module newApp
+ * @memberof server.utils
+ * @description Functions to create a new express app, with initial configurations set.
  */
 
 'use strict';
@@ -20,6 +17,11 @@ const express = require('express'),
 
 const assets = require('../../assets');
 
+/**
+ * Sets basic configuration for express app, including parsers, view engines, static dirs, and favicon
+ * @memberof server.utils.auth
+ * @return {}                 express app with initial configurations set
+ */
 const configApp = () => {
 
   /* app configuration */

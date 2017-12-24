@@ -1,37 +1,42 @@
 const chai = require('chai');
-const should = chai.should();
 
-const assets = require('../assets');
+// enable chai expect BDD
+const expect = chai.expect;
+
+// load test module
+const testModule = require('../assets');
 
 // ensure environment is set to test
 process.env.NODE_ENV = 'test';
 
-describe('Assets', () => {
+describe('utils', () => {
 
-    it('should create lists of js and css runtime assets', (done) => {
-      let testAssets = {
-        'runtimeJs': new assets.runtime('js').assets,
-        'runtimeCss': new assets.runtime('css').assets
-      };
-      // check that js assets is a non-empty array of strings
-      testAssets.runtimeJs.should.be.a('array');
-      should.equal(testAssets.runtimeJs.length > 0, true);
-      testAssets.runtimeJs[0].should.be.a('string');
-      // ensure that css assets are the same
-      testAssets.runtimeCss.should.be.a('array');
-      should.equal(testAssets.runtimeCss.length > 0, true);
-      testAssets.runtimeCss[0].should.be.a('string');
-      done();
-    });
+  describe('assets', () => {
 
-    it('should give a list of locale source patterns', (done) => {
-      let testAssets = new assets.locale().sources();
-      // must be an array with valid string in first position
-      testAssets.should.be.a('array');
-      testAssets[0].should.be.a('string');
-      // must match first item in localeSrc pattern specified in assets.js
-      testAssets[0].endsWith('angular-i18n/*.js').should.equal(true);
-      done();
-    });
+    describe('runtime', () => {
 
-});
+      describe('assets', () => {
+
+        it('should create a list of vendor and internal css assets', (done) => {
+          let testObj = new testModule.runtime('css').assets;
+          expect(testObj).to.be.a('array');
+          expect(testObj.length).to.be.above(0);
+          expect(testObj[0]).to.be.a('string');
+          done();
+        });
+
+        it('should create a list of vendor and internal js assets', (done) => {
+          let testObj = new testModule.runtime('js').assets;
+          expect(testObj).to.be.a('array');
+          expect(testObj.length).to.be.above(0);
+          expect(testObj[0]).to.be.a('string');
+          done();
+        });
+
+      }); // assets
+
+    }); // runtime
+
+  }); // assets
+
+}); // utils

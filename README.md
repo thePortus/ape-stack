@@ -5,10 +5,15 @@
 By [David J. Thomas](mailto:dave.a.base@gmail.com), [thePortus.com](http://thePortus.com)
 
 ## Prerequisites
-1. Install [nodejs 8+/npm](https://nodejs.org/en/)
-2. Install [PostgreSQL 9.x](https://www.postgresql.org/) or above
+* (Linux, OSX, or Windows) Install [nodejs 8.x/npm 5.x](https://nodejs.org/en/)
+* (Linux, OSX, or Windows) Install [PostgreSQL 9.x](https://www.postgresql.org/) or above
 
-## Installation
+If you encounter a fatal error when npm tries to install bcrypt, here are some possible solutions...
+* (Linux) Install gcc with your system  package manager, e.g. `sudo apt-get install gcc`
+* (Windows or OSX) Download and install [gcc binaries](https://gcc.gnu.org/install/binaries.html) for your system
+* (Windows Only) [Visual Studio Express](https://www.visualstudio.com/vs/visual-studio-express/) or any Visual Studio package with C++ compiler
+
+## Quick Installation
 
 ```bash
 # grab the repo and cd into the directory
@@ -28,6 +33,18 @@ npm start
 Now go to [http://localhost:3000](http://localhost:3000) in your browser to see the home page.
 
 To change the port, simply edit `bin/www`
+
+---
+
+## Full Installation
+
+```bash
+# TBD, directions for...
+# Setting ENV variables
+# Setting a postgres account
+# Adjusting assets & config.json, conf.js, travis.yml, and other config files
+# Various npm/gulp commands
+```
 
 ---
 

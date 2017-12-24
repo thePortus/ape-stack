@@ -1,11 +1,3 @@
-/**
- * /server/app.js
- * @file
- *
- * This is the main server file. It calls various util functions which
- * configure the application, and then it sets the base routes, which are
- * found in the routes subdir.
- */
 
 'use strict';
 

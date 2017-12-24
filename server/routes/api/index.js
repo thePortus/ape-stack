@@ -1,13 +1,3 @@
-/**
- * [/server/routes/api/v1/]
- * @file
- * Index for API routes. File reads dir names of all available API routes
- * and makes them available to any file that requires this module. Each folder
- * will be available in the property of this module matching their folder name
- *
- * e.g. subdir 'sample' would be require('this_module').sample
- */
-
 'use strict';
 
 const fs = require('fs'),

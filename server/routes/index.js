@@ -5,7 +5,8 @@ const express = require('express'),
 
 const router = express.Router();
 
-const assetsJson = require('../../assets.json');
+const assetsJson = require('../../assets.json'),
+  assets = require('../../utils').assets;
 
 /* Serve basic index page with assets determined by environment */
 router.get('/', (req, res, next) => {

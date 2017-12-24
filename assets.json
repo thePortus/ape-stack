@@ -7,9 +7,10 @@
         "vendor": "vendor",
 		"fonts": "fonts",
 		"locales": "locales",
-		"less": "less",
+		"js": "scripts",
+        "style": "style",
+        "less": "less",
         "css": "css",
-		"js": "js",
         "maps": "maps"
 	},
 	"localesSrc": [
@@ -44,7 +45,9 @@
         "fonts": "fonts.txt"
 	},
 	"source": {
-		"css": [],
+		"css": [
+            "style.css"
+        ],
 		"less": [
 			"main.less",
 			"userPanel.less",

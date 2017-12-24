@@ -9,7 +9,9 @@ let models = require('../models');
 // ensure environment is set to test
 process.env.NODE_ENV = 'test';
 
-describe('App', () => {
+describe('server', () => {
+
+  describe('app', () => {
 
     it('should connect to the DB', (done) => {
     models.sequelize.authenticate()
@@ -17,6 +19,8 @@ describe('App', () => {
         should.equal(err, undefined);
         done();
       });
-  });
+    });
 
-});
+  }); // app
+
+}); // server
