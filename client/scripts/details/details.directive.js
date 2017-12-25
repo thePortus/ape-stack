@@ -7,7 +7,7 @@
   /*Directive Definition*/
   function apeDetails() {
     var directive = {
-      templateUrl: 'js/details/details.template.html',
+      templateUrl: 'scripts/details/details.template.html',
       scope: {
         parameters: '=',
         datafactory: '='

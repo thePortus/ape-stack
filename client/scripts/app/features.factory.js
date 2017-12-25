@@ -16,7 +16,7 @@
       vm.features = [{
         'label': 'NodeJS',
         'caption': 'NodeJS: JavaScript runtime built on Chrome\'s V8 JavaScript engine',
-        'src': 'imgs/vendor_icons/nodejs.svg',
+        'src': 'media/imgs/vendor_icons/nodejs.svg',
         'link': 'https://nodejs.org/',
         'span': {
           'row': 1,
@@ -27,7 +27,7 @@
       },{
         'label': 'PostgreSQL',
         'caption': 'PostgreSQL: Open source database',
-        'src': 'imgs/vendor_icons/postgresql.svg',
+        'src': 'media/imgs/vendor_icons/postgresql.svg',
         'link': 'https://www.postgresql.org/',
         'span': {
           'row': 1,
@@ -37,7 +37,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Sequelize',
-        'src': 'imgs/vendor_icons/sequelize.svg',
+        'src': 'media/imgs/vendor_icons/sequelize.svg',
         'caption': 'Sequelize is a promise-based ORM for Node.js v4 and up',
         'link': 'http://docs.sequelizejs.com/',
         'span': {
@@ -48,7 +48,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Express',
-        'src': 'imgs/vendor_icons/express.svg',
+        'src': 'media/imgs/vendor_icons/express.svg',
         'caption': 'ExpressJS: Fast, unopinionated, minimalist web framework for Node.js',
         'link': 'https://expressjs.com/',
         'span': {
@@ -59,7 +59,7 @@
         'iconClass': 'featureLogoWide'
       },{
         'label': 'AngularJS',
-        'src': 'imgs/vendor_icons/angular.svg',
+        'src': 'media/imgs/vendor_icons/angular.svg',
         'caption': 'Angular JS: Superheroic JavaScript MVW Framework',
         'link': 'https://angularjs.org/',
         'span': {
@@ -70,7 +70,7 @@
         'iconClass': 'featureLogoWide'
       },{
         'label': 'PassportJS',
-        'src': 'imgs/vendor_icons/passport.svg',
+        'src': 'media/imgs/vendor_icons/passport.svg',
         'caption': 'Passport: Simple, unobtrusive authentication for Node.js',
         'link': 'http://passportjs.org/',
         'span': {
@@ -81,7 +81,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Yeoman',
-        'src': 'imgs/vendor_icons/yeoman.svg',
+        'src': 'media/imgs/vendor_icons/yeoman.svg',
         'caption': 'Yeoman Scaffolding Tool',
         'link': 'http://http://yeoman.io/',
         'span': {
@@ -92,7 +92,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Gulp',
-        'src': 'imgs/vendor_icons/gulp.svg',
+        'src': 'media/imgs/vendor_icons/gulp.svg',
         'caption': 'Gulp: an automation toolkit',
         'link': 'https://gulpjs.com/',
         'span': {
@@ -103,7 +103,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Protractor',
-        'src': 'imgs/vendor_icons/protractor.svg',
+        'src': 'media/imgs/vendor_icons/protractor.svg',
         'caption': 'Protractor: End to end testing for AngularJS',
         'link': 'http://www.protractortest.org/',
         'span': {
@@ -114,7 +114,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Mocha',
-        'src': 'imgs/vendor_icons/mocha.svg',
+        'src': 'media/imgs/vendor_icons/mocha.svg',
         'caption': 'Feature-Rich JavaScript test framework',
         'link': 'https://mochajs.org/',
         'span': {
@@ -125,7 +125,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Chai',
-        'src': 'imgs/vendor_icons/chai.svg',
+        'src': 'media/imgs/vendor_icons/chai.svg',
         'caption': 'Chai: An assertion library for NodeJS',
         'link': 'http://chaijs.com/',
         'span': {
@@ -136,7 +136,7 @@
         'iconClass': 'featureLogo'
       },{
         'label': 'Less',
-        'src': 'imgs/vendor_icons/less.svg',
+        'src': 'media/imgs/vendor_icons/less.svg',
         'caption': 'Less: CSS precompiler',
         'link': 'http://lesscss.org/',
         'span': {

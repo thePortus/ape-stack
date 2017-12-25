@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeProfile() {
     var directive = {
-      templateUrl: 'js/users/profile.template.html',
+      templateUrl: 'scripts/users/profile.template.html',
       scope: {},
       controller: apeProfileController,
       controllerAs: 'vm',

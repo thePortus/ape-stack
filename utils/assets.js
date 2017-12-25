@@ -96,8 +96,8 @@ class LocaleAssets extends AbstractAssets {
     // anon function wrapper for getter function
     return () => {
       let sources = [];
-      assets.localesSrc.forEach((localeSrc) => {
-        sources.push(path.join(root, assets.dirs.dependencies, localeSrc));
+      assets.vendor.locales.forEach((locale) => {
+        sources.push(path.join(root, assets.dirs.dependencies, locale));
       });
       return sources;
     };

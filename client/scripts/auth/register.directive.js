@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeRegister() {
     var directive = {
-      templateUrl: 'js/auth/register.template.html',
+      templateUrl: 'scripts/auth/register.template.html',
       scope: {},
       controller: apeRegisterController,
       controllerAs: 'vm',

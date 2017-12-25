@@ -20,10 +20,13 @@ module.exports = {
   styles() {
     // if in a testing or production env, only return minified css
     if (!utils.env.isDevEnv()) {
-      return [
-        path.join(assets.dirs.dist, 'lib.min.css'),
-        path.join(assets.dirs.dist, 'app.min.css')
-      ];
+      return {
+          'css': [
+            path.join(assets.dirs.dist, 'lib.min.css'),
+            path.join(assets.dirs.dist, 'app.min.css')
+          ],
+          'less': []
+      };
     }
     // build and append vendor css filepaths
     let vendorPaths = utils.paths.buildPaths(
@@ -42,9 +45,11 @@ module.exports = {
       assets.source.less,
       path.join(assets.dirs.styles, assets.dirs.less)
     );
-    console.log([...vendorPaths, ...internalCSSPaths, ...internalLessPaths]);
     // merge items of each list into single array and return
-    return [...vendorPaths, ...internalCSSPaths, ...internalLessPaths];
+    return {
+      'css': [...vendorPaths, ...internalCSSPaths],
+      'less': internalLessPaths
+    };
   }, // styes
 
   /**
@@ -71,7 +76,6 @@ module.exports = {
       assets.source.js,
       path.join(assets.dirs.scripts)
     );
-    console.log([...vendorPaths, ...internalPaths]);
     // merge items of each list into single array and return
     return [...vendorPaths, ...internalPaths];
   } // scripts

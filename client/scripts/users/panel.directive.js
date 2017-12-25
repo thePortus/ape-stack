@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeUserPanel() {
     var directive = {
-      templateUrl: 'js/users/panel.template.html',
+      templateUrl: 'scripts/users/panel.template.html',
       controller: apeUserPanelController,
       controllerAs: 'vm',
       bindToController: true // because the scope is isolated

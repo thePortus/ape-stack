@@ -7,7 +7,7 @@
   /*Directive Definition*/
   function apeTable() {
     var directive = {
-      templateUrl: 'js/table/table.template.html',
+      templateUrl: 'scripts/table/table.template.html',
       scope: {
         allowOptions: '=',
         datafactory: '=',

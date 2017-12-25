@@ -59,7 +59,7 @@
   function mdIconConfig($mdIconProvider) {
       $mdIconProvider
         .defaultFontSet('mdi')
-        .defaultIconSet('/imgs/mdi.svg');
+        .defaultIconSet('/media/imgs/mdi.svg');
   }
 
   /* Translation debaug mode */
@@ -80,7 +80,7 @@
     $translateProvider.useSanitizeValueStrategy('sanitize');
     // set translation file locations
     const staticLoader = $translateProvider.useStaticFilesLoader({
-      'prefix': 'js/app/resources/locale-',
+      'prefix': 'scripts/app/resources/locale-',
       'suffix': '.json'
     });
     translatePluggableLoaderProvider.useLoader(staticLoader);
@@ -98,31 +98,31 @@
       $stateProvider
         .state('home', {
           url: '/',
-          templateUrl: 'js/app/home.template.html',
+          templateUrl: 'scripts/app/home.template.html',
           controller: 'HomeCtrl',
           controllerAs: 'vm'
         })
         .state('login', {
           url: '/login',
-          templateUrl: 'js/app/login.template.html',
+          templateUrl: 'scripts/app/login.template.html',
           controller: 'LoginCtrl',
           controllerAs: 'vm'
         })
         .state('registration', {
           url: '/register',
-          templateUrl: 'js/app/registration.template.html',
+          templateUrl: 'scripts/app/registration.template.html',
           controller: 'RegistrationCtrl',
           controllerAs: 'vm'
         })
         .state('userlist', {
           url: '/userlist',
-          templateUrl: 'js/app/userList.template.html',
+          templateUrl: 'scripts/app/userList.template.html',
           controller: 'UserListCtrl',
           controllerAs: 'vm'
         })
         .state('account', {
           url: '/users',
-          templateUrl: 'js/app/account.template.html',
+          templateUrl: 'scripts/app/account.template.html',
           controller: 'AccountCtrl',
           controllerAs: 'vm'
         });/* leave me here: auto route addition */

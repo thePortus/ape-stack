@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeUserList() {
     var directive = {
-      templateUrl: 'js/users/list.template.html',
+      templateUrl: 'scripts/users/list.template.html',
       scope: {},
       controller: apeUserListController,
       controllerAs: 'vm',

@@ -7,7 +7,7 @@
   /*Directive Definition*/
   function apeLogin() {
     var directive = {
-      templateUrl: 'js/auth/login.template.html',
+      templateUrl: 'scripts/auth/login.template.html',
       scope: {
       },
       controller: apeLoginController,

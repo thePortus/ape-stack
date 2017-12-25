@@ -18,4 +18,9 @@ router.get('/', (req, res, next) => {
   res.render('index', { assets: runtimeAssets });
 });
 
+/* Error page example template, used for testing changes to error.ejs */
+router.get('/error', (req, res, next) => {
+  res.render('error', { error: { message: 'There is no error, this is merely a sample page.' } });
+});
+
 module.exports = router;

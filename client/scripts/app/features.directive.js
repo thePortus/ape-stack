@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeFeatures() {
     var directive = {
-      templateUrl: 'js/app/features.template.html',
+      templateUrl: 'scripts/app/features.template.html',
       scope: {},
       controller: apeFeaturesController,
       controllerAs: 'vm',

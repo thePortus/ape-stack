@@ -7,7 +7,7 @@
   /*Directive Definition*/
   function apeHeader() {
     var directive = {
-      templateUrl: 'js/common/header.template.html',
+      templateUrl: 'scripts/common/header.template.html',
       scope: {
         style: '=',
         content: '='

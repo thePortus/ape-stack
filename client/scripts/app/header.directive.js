@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeSiteHeader() {
     var directive = {
-      templateUrl: 'js/app/header.template.html',
+      templateUrl: 'scripts/app/header.template.html',
       scope: {},
       controller: apeSiteHeaderController,
       controllerAs: 'vm',

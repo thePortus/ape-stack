@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeLanguageSelect() {
     var directive = {
-      templateUrl: 'js/common/languageSelect.template.html',
+      templateUrl: 'scripts/common/languageSelect.template.html',
       scope: {},
       controller: apeLanguageSelectController,
       controllerAs: 'vm',

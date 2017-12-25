@@ -7,7 +7,7 @@
   /*Directive Definition*/
   function apeTableSearch() {
     var directive = {
-      templateUrl: 'js/table/search.template.html',
+      templateUrl: 'scripts/table/search.template.html',
       scope: {
         searchterm: '=',
         table: '='

@@ -8,7 +8,7 @@
   /*Directive Definition*/
   function apeUserStatus() {
     var directive = {
-      templateUrl: 'js/auth/toolbar.template.html',
+      templateUrl: 'scripts/auth/toolbar.template.html',
       scope: {},
       controller: apeUserStatusController,
       controllerAs: 'vm',

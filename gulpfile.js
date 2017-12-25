@@ -24,93 +24,109 @@ const assetsJson = require('./assets.json'),
 const assetsUtils = utils.assets,
   gulpUtils = utils.gulp;
 
+/* Common Functions */
+
+// returns cb function for gulp events, used to streamline common async events
+// usage... .on('error', onError(done))
+const onError = (done) => {
+  return (err) => { console.error(`${err}`); done(); };
+};
+
+const onExit = (done) => {
+  return () => { done(); };
+};
+
+/* End of Common Functions */
+
 // === SUBTASKS ===
 
 // Installs Sequelize, an ORM
 gulp.task('InstallSequelize', (done) => {
   return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'sequelize-cli@~2.7.0'])
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('exit', () => { done(); });
+    .on('error', onError(done))
+    .on('exit', onExit(done));
 });
 
 // Installs DocumentationJS, automatic documentation generator
 gulp.task('InstallDocumentationJS', (done) => {
   return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'documentation'])
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('exit', () => { done(); });
+    .on('error', onError(done))
+    .on('exit', onExit(done));
 });
 
 // Installs Mocha, testing framework for Node
 gulp.task('InstallMocha', (done) => {
   return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'mocha@~4.0.1'])
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('exit', () => { done(); });
+    .on('error', onError(done))
+    .on('exit', onExit(done));
 });
 
 // Installs Istanbul, a testing coverage library
 gulp.task('InstallIstanbul', (done) => {
   return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'nyc@>=11.2.1 <11.3'])
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('exit', () => { done(); });
+    .on('error', onError(done))
+    .on('exit', onExit(done));
 });
 
 // installs Protractor, testing framework for Angular
 gulp.task('InstallProtractor', (done) => {
   return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'protractor@~5.2.1'])
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('exit', () => { done(); });
+    .on('error', onError(done))
+    .on('exit', onExit(done));
 });
 
 // updates the Selenium web driver installed with protractor, used for testing
 gulp.task('UpdateSelenium', (done) => {
   return spawn('webdriver-manager', ['update'])
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('exit', () => { done(); });
+    .on('error', onError(done))
+    .on('exit', onExit(done));
 });
 
 // gathers all external js into the libraray css directory
 gulp.task('GatherVendorJS', (done) => {
   return gulp.src(new assetsUtils.collect('js').dependencies)
-    .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.js)))
-    .on('error', (err) => { console.error(`\n${err}`); return done(); })
-    .on('end', () => { done(); });
+    .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.scripts)))
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 // gathers all external css into the libraray css directory
 gulp.task('GatherVendorCSS', (done) => {
   return gulp.src(new assetsUtils.collect('css').dependencies)
     .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.css)))
-    .on('error', (err) => { console.error(`\n${err}`); return done(); })
-    .on('end', () => { done(); });
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 // gathers the individual i18n localization files
 gulp.task('GatherLocalization', (done) => {
   return gulp.src(new assetsUtils.locale().sources())
     .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.locales)))
-    .on('error', (err) => { console.error(`\n${err}`); return done(); })
-    .on('end', () => { done(); });
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 // installs google fonts and moves the resulting files into the static fonts directory
 gulp.task('GatherGoogleFonts', (done) => {
-  return gulp.src(path.join(__dirname, assetsJson.vendor.fonts))
+  const source = path.join(__dirname, assetsJson.vendor.fonts);
+  const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.css);
+  return gulp.src(source)
     .pipe(googleWebFonts({}))
-    .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.fonts)))
-    .on('error', (err) => { console.error(`\n${err}`); done(); })
-    .on('end', () => { done(); });
+    .pipe(gulp.dest(destination))
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 // run jshint internal source files
 gulp.task('JSHint', (done) => {
   // target development js source files
-  const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.js, '**/*.js');
+  const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.scripts, '**/*.js');
   // add error handler and reporter and run jshint
 	return gulp.src(target)
 		.pipe(jshint())
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
+      .on('error', onError(done))
 		.pipe(jshint.reporter('default'))
-      .on('end', () => { done(); });
+      .on('end', onExit(done));
 });
 
 // minifies and concatenates vendor style files
@@ -123,14 +139,14 @@ gulp.task('CompileVendorStyles', (done) => {
     .pipe(concat('lib.min.css'))
     .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
     .pipe(gulp.dest(destination))
-    .on('end', () => { done(); });
+      .on('end', onExit(done));
 });
 
 // minifies and concatenates vendor style files
 gulp.task('CompileInternalStyles', (done) => {
   const sources = [
-    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.style, assetsJson.dirs.css, '**/*.css'),
-    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.style, assetsJson.dirs.less, '**/*.less')
+    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.styles, assetsJson.dirs.css, '**/*.css'),
+    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.styles, assetsJson.dirs.less, '**/*.less')
   ];
   const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
   return gulp.src(sources)
@@ -139,14 +155,14 @@ gulp.task('CompileInternalStyles', (done) => {
     .pipe(concat('app.min.css'))
     .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
     .pipe(gulp.dest(destination))
-    .on('end', () => { done(); });
+      .on('end', onExit(done));
 });
 
 // concatenates and minifies vendor stylesheets and internal css and less
 gulp.task('CompileStyles', gulp.series('CompileVendorStyles', 'CompileInternalStyles'));
 
 gulp.task('CompileVendorScripts', (done) => {
-  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.js, '**/*.js');
+  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.scripts, '**/*.js');
   const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
   return gulp.src(sources)
     .pipe(sourcemaps.init())
@@ -155,11 +171,11 @@ gulp.task('CompileVendorScripts', (done) => {
     .pipe(concat('lib.min.js'))
     .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
     .pipe(gulp.dest(destination))
-    .on('end', () => { done(); });
+      .on('end', onExit(done));
 });
 
 gulp.task('CompileInternalScripts', (done) => {
-  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.js, '**/*.js');
+  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.scripts, '**/*.js');
   const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
   return gulp.src(sources)
     .pipe(sourcemaps.init())
@@ -168,7 +184,7 @@ gulp.task('CompileInternalScripts', (done) => {
     .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
     .pipe(gulp.dest(destination))
-    .on('end', () => { done(); });
+      .on('end', onExit(done));
 });
 
 gulp.task('CompileScripts', gulp.series('CompileVendorScripts', 'CompileInternalScripts'));
@@ -179,8 +195,8 @@ gulp.task('BuildDocsGeneral', (done) => {
   return gulp.src(sources)
     .pipe(gulpDocumentation('md'))
     .pipe(gulp.dest(destination))
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
-      .on('end', () => { done(); });
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 gulp.task('BuildDocsServer', (done) => {
@@ -189,8 +205,8 @@ gulp.task('BuildDocsServer', (done) => {
   return gulp.src(sources)
     .pipe(gulpDocumentation('md'))
     .pipe(gulp.dest(destination))
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
-      .on('end', () => { done(); });
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 gulp.task('BuildDocsClient', (done) => {
@@ -199,8 +215,8 @@ gulp.task('BuildDocsClient', (done) => {
   return gulp.src(sources)
     .pipe(gulpDocumentation('md'))
     .pipe(gulp.dest(destination))
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
-      .on('end', () => { done(); });
+      .on('error', onError(done))
+      .on('end', onExit(done));
 });
 
 // auto-generate markdown documentation from JSdoc code comments
@@ -246,8 +262,8 @@ gulp.task('CleanUpNPM', (done) => {
 gulp.task('CreateDB', (done) => {
   try {
     return spawn('createdb', [config[process.env.NODE_ENV || 'development'].database])
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
-      .on('exit', () => { done(); });
+      .on('error', onError(done))
+      .on('exit', onExit(done));
   }
   catch(err) {
     return done();
@@ -258,8 +274,8 @@ gulp.task('CreateDB', (done) => {
 gulp.task('DropDB', (done) => {
   try {
     return spawn('dropdb', [config[process.env.NODE_ENV || 'development'].database])
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
-      .on('exit', () => { done(); });
+      .on('error', onError(done))
+      .on('exit', onExit(done));
   }
   catch(err) {
     return done();
@@ -270,7 +286,7 @@ gulp.task('DropDB', (done) => {
 gulp.task('MigrateDB', (done) => {
   try {
     spawn('sequelize',  ['db:migrate'])
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
+      .on('error', onError(done))
       .on('exit', () => { return done(); });
   }
   catch(err) {
@@ -282,8 +298,8 @@ gulp.task('MigrateDB', (done) => {
 gulp.task('SeedDB', (done) => {
   try {
     return spawn('sequelize',  ['db:seed:all'])
-      .on('error', (err) => { console.error(`\n${err}`); return done(); })
-      .on('exit', () => { done(); });
+      .on('error', onError(done))
+      .on('exit', onExit(done));
   }
   catch(err) {
     return done();

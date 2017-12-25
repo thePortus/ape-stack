@@ -34,7 +34,7 @@ const configApp = () => {
   }));
 
   // enable favorite icon
-  app.use(favicon(path.join(__dirname, '..', '..', 'client', 'imgs', 'favicon.ico')));
+  app.use(favicon(path.join(__dirname, '..', '..', 'client', 'media', 'imgs', 'favicon.ico')));
 
   // set logging if in development environment
   if (process.env.NODE_ENV === 'development') {
