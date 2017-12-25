@@ -17,10 +17,10 @@ const path = require('path'),
   sourcemaps = require('gulp-sourcemaps'),
   spawn = require('child_process').spawn;
 
-const assetsJson = require(path.join(__dirname, 'assets.json')),
-  config = require(path.join(__dirname, 'config.json'));
+const assetsJson = require('./assets.json'),
+  config = require('./config.json'),
+  utils = require('./utils');
 
-const utils = require(path.join(__dirname, 'utils'));
 const assetsUtils = utils.assets,
   gulpUtils = utils.gulp;
 

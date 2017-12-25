@@ -93,11 +93,14 @@ class LocaleAssets extends AbstractAssets {
    * @returns {string[]}  system paths
    */
   get sources() {
-    let sources = [];
-    assets.localesSrc.forEach((localeSrc) => {
-      sources.push(path.join(root, assets.dirs.dependencies, localeSrc));
-    });
-    return sources;
+    // anon function wrapper for getter function
+    return () => {
+      let sources = [];
+      assets.localesSrc.forEach((localeSrc) => {
+        sources.push(path.join(root, assets.dirs.dependencies, localeSrc));
+      });
+      return sources;
+    };
   }
 
 } // LocaleAssets
