@@ -13,3 +13,27 @@
         </div>
     </body>
 </html>
+
+<!DOCTYPE html>
+<html ng-app="ape.app">
+    <head>
+        <title>APE-Stack Server</title>
+        <meta name="viewport" content="width=device-width", initial-scale=1.0 />
+        <link rel="stylesheet" href="/fonts/fonts.css" />
+        <!-- Vendor and internal stylesheets -->
+        <% assets.styles.forEach((asset) => { %><link rel="stylesheet" href="<%= asset %>">
+        <% }) %>
+    </head>
+    <body ng-controller="mainController as vm" layout-fill>
+        <div>
+            <h1>APE-Stack Server</h1>
+            <div>Fatal Server Error Encountered:</div>
+            <div>
+                <%= error.message %>
+            </div>
+        </div>
+        <!-- Vendor and internal scripts -->
+        <% assets.scripts.forEach((asset) => { %><script type="text/javascript" src="<%= asset %>"></script>
+        <% }) %>
+    </body>
+</html>

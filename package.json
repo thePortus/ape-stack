@@ -57,8 +57,7 @@
     "clean": "gulp Clean",
     "remove": "gulp Remove",
     "reset": "gulp Remove && gulp",
-    "build_docs": "gulp BuildDocumentation",
-    "serve_docs": "gulp ServeDocumentation"
+    "build_docs": "gulp BuildDocs"
   },
   "dependencies": {
     "@uirouter/angularjs": "~1.0.5",
@@ -84,6 +83,7 @@
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
+    "documentation": "^5.3.5",
     "ejs": "~2.5.7",
     "express": "~4.15.2",
     "glob": "^7.1.2",
@@ -92,6 +92,7 @@
     "gulp-clean": "~0.3.2",
     "gulp-clean-css": "^3.9.0",
     "gulp-concat": "~2.6.1",
+    "gulp-documentation": "^3.2.1",
     "gulp-google-webfonts": "~0.0.14",
     "gulp-jshint": "~2.0.4",
     "gulp-less": "~3.3.2",
@@ -119,8 +120,6 @@
     "chai-as-promised": "~7.1.1",
     "chai-http": "~3.0.0",
     "coveralls": "^3.0.0",
-    "documentation": "^5.3.5",
-    "gulp-documentation": "^3.2.1",
     "lru-cache": "~4.1.1",
     "process-nextick-args": "~1.0.7",
     "sigmund": "~1.0.1",
