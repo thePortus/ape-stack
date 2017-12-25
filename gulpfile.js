@@ -165,7 +165,7 @@ gulp.task('CompileInternalScripts', (done) => {
     .pipe(sourcemaps.init())
     .pipe(babel({presets: ['es2015']}))
     .pipe(uglify())
-    .pipe(concat('lib.min.js'))
+    .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
     .pipe(gulp.dest(destination))
     .on('end', () => { done(); });
