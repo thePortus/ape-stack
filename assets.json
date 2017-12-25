@@ -4,11 +4,9 @@
 		"static": "client",
 		"lib": "lib",
 		"dist": "dist",
-        "vendor": "vendor",
-		"fonts": "fonts",
 		"locales": "locales",
 		"js": "scripts",
-        "style": "style",
+        "styles": "styles",
         "less": "less",
         "css": "css",
         "maps": "maps"
