@@ -42,6 +42,7 @@ module.exports = {
       assets.source.less,
       path.join(assets.dirs.styles, assets.dirs.less)
     );
+    console.log([...vendorPaths, ...internalCSSPaths, ...internalLessPaths]);
     // merge items of each list into single array and return
     return [...vendorPaths, ...internalCSSPaths, ...internalLessPaths];
   }, // styes
@@ -70,6 +71,7 @@ module.exports = {
       assets.source.js,
       path.join(assets.dirs.scripts)
     );
+    console.log([...vendorPaths, ...internalPaths]);
     // merge items of each list into single array and return
     return [...vendorPaths, ...internalPaths];
   } // scripts
