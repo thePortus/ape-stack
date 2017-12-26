@@ -1,0 +1,3 @@
+# Tab-delimeted format
+Oswald	400,700	latin,latin-ext
+Roboto  500,500 italic,subset=greek

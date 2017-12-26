@@ -21,21 +21,7 @@ const utils = require('./utils'),
   assets = require('./assets.json'),
   config = require('./config.json');
 
-/* Common Functions */
-
-// returns cb function for gulp events, used to streamline common async events
-// usage... .on('error', utils.gulp.onError(done))
-const onError = (done) => {
-  return (err) => { console.error(`${err}`); done(); };
-};
-
-const onExit = (done) => {
-  return () => { done(); };
-};
-
-/* End of Common Functions */
-
-// === SUBTASKS ===
+/* === SUBTASKS === */
 
 gulp.task('InstallGlobals', gulp.series(
   utils.gulp.defineSpawnTask('InstallGlobals - Sequelize', 'npm', ['install', '-g', 'sequelize-cli@~2.7.0']),
@@ -46,30 +32,6 @@ gulp.task('InstallGlobals', gulp.series(
   utils.gulp.defineSpawnTask('InstallGlobals - Selenium', 'webdriver-manager', ['update'])
 ));
 
-// gathers all external js into the libraray css directory
-gulp.task('GatherVendorJS', (done) => {
-  return gulp.src(new utils.assets.collect('js').dependencies)
-    .pipe(gulp.dest(path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.scripts)))
-      .on('error', utils.gulp.onError(done))
-      .on('end', onExit(done));
-});
-
-// gathers all external css into the libraray css directory
-gulp.task('GatherVendorCSS', (done) => {
-  return gulp.src(new utils.assets.collect('css').dependencies)
-    .pipe(gulp.dest(path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.css)))
-      .on('error', utils.gulp.onError(done))
-      .on('end', onExit(done));
-});
-
-// gathers the individual i18n localization files
-gulp.task('GatherLocalization', (done) => {
-  return gulp.src(new utils.assets.locale().sources())
-    .pipe(gulp.dest(path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.locales)))
-      .on('error', utils.gulp.onError(done))
-      .on('end', onExit(done));
-});
-
 // installs google fonts and moves the resulting files into the static fonts directory
 gulp.task('GatherGoogleFonts', (done) => {
   const source = path.join(__dirname, assets.vendor.fonts);
@@ -78,8 +40,28 @@ gulp.task('GatherGoogleFonts', (done) => {
     .pipe(googleWebFonts({}))
     .pipe(gulp.dest(destination))
       .on('error', utils.gulp.onError(done))
-      .on('end', onExit(done));
+      .on('end', utils.gulp.onExit(done));
 });
+
+// gathers all external static files
+gulp.task('GatherStatic', gulp.series(
+  utils.gulp.defineCopyTask(
+    'GatherStatic - Vendor JS',
+    new utils.assets.collect('js').dependencies,
+    path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.scripts)
+  ),
+  utils.gulp.defineCopyTask(
+    'GatherStatic - Vendor CSS',
+    new utils.assets.collect('css').dependencies,
+    path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.css)
+  ),
+  utils.gulp.defineCopyTask(
+    'GatherStatic - i18n Localization',
+    new utils.assets.locale().sources(),
+    path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.locales)
+  ),
+  'GatherGoogleFonts'
+));
 
 // run jshint internal source files
 gulp.task('JSHint', (done) => {
@@ -90,7 +72,7 @@ gulp.task('JSHint', (done) => {
 		.pipe(jshint())
       .on('error', utils.gulp.onError(done))
 		.pipe(jshint.reporter('default'))
-      .on('end', onExit(done));
+      .on('end', utils.gulp.onExit(done));
 });
 
 // minifies and concatenates vendor style files
@@ -103,7 +85,7 @@ gulp.task('CompileVendorStyles', (done) => {
     .pipe(concat('lib.min.css'))
     .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
-      .on('end', onExit(done));
+      .on('end', utils.gulp.onExit(done));
 });
 
 // minifies and concatenates vendor style files
@@ -119,7 +101,7 @@ gulp.task('CompileInternalStyles', (done) => {
     .pipe(concat('app.min.css'))
     .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
-      .on('end', onExit(done));
+      .on('end', utils.gulp.onExit(done));
 });
 
 // concatenates and minifies vendor stylesheets and internal css and less
@@ -135,7 +117,7 @@ gulp.task('CompileVendorScripts', (done) => {
     .pipe(concat('lib.min.js'))
     .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
-      .on('end', onExit(done));
+      .on('end', utils.gulp.onExit(done));
 });
 
 gulp.task('CompileInternalScripts', (done) => {
@@ -148,7 +130,7 @@ gulp.task('CompileInternalScripts', (done) => {
     .pipe(concat('app.min.js'))
     .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
-      .on('end', onExit(done));
+      .on('end', utils.gulp.onExit(done));
 });
 
 gulp.task('CompileScripts', gulp.series('CompileVendorScripts', 'CompileInternalScripts'));
@@ -160,19 +142,15 @@ gulp.task('BuildDocs', gulp.series(
   utils.gulp.defineDocsTask('BuildDocs - Client', path.join(__dirname, assets.dirs.static, assets.dirs.scripts, '**/*.js'), 'client.md')
 ));
 
-// removes Istanbul's coverage output folder
-gulp.task('CleanUpCoverage', (done) => {
-  const target = path.join(__dirname, 'coverage');
-  utils.gulp.cleanupDir(target);
-  done();
-});
+// removes coverage and .nyc_output folders
+gulp.task('Cleanup - Testing Output', gulp.series(
+    utils.gulp.defineCleanupTask('Cleanup - Coverage Files', path.join(__dirname, 'coverage'), true),
+    utils.gulp.defineCleanupTask('Cleanup - Istanbul Files', path.join(__dirname, '.nyc_output'), true)
+));
 
-// removes Istanbul's hidden output folder
-gulp.task('CleanUpIstanbul', (done) => {
-  const target = path.join(__dirname, '.nyc_output');
-  utils.gulp.cleanupDir(target);
-  done();
-});
+gulp.task('CleanupTest', gulp.series(
+    'Cleanup - Testing Output'
+));
 
 // removes all extenal vendor files from the static library
 gulp.task('CleanUpLibrary', (done) => {
@@ -196,72 +174,32 @@ gulp.task('CleanUpNPM', (done) => {
   done();
 });
 
-// creates a database with the named specified in config.json under the current node_env
-gulp.task('CreateDB', (done) => {
-  try {
-    return spawn('createdb', [config[process.env.NODE_ENV || 'development'].database])
-      .on('error', utils.gulp.onError(done))
-      .on('exit', onExit(done));
-  }
-  catch(err) {
-    return done();
-  }
-});
+// creates a new db, migrates models and seeds the database to install state
+gulp.task('SetupDB', gulp.series(
+  utils.gulp.defineSpawnTask('SetupDB - Create Database', 'createdb', [config[process.env.NODE_ENV || 'development'].database]),
+  utils.gulp.defineSpawnTask('SetupDB - Migrate Models', 'sequelize', ['db:migrate']),
+  utils.gulp.defineSpawnTask('SetupDB - Seed Data', 'sequelize', ['db:seed:all'])
+));
 
 // deletes a database with the named specified in config.json under the current node_env
-gulp.task('DropDB', (done) => {
-  try {
-    return spawn('dropdb', [config[process.env.NODE_ENV || 'development'].database])
-      .on('error', utils.gulp.onError(done))
-      .on('exit', onExit(done));
-  }
-  catch(err) {
-    return done();
-  }
-});
+gulp.task('DropDB', gulp.series(
+  utils.gulp.defineSpawnTask('ResetDB - Drop Database', 'dropdb', [config[process.env.NODE_ENV || 'development'].database])
+));
 
-// deletes a database with the named specified in config.json under the current node_env
-gulp.task('MigrateDB', (done) => {
-  try {
-    spawn('sequelize',  ['db:migrate'])
-      .on('error', utils.gulp.onError(done))
-      .on('exit', () => { return done(); });
-  }
-  catch(err) {
-    return done();
-  }
-});
+// drops current database, creates a new one, migrates models and seeds the database to install state
+gulp.task('ResetDB', gulp.series(
+  'DropDB',
+  'SetupDB'
+));
 
-// deletes a database with the named specified in config.json under the current node_env
-gulp.task('SeedDB', (done) => {
-  try {
-    return spawn('sequelize',  ['db:seed:all'])
-      .on('error', utils.gulp.onError(done))
-      .on('exit', onExit(done));
-  }
-  catch(err) {
-    return done();
-  }
-});
-
-// === END SUBTASKS ===
+/* === END SUBTASKS === */
 
 // === COMPONENT TASKS ===
-//
-// gathers all vendor static packages
-gulp.task('GatherStatic', gulp.series('GatherVendorJS', 'GatherVendorCSS', 'GatherLocalization', 'GatherGoogleFonts'));
-
 // compiles source style and script files for production
 gulp.task('Compile', gulp.series('CompileStyles', 'CompileScripts', 'BuildDocs'));
 
 // uninstalls all non raw project files, removes the dist, lib, node_modules, coverage, and  .nyc_output directories
-gulp.task('Clean', gulp.series('CleanUpCoverage', 'CleanUpIstanbul', 'CleanUpLibrary', 'CleanUpDistribution', 'CleanUpNPM'));
-
-// creates a new db, migrates models and seeds the database to install state
-gulp.task('SetupDB', gulp.series('CreateDB', 'MigrateDB', 'SeedDB'));
-
-// drops current database, creates a new one, migrates models and seeds the database to install state
-gulp.task('ResetDB', gulp.series('DropDB', 'SetupDB'));
+gulp.task('Clean', gulp.series('CleanUpLibrary', 'CleanUpDistribution', 'CleanUpNPM'));
 
 // === END COMPONENT TASKS ===
 
