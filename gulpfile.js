@@ -17,17 +17,14 @@ const path = require('path'),
   sourcemaps = require('gulp-sourcemaps'),
   spawn = require('child_process').spawn;
 
-const assetsJson = require('./assets.json'),
-  config = require('./config.json'),
-  utils = require('./utils');
-
-const assetsUtils = utils.assets,
-  gulpUtils = utils.gulp;
+const utils = require('./utils'),
+  assets = require('./assets.json'),
+  config = require('./config.json');
 
 /* Common Functions */
 
 // returns cb function for gulp events, used to streamline common async events
-// usage... .on('error', onError(done))
+// usage... .on('error', utils.gulp.onError(done))
 const onError = (done) => {
   return (err) => { console.error(`${err}`); done(); };
 };
@@ -40,104 +37,71 @@ const onExit = (done) => {
 
 // === SUBTASKS ===
 
-// Installs Sequelize, an ORM
-gulp.task('InstallSequelize', (done) => {
-  return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'sequelize-cli@~2.7.0'])
-    .on('error', onError(done))
-    .on('exit', onExit(done));
-});
-
-// Installs DocumentationJS, automatic documentation generator
-gulp.task('InstallDocumentationJS', (done) => {
-  return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'documentation'])
-    .on('error', onError(done))
-    .on('exit', onExit(done));
-});
-
-// Installs Mocha, testing framework for Node
-gulp.task('InstallMocha', (done) => {
-  return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'mocha@~4.0.1'])
-    .on('error', onError(done))
-    .on('exit', onExit(done));
-});
-
-// Installs Istanbul, a testing coverage library
-gulp.task('InstallIstanbul', (done) => {
-  return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'nyc@>=11.2.1 <11.3'])
-    .on('error', onError(done))
-    .on('exit', onExit(done));
-});
-
-// installs Protractor, testing framework for Angular
-gulp.task('InstallProtractor', (done) => {
-  return spawn(gulpUtils.ensureOS('npm'), ['install', '-g', 'protractor@~5.2.1'])
-    .on('error', onError(done))
-    .on('exit', onExit(done));
-});
-
-// updates the Selenium web driver installed with protractor, used for testing
-gulp.task('UpdateSelenium', (done) => {
-  return spawn('webdriver-manager', ['update'])
-    .on('error', onError(done))
-    .on('exit', onExit(done));
-});
+gulp.task('InstallGlobals', gulp.series(
+  utils.gulp.defineSpawnTask('InstallGlobals - Sequelize', 'npm', ['install', '-g', 'sequelize-cli@~2.7.0']),
+  utils.gulp.defineSpawnTask('InstallGlobals - DocumentationJS', 'npm', ['install', '-g', 'documentation']),
+  utils.gulp.defineSpawnTask('InstallGlobals - Mocha', 'npm', ['install', '-g', 'mocha@~4.0.1']),
+  utils.gulp.defineSpawnTask('InstallGlobals - Instanbul', 'npm', ['install', '-g', 'nyc@>=11.2.1 <11.3']),
+  utils.gulp.defineSpawnTask('InstallGlobals - Protractor', 'npm', ['install', '-g', 'protractor@~5.2.1']),
+  utils.gulp.defineSpawnTask('InstallGlobals - Selenium', 'webdriver-manager', ['update'])
+));
 
 // gathers all external js into the libraray css directory
 gulp.task('GatherVendorJS', (done) => {
-  return gulp.src(new assetsUtils.collect('js').dependencies)
-    .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.scripts)))
-      .on('error', onError(done))
+  return gulp.src(new utils.assets.collect('js').dependencies)
+    .pipe(gulp.dest(path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.scripts)))
+      .on('error', utils.gulp.onError(done))
       .on('end', onExit(done));
 });
 
 // gathers all external css into the libraray css directory
 gulp.task('GatherVendorCSS', (done) => {
-  return gulp.src(new assetsUtils.collect('css').dependencies)
-    .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.css)))
-      .on('error', onError(done))
+  return gulp.src(new utils.assets.collect('css').dependencies)
+    .pipe(gulp.dest(path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.css)))
+      .on('error', utils.gulp.onError(done))
       .on('end', onExit(done));
 });
 
 // gathers the individual i18n localization files
 gulp.task('GatherLocalization', (done) => {
-  return gulp.src(new assetsUtils.locale().sources())
-    .pipe(gulp.dest(path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.locales)))
-      .on('error', onError(done))
+  return gulp.src(new utils.assets.locale().sources())
+    .pipe(gulp.dest(path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.locales)))
+      .on('error', utils.gulp.onError(done))
       .on('end', onExit(done));
 });
 
 // installs google fonts and moves the resulting files into the static fonts directory
 gulp.task('GatherGoogleFonts', (done) => {
-  const source = path.join(__dirname, assetsJson.vendor.fonts);
-  const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.css);
+  const source = path.join(__dirname, assets.vendor.fonts);
+  const destination = path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.css);
   return gulp.src(source)
     .pipe(googleWebFonts({}))
     .pipe(gulp.dest(destination))
-      .on('error', onError(done))
+      .on('error', utils.gulp.onError(done))
       .on('end', onExit(done));
 });
 
 // run jshint internal source files
 gulp.task('JSHint', (done) => {
   // target development js source files
-  const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.scripts, '**/*.js');
+  const target = path.join(__dirname, assets.dirs.static, assets.dirs.scripts, '**/*.js');
   // add error handler and reporter and run jshint
 	return gulp.src(target)
 		.pipe(jshint())
-      .on('error', onError(done))
+      .on('error', utils.gulp.onError(done))
 		.pipe(jshint.reporter('default'))
       .on('end', onExit(done));
 });
 
 // minifies and concatenates vendor style files
 gulp.task('CompileVendorStyles', (done) => {
-  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.css, '**/*.css');
-  const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
+  const sources = path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.css, '**/*.css');
+  const destination = path.join(__dirname, assets.dirs.static, assets.dirs.dist);
   return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(cleanCSS())
     .pipe(concat('lib.min.css'))
-    .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
+    .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
       .on('end', onExit(done));
 });
@@ -145,15 +109,15 @@ gulp.task('CompileVendorStyles', (done) => {
 // minifies and concatenates vendor style files
 gulp.task('CompileInternalStyles', (done) => {
   const sources = [
-    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.styles, assetsJson.dirs.css, '**/*.css'),
-    path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.styles, assetsJson.dirs.less, '**/*.less')
+    path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.styles, assets.dirs.css, '**/*.css'),
+    path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.styles, assets.dirs.less, '**/*.less')
   ];
-  const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
+  const destination = path.join(__dirname, assets.dirs.static, assets.dirs.dist);
   return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(cleanCSS())
     .pipe(concat('app.min.css'))
-    .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
+    .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
       .on('end', onExit(done));
 });
@@ -162,99 +126,73 @@ gulp.task('CompileInternalStyles', (done) => {
 gulp.task('CompileStyles', gulp.series('CompileVendorStyles', 'CompileInternalStyles'));
 
 gulp.task('CompileVendorScripts', (done) => {
-  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.scripts, '**/*.js');
-  const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
+  const sources = path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.scripts, '**/*.js');
+  const destination = path.join(__dirname, assets.dirs.static, assets.dirs.dist);
   return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(babel({presets: ['es2015']}))
     .pipe(uglify())
     .pipe(concat('lib.min.js'))
-    .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
+    .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
       .on('end', onExit(done));
 });
 
 gulp.task('CompileInternalScripts', (done) => {
-  const sources = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib, assetsJson.dirs.scripts, '**/*.js');
-  const destination = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
+  const sources = path.join(__dirname, assets.dirs.static, assets.dirs.lib, assets.dirs.scripts, '**/*.js');
+  const destination = path.join(__dirname, assets.dirs.static, assets.dirs.dist);
   return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(babel({presets: ['es2015']}))
     .pipe(uglify())
     .pipe(concat('app.min.js'))
-    .pipe(sourcemaps.write(path.join(destination, assetsJson.dirs.maps)))
+    .pipe(sourcemaps.write(path.join(destination, assets.dirs.maps)))
     .pipe(gulp.dest(destination))
       .on('end', onExit(done));
 });
 
 gulp.task('CompileScripts', gulp.series('CompileVendorScripts', 'CompileInternalScripts'));
 
-gulp.task('BuildDocsGeneral', (done) => {
-  const sources = path.join(__dirname, 'utils', '**/*.js');
-  const destination = path.join(__dirname, 'docs', 'docs', 'general');
-  return gulp.src(sources)
-    .pipe(gulpDocumentation('md'))
-    .pipe(gulp.dest(destination))
-      .on('error', onError(done))
-      .on('end', onExit(done));
-});
-
-gulp.task('BuildDocsServer', (done) => {
-  const sources = path.join(__dirname, 'server', '**/*.js');
-  const destination = path.join(__dirname, 'docs', 'docs', 'server');
-  return gulp.src(sources)
-    .pipe(gulpDocumentation('md'))
-    .pipe(gulp.dest(destination))
-      .on('error', onError(done))
-      .on('end', onExit(done));
-});
-
-gulp.task('BuildDocsClient', (done) => {
-  const sources = path.join(__dirname, 'client', 'js', '**/*.js');
-  const destination = path.join(__dirname, 'docs', 'docs', 'client');
-  return gulp.src(sources)
-    .pipe(gulpDocumentation('md'))
-    .pipe(gulp.dest(destination))
-      .on('error', onError(done))
-      .on('end', onExit(done));
-});
-
-// auto-generate markdown documentation from JSdoc code comments
-gulp.task('BuildDocs', gulp.series('BuildDocsGeneral', 'BuildDocsServer', 'BuildDocsClient'));
+// dynamically define gulp tasks to build different documentation segments
+gulp.task('BuildDocs', gulp.series(
+  utils.gulp.defineDocsTask('BuildDocs - Utilities', path.join(__dirname, 'utils', '**/*.js'), 'utilities.md'),
+  utils.gulp.defineDocsTask('BuildDocs - Server', path.join(__dirname, 'server', '**/*.js'), 'server.md'),
+  utils.gulp.defineDocsTask('BuildDocs - Client', path.join(__dirname, assets.dirs.static, assets.dirs.scripts, '**/*.js'), 'client.md')
+));
 
 // removes Istanbul's coverage output folder
 gulp.task('CleanUpCoverage', (done) => {
   const target = path.join(__dirname, 'coverage');
-  gulpUtils.cleanupDir(target);
+  utils.gulp.cleanupDir(target);
   done();
 });
 
 // removes Istanbul's hidden output folder
 gulp.task('CleanUpIstanbul', (done) => {
   const target = path.join(__dirname, '.nyc_output');
-  gulpUtils.cleanupDir(target);
+  utils.gulp.cleanupDir(target);
   done();
 });
 
 // removes all extenal vendor files from the static library
 gulp.task('CleanUpLibrary', (done) => {
-  const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.lib);
-  gulpUtils.cleanupDir(target);
+  const target = path.join(__dirname, assets.dirs.static, assets.dirs.lib);
+  utils.gulp.cleanupDir(target);
   done();
 
 });
 
 // removes all files minified and compiled for distribution
 gulp.task('CleanUpDistribution', (done) => {
-  const target = path.join(__dirname, assetsJson.dirs.static, assetsJson.dirs.dist);
-  gulpUtils.cleanupDir(target);
+  const target = path.join(__dirname, assets.dirs.static, assets.dirs.dist);
+  utils.gulp.cleanupDir(target);
   done();
 });
 
 // removes all npm packages, usually stores in the node_modules directory
 gulp.task('CleanUpNPM', (done) => {
-  const target = path.join(__dirname, assetsJson.dirs.dependencies);
-  gulpUtils.cleanupDir(target);
+  const target = path.join(__dirname, assets.dirs.dependencies);
+  utils.gulp.cleanupDir(target);
   done();
 });
 
@@ -262,7 +200,7 @@ gulp.task('CleanUpNPM', (done) => {
 gulp.task('CreateDB', (done) => {
   try {
     return spawn('createdb', [config[process.env.NODE_ENV || 'development'].database])
-      .on('error', onError(done))
+      .on('error', utils.gulp.onError(done))
       .on('exit', onExit(done));
   }
   catch(err) {
@@ -274,7 +212,7 @@ gulp.task('CreateDB', (done) => {
 gulp.task('DropDB', (done) => {
   try {
     return spawn('dropdb', [config[process.env.NODE_ENV || 'development'].database])
-      .on('error', onError(done))
+      .on('error', utils.gulp.onError(done))
       .on('exit', onExit(done));
   }
   catch(err) {
@@ -286,7 +224,7 @@ gulp.task('DropDB', (done) => {
 gulp.task('MigrateDB', (done) => {
   try {
     spawn('sequelize',  ['db:migrate'])
-      .on('error', onError(done))
+      .on('error', utils.gulp.onError(done))
       .on('exit', () => { return done(); });
   }
   catch(err) {
@@ -298,7 +236,7 @@ gulp.task('MigrateDB', (done) => {
 gulp.task('SeedDB', (done) => {
   try {
     return spawn('sequelize',  ['db:seed:all'])
-      .on('error', onError(done))
+      .on('error', utils.gulp.onError(done))
       .on('exit', onExit(done));
   }
   catch(err) {
@@ -309,10 +247,7 @@ gulp.task('SeedDB', (done) => {
 // === END SUBTASKS ===
 
 // === COMPONENT TASKS ===
-
-// installs all necessary global npm packages
-gulp.task('InstallGlobals', gulp.series('InstallSequelize', 'InstallDocumentationJS', 'InstallMocha', 'InstallIstanbul', 'InstallProtractor', 'UpdateSelenium'));
-
+//
 // gathers all vendor static packages
 gulp.task('GatherStatic', gulp.series('GatherVendorJS', 'GatherVendorCSS', 'GatherLocalization', 'GatherGoogleFonts'));
 
@@ -339,7 +274,7 @@ gulp.task('SetupDev', gulp.series('InstallGlobals', 'GatherStatic', 'SetupDB'));
 gulp.task('SetupProduction', gulp.series('SetupDev', 'JSHint', 'Compile'));
 
 // Rebuild whenever project file is modified
-gulp.task('Watch', () => { gulp.watch(assetsJson, gulp.series('Compile'));});
+gulp.task('Watch', () => { gulp.watch(assets, gulp.series('Compile'));});
 
 // resets to pre-install state, with only repo files left
 // drops the database, deletes npm modules, libraries, and build files

@@ -23,9 +23,9 @@ module.exports = {
   /**
    * Determines if the object passed is iterable (e.g. array) or not
    * @memberof  utils.paths
-   * @param     {*}               object        Any object
-   * @return    {bolean}                        True if object is iterable
-   * @throws                                    Throws error if object doesn't exist
+   * @param     {*}               object        any object
+   * @return    {bolean}                        true if object is iterable
+   * @throws    {Error}                         if object does not exist
    */
   isIterable(object) {
     return typeof(object[Symbol.iterator]) === 'function';
@@ -35,11 +35,11 @@ module.exports = {
    * Checks if an iterable objects contains only items of a specified type (e.g. 'string')
    * (shallow search only)
    * @memberof utils.paths
-   * @param     {*[]}             object        Iterable object whose contents will be checked
-   * @param     {string}          typeof        Specifies type of variables inside object
-   * @return    {boolean}                       True if every item
-   * @throws                                    Throws error if non iterable object passed
-   * @throws                                    Throws error if type is unspecified or a non-string
+   * @param     {*[]}             object        iterable object whose contents will be checked
+   * @param     {string}          typeof        specifies type of variables inside object
+   * @return    {boolean}                       true if every item
+   * @throws    {Error}                         if non iterable object passed
+   * @throws    {Error}                         if type is unspecified or a non-string
    */
   iterableOnlyContainsType(object, type) {
     // ensure iterable object passed and type is a valid string
@@ -58,9 +58,9 @@ module.exports = {
    * Gets a list of full paths and returns a list of each basename.
    * Useful for getting filenames or lowest level subdirectories
    * @memberof  utils.paths
-   * @param     {string[]}        paths         Partial or full system paths
-   * @return    {string[]}                      File and/or folder names
-   * @throws                                    Throws error if paths is non-interable
+   * @param     {string[]}        paths         partial or full system paths
+   * @return    {string[]}                      file and/or folder names
+   * @throws    {Error}                         if paths is non-interable
    */
   basenamesFromPaths(paths) {
     let basenames = [];
@@ -78,13 +78,13 @@ module.exports = {
    * Prepends and appends a list of paths with a prefix and/or suffix.
    * To use with suffix but no prefix, send undefined or '' any non-string value for prefix.
    * @memberof  utils.paths
-   * @param     {string[]}        paths         List of partial paths
-   * @param     {string|string[]} [prefix]      Partial path to prepend (optional)
-   * @param     {string|string[]} [suffix]      Partial path to append (optional)
-   * @return    {string[]}                      Full paths
-   * @throws                                    Throws error if paths is non-interable
-   * @throws                                    Throws error if any item in paths is a non-string
-   * @throws                                    Throws error if prefix/suffix is extant but not a string or list of string elements
+   * @param     {string[]}        paths         list of partial paths
+   * @param     {string|string[]} [prefix]      partial path to prepend (optional)
+   * @param     {string|string[]} [suffix]      partial path to append (optional)
+   * @return    {string[]}                      full paths
+   * @throws    {Error}                         if paths is non-iterable
+   * @throws    {Error}                         if any item in path is non-string
+   * @throws    {Error}                         if prefix/suffix is extant but not string or array of strings
    */
   buildPaths(paths, prefix, suffix) {
     let builtPaths = [];
