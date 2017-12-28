@@ -45,7 +45,7 @@
     }
 
     function openPanel() {
-      UserPanel.open = !UserPanel.open;
+      UserPanel.isOpen = !UserPanel.isOpen;
     }
 
     function go(toState) {

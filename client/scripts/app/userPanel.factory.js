@@ -13,7 +13,7 @@
       var vm = this;
 
       /* Properties */
-      vm.open =  false;
+      vm.isOpen =  false;
 
       /* Methods */
 

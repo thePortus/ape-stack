@@ -3,8 +3,6 @@
     <head>
         <title>APE-Stack Server</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no"/>
-        <!-- TODO ADD PROGRAMATIC FONT RETRIEVAL/HOSTING THROUGH GULP OR NPM STRICTS -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <!-- Vendor and internal stylesheets -->
 
         <% assets.styles.css.forEach((asset) => { %><link rel="stylesheet" type="text/css" href="<%= asset %>">
@@ -14,6 +12,9 @@
         <% assets.styles.less.forEach((asset) => { %><link rel="stylesheet/less" type="text/css" href="<%= asset %>">
         <% }) %>
 
+        <!-- TODO ADD PROGRAMATIC FONT RETRIEVAL/HOSTING THROUGH GULP OR NPM STRICTS -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        
     </head>
     <body ng-controller="mainController as vm" layout-fill>
         <div layout="row">
