@@ -21,7 +21,7 @@ into information loaded into the details directive common to all tables.
         /* jshint validthis: true */
         var vm = this;
 
-        /* Properties */
+        // properties
         vm.table_name = datafactory.table_name;
         vm.id_field = datafactory.id_field;
         vm.title_field = datafactory.title_field;
@@ -32,29 +32,21 @@ into information loaded into the details directive common to all tables.
         };
         vm.data = null;
 
-        /* Methods */
+        // methods
         vm.initialize = initialize;
 
         /* Initialization Call */
         vm.initialize();
 
-        /* Method Functions */
+        // functions
         function initialize() {
           datafactory.get(initializationCallBack);
 
           function initializationCallBack(responseData) {
             vm.data = responseData;
-          }
-        }
-        /* close initialize */
-
-      }
-      /*close Table*/
-
-    }
-    /* close tableCall */
-
-  }
-  /*close tableFactory*/
-
+          } // initializationCallBack
+        } // initialize
+      } // Table
+    } // tableCall
+  } // tableFactory
 })();

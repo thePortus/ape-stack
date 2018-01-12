@@ -1,10 +1,8 @@
 (function() {
   'use strict';
 
-  /*==== Getting App and Chaining Configuration Functions =====*/
   angular.module('ape.users')
     .factory('Users', usersFactory);
-
 
   function usersFactory(Api) {
     return new UsersModel();
@@ -13,7 +11,7 @@
       /* jshint validthis: true */
       var vm = this;
 
-      /* Properties */
+      // properties
       vm.table_name = {label: 'Users', value: 'Users'};
       vm.id_field = {label: 'ID', value: 'id', display: true};
       vm.title_field = {label: 'Users', value: 'User', display: true};
@@ -29,46 +27,43 @@
         {label: 'Updated', value: 'updatedAt'}
       ];
 
-      /* Methods */
+      // methods
       vm.get = get;
       vm.getAll = getAll;
       vm.create = create;
       vm.update = update;
       vm.destroy = destroy;
 
-      /* Functions */
+      // functions
       function get(idNum, callBackSuccess, callBackFailure) {
         // Fetching data and sending it local callback
         var api = new Api('users', idNum);
         api.get(callBackSuccess, callBackFailure);
-      }
+      } // get
 
       function getAll(callBackSuccess, callBackFailure) {
         // Fetching data and sending it local callback
         var api = new Api('users');
         api.get(callBackSuccess, callBackFailure);
-      }
+      } // getAll
 
       function create(userData, callBackSuccess, callBackFailure) {
         // Fetching data and sending it local callback
         var api = new Api('users');
         api.post(userData, callBackSuccess, callBackFailure);
-      }
+      } // create
 
       function update(idNum, userData, callBackSuccess, callBackFailure) {
         // Fetching data and sending it local callback
         var api = new Api('users', idNum);
         api.post(userData, callBackSuccess, callBackFailure);
-      }
+      } // update
 
       function destroy(idNum, callBackSuccess, callBackFailure) {
         // Sending api command to delete the user
         var api = new Api('users', idNum);
         api.destroy(callBackSuccess, callBackFailure);
-      }
-
-    }
-    /*close UsersModel*/
-  }
-  /*close usersFactory*/
+      } // destroy
+    } // UsersModel
+  } // usersFactory
 })();

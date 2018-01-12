@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 const seederData = require('./data/users.json');
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     var processedRecords = [];
-    for(var x = 0; x < seederData.length; x += 1) {
+    for (var x = 0; x < seederData.length; x += 1) {
       var currentRecord = seederData[x];
       // get and encrypt passwords
       var password = currentRecord.password;
@@ -26,12 +26,11 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       });
-
     }
     return queryInterface.bulkInsert('Users', processedRecords);
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('User', seederData);
   }
 };

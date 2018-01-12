@@ -2,12 +2,10 @@
   'use strict';
 
   angular.module('ape.app')
-    .controller('RegistrationCtrl', registrationCtrl);
+    .controller('RegistrationController', registrationController);
 
-  function registrationCtrl() {
+  function registrationController() {
     /* jshint validthis: true */
-    var vm = this;
-
-  }
-
+    // var vm = this;
+  } // registrationController
 })();

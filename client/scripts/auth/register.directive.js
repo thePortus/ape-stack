@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.auth')
     .directive('apeRegister', apeRegister);
 
-  /*Directive Definition*/
+  // directive definition
   function apeRegister() {
     var directive = {
       templateUrl: 'scripts/auth/register.template.html',
@@ -15,14 +14,14 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeRegister
 
-  /*Directive Controller*/
+  // directive controller
   function apeRegisterController(Auth, Users, Interface) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.form = {
       username: null,
       password: null,
@@ -34,11 +33,11 @@
     };
     vm.errors = [];
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.register = register;
 
-    /* Functions */
+    // functions
     function initialize() {
     }
 
@@ -54,14 +53,11 @@
       }
 
       function registerFailureCB(responseData) {
-        for(var x = 0; x < responseData.data.errors.length; x += 1) {
+        for (var x = 0; x < responseData.data.errors.length; x += 1) {
           var error = responseData.data.errors[x];
           vm.errors.push(error.message);
         }
       }
     }
-
-  }
-  /*close apeProfileController*/
-
+  } // apeRegisterController
 })();

@@ -4,7 +4,7 @@
   angular.module('ape.auth')
     .directive('apeLogin', apeLogin);
 
-  /*Directive Definition*/
+  // directive definition
   function apeLogin() {
     var directive = {
       templateUrl: 'scripts/auth/login.template.html',
@@ -15,25 +15,25 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeLogin
 
-  /*Directive Controller*/
+  // directive controller
   function apeLoginController(Auth, Interface) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.credentials = {
       username: '',
       password: ''
     };
     vm.errors = [];
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.login = login;
 
-    /* Method Functions */
+    // functions
     function initialize() {
     }
 
@@ -49,8 +49,5 @@
         vm.errors = errors;
       }
     }
-
-  }
-  /*close apeLoginController*/
-
+  } // apeLoginController
 })();

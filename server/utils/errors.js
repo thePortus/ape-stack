@@ -5,9 +5,7 @@
  * @description Error handling functions for express server
  */
 
- 'use strict';
-
-const path = require('path');
+'use strict';
 
 /**
  * Configures error handling for express app

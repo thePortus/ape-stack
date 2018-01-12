@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  /*==== Getting App and Chaining Configuration Functions =====*/
   angular.module('ape.common')
     .factory('Interface', interfaceFactory);
 
@@ -12,16 +11,17 @@
       /* jshint validthis: true */
       var vm = this;
 
-      /*Methods*/
+      // methods
       vm.go = go;
+      vm.currentState = currentState;
       vm.refresh = refresh;
 
-      /*===Start of Method Functions===*/
+      // functions
       function go(toState, parameters) {
         // Ensure toState was sent
         if (typeof toState !== 'undefined') {
           // If parameters sent, copy to stateParams
-          if(typeof parameters !== 'undefined') {
+          if (typeof parameters !== 'undefined') {
             $state.go(toState, parameters, {reload: true});
           }
           // If no parameters sent, simply go to new state
@@ -33,11 +33,11 @@
         else {
           return $state.current;
         }
-      }
+      } // go
 
       function currentState() {
         return $state.current;
-      }
+      } // currentState
 
       function refresh() {
         $state.go($state.current, $stateParams, {
@@ -45,12 +45,7 @@
           inherit: false,
           notify: true
         });
-      }
-
-    }
-    /*close InterfaceModel*/
-
-  }
-  /*close interfaceFactory*/
-
+      } // refresh
+    } // InterfaceModel
+  } // interfaceFactory
 })();

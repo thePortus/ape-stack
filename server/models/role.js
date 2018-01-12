@@ -31,15 +31,14 @@ function RoleModel(sequelize, DataTypes) {
       });
 
       Role.belongsToMany(models.Privilege, {
-        as: "Privileges",
-        through: "RolePrivileges",
-        foreignKey: "roles"
+        as: 'Privileges',
+        through: 'RolePrivileges',
+        foreignKey: 'roles'
       });
     };
   };
 
   return Role;
-
 }
 
 module.exports = RoleModel;

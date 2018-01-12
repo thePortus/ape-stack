@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.users')
     .directive('apeUserList', apeUserList);
 
-  /*Directive Definition*/
+  // directive definition
   function apeUserList() {
     var directive = {
       templateUrl: 'scripts/users/list.template.html',
@@ -15,29 +14,26 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeUserList
 
-  /*Directive Controller*/
+  // directive controller
   function apeUserListController(Users) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.list = null;
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
 
-
-    /* Functions */
+    // functions
     function initialize() {
       Users.get(initCB);
 
       function initCB(responseData) {
         vm.list = responseData;
-      }
-    }
-  }
-  /*close apeUserStatusController*/
-
+      } // initCB
+    } // initialize
+  } // apeUserStatusController
 })();

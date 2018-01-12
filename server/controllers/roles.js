@@ -1,11 +1,8 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
-
 const models = require('../models');
 
 var Model = models.Role;
-
 
 const list = (req, res) => {
   // return all roles and their orders
@@ -22,23 +19,22 @@ const list = (req, res) => {
 
 const create = (req, res) => {
   return Model.create({
-      'role': req.body.role,
-      'order': Model.findAll().length + 1
-    })
+    'role': req.body.role,
+    'order': Model.findAll().length + 1
+  })
     .then(role => res.status(200).send(role))
     .catch(error => res.status(400).send(error));
 };
 
 const update = (req, res) => {
   var attributes = {};
-  var updateRecord = null;
   if (req.body.role) {
     attributes.role = req.body.role;
   }
   else {
     return false;
   }
-  updateRecord = Model.findById(attributes.role)
+  Model.findById(attributes.role)
     .then((updateRecord) => {
       return updateRecord
         .update(attributes)
@@ -55,7 +51,7 @@ const increment = (req, res) => {
     .then((currentRecord) => {
       Model.findAll({where: {order: currentRecord.order + 1}})
         .then((otherRecord) => {
-          if(!otherRecord) {
+          if (!otherRecord) {
             return false;
           }
           currentRecord.order += 1;
@@ -78,7 +74,7 @@ const decrement = (req, res) => {
       }
       Model.findAll({where: {order: currentRecord.order - 1}})
         .then((otherRecord) => {
-          if(!otherRecord) {
+          if (!otherRecord) {
             return false;
           }
           currentRecord.order -= 1;

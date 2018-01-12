@@ -4,7 +4,7 @@
   angular.module('ape.table')
     .directive('apeTable', apeTable);
 
-  /*Directive Definition*/
+  // directive definition
   function apeTable() {
     var directive = {
       templateUrl: 'scripts/table/table.template.html',
@@ -19,14 +19,14 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeTable
 
-  /*Directive Controller*/
+  // directive controller
   function apeTableController(Table) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.dropdown = false;
     vm.showDropdown = false;
     vm.disableOptions = true;
@@ -34,17 +34,17 @@
     vm.table = null;
     vm.searchterm = '';
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.clickOptions = clickOptions;
 
-    /* Method Functions */
+    // functions
     function initialize() {
-      if(typeof vm.allowOptions !== 'undefined' && vm.allowOptions !== false) {
+      if (typeof vm.allowOptions !== 'undefined' && vm.allowOptions !== false) {
         vm.disableOptions = false;
       }
       vm.table = new Table(vm.datafactory);
-      if(vm.style === 'dropdown') {
+      if (vm.style === 'dropdown') {
         vm.dropdown = true;
       }
       else {
@@ -55,8 +55,5 @@
     function clickOptions() {
       vm.showOptions = !vm.showOptions;
     }
-
-  }
-  /*close apeTableController*/
-
+  } // apeTableController
 })();

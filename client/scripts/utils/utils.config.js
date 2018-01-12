@@ -1,5 +1,5 @@
 (function() {
-    'use strict';
+  'use strict';
 
   // Module Definition
   angular.module('ape.utils', [
@@ -14,5 +14,4 @@
     'tmh.dynamicLocale',
     'ui.grid'
   ]);
-
-  })();
+})();

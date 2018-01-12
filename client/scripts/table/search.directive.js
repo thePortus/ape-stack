@@ -4,7 +4,7 @@
   angular.module('ape.table')
     .directive('apeTableSearch', apeTableSearch);
 
-  /*Directive Definition*/
+  // directive definition
   function apeTableSearch() {
     var directive = {
       templateUrl: 'scripts/table/search.template.html',
@@ -17,25 +17,25 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeTableSearch
 
-  /*Directive Controller*/
+  // directive controller
   function apeTableSearchController() {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.sortField = sortField;
 
-    /* Method Functions */
+    // functions
     function initialize() {
     }
 
     function sortField(fieldName) {
-      if(vm.table.sorting.field === fieldName) {
+      if (vm.table.sorting.field === fieldName) {
         vm.table.sorting.reverse = !vm.table.sorting.reverse;
       }
       else {
@@ -43,7 +43,5 @@
         vm.table.sorting.reverse = false;
       }
     }
-  }
-  /*close apeTableSearchController*/
-
+  } //  apeTableSearchController
 })();

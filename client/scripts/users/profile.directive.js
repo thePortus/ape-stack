@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.users')
     .directive('apeProfile', apeProfile);
 
-  /*Directive Definition*/
+  // directive definition
   function apeProfile() {
     var directive = {
       templateUrl: 'scripts/users/profile.template.html',
@@ -15,24 +14,24 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeProfile
 
-  /*Directive Controller*/
+  // directive controller
   function apeProfileController(Auth, Users) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.gridOptions = null;
     vm.profile = null;
     vm.profileData = null;
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
 
-    /* Functions */
+    // functions
     function initialize() {
-        vm.gridOptions = {
+      vm.gridOptions = {
         enableSorting: true,
         fastWatch: true,
         columnDefs: [],
@@ -45,9 +44,7 @@
       function initCB(responseData) {
         vm.profileData = responseData;
         vm.gridOptions.data = vm.profileData;
-      }
-    }
-  }
-  /*close apeProfileController*/
-
+      } // initCB
+    } // initialize
+  } // apeProfileController
 })();

@@ -1,7 +1,5 @@
 'use strict';
 
-const Role = require('./role');
-
 function UserModel(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     id: {
@@ -27,11 +25,11 @@ function UserModel(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     salt: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     role: {
       type: DataTypes.STRING,
@@ -39,15 +37,15 @@ function UserModel(sequelize, DataTypes) {
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     about: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: true
     },
     createdAt: {
       type: DataTypes.DATE,

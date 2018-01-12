@@ -4,7 +4,7 @@
   angular.module('ape.table')
     .directive('apeTableRows', apeTableRows);
 
-  /*Directive Definition*/
+  // directive definition
   function apeTableRows() {
     var directive = {
       templateUrl: 'scripts/table/rows.template.html',
@@ -18,21 +18,21 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeTableRows
 
-  /*Directive Controller*/
+  // directive controller
   function apeTableRowsTableRowsController(Interface) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.searchterm = '';
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.details = details;
 
-    /* Method Functions */
+    // functions
     function initialize() {
     }
 
@@ -47,7 +47,7 @@
       var toState = null;
       var subState = '.details';
       // If a detail table for a related table was specified, go there
-      if(vm.detailTable !== '') {
+      if (vm.detailTable !== '') {
         toState = vm.detailTable + subState;
       }
       // Otherwise, (in case of a list table), go to the details page of this module
@@ -56,8 +56,5 @@
       }
       Interface.go(toState, parameters);
     }
-
-  }
-  /*close apeTableRowsTableRowsController*/
-
+  } // apeTableRowsTableRowsController
 })();

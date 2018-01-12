@@ -6,10 +6,9 @@
  * @description Utility object for building the various partial paths in assets.json and return different lists of absolute paths as needed for various operations involving external and internal dependencies.
  */
 
-"use strict";
+'use strict';
 
 const path = require('path');
-const fs = require('fs');
 
 const assets = require('../assets.json');
 
@@ -22,7 +21,6 @@ const root = path.join(__dirname, '../');
  * @abstract
  */
 class AbstractAssets {
-
   /**
    * Makes an AbstractAsset
    * @memberof utils.assets.AbstractAssets
@@ -60,11 +58,11 @@ class AbstractAssets {
     // loop through paths, get each, make changes and push to newPaths
     paths.forEach((currentPath) => {
       // if a prefix was sent, prepend to path
-      if (typeof(prefix) !== 'undefined' && typeof(prefix) !== null) {
+      if (typeof (prefix) !== 'undefined' && typeof (prefix) !== 'undefined') {
         currentPath = path.join(prefix, currentPath);
       }
       // if a suffix was sent, append to path
-      if (typeof(suffix) !== 'undefined' && typeof(suffix) !== null) {
+      if (typeof (suffix) !== 'undefined' && typeof (suffix) !== 'undefined') {
         currentPath = path.join(currentPath, suffix);
       }
       // add the modified path to newPaths
@@ -72,7 +70,6 @@ class AbstractAssets {
     });
     return newPaths;
   } // /addToPaths
-
 } // AbstractAssets
 
 /**
@@ -81,7 +78,6 @@ class AbstractAssets {
  * @memberof utils.assets
  */
 class LocaleAssets extends AbstractAssets {
-
   constructor() {
     super('js');
     this.target = path.join(root, assets.dirs.static, assets.dirs.lib, assets.dirs.locales);
@@ -102,9 +98,7 @@ class LocaleAssets extends AbstractAssets {
       return sources;
     };
   }
-
 } // LocaleAssets
-
 
 /**
  * Class for generating paths during gulpfile static asset collection.
@@ -112,7 +106,6 @@ class LocaleAssets extends AbstractAssets {
  * @memberof utils.assets
  */
 class CollectionAssets extends AbstractAssets {
-
   constructor(type) {
     super(type);
     this.target = path.join(root, assets.dirs.static, assets.dirs.lib);
@@ -129,9 +122,7 @@ class CollectionAssets extends AbstractAssets {
       assets.vendor[this.type]
     );
   }
-
 } // CollectionAssets
-
 
 /**
  * Class for generating paths during gulp concatenation and minification
@@ -139,7 +130,6 @@ class CollectionAssets extends AbstractAssets {
  * @memberof utils.assets
  */
 class BuildAssets extends AbstractAssets {
-
   /**
    * Makes a BuildAssets object
    * @memberof utils.assets.BuildAssets
@@ -178,7 +168,6 @@ class BuildAssets extends AbstractAssets {
   }
 } // BuildAssets
 
-
 /**
  * Generates client-side static paths for express views - DEPRECATED, see {@link server/utils/staticAssets|staticAssets}
  * @extends AbstractAssets
@@ -186,7 +175,6 @@ class BuildAssets extends AbstractAssets {
  * @deprecated
  */
 class RuntimeAssets extends AbstractAssets {
-
   constructor(type) {
     super(type);
     this.env = process.env.NODE_ENV;
@@ -206,11 +194,10 @@ class RuntimeAssets extends AbstractAssets {
       }
       // return 2 item list, one to compiled vendors scripts, other to internal compiled scripts
       return [
-          path.join(assets.dirs.dist, 'lib.min.' + this.type),
-          path.join(assets.dirs.dist, 'app.min.' + this.type)
+        path.join(assets.dirs.dist, 'lib.min.' + this.type),
+        path.join(assets.dirs.dist, 'app.min.' + this.type)
       ];
-    }
-    // otherwise, use individual source files for vendor and internal files
+    } // otherwise, use individual source files for vendor and internal files
     else {
       // return vendor and internal filenames, unless type is less
       if (this.type !== 'less') {
@@ -236,7 +223,6 @@ class RuntimeAssets extends AbstractAssets {
       }
     }
   } // assets
-
 } // RuntimeAssets
 
 /**
@@ -246,7 +232,6 @@ class RuntimeAssets extends AbstractAssets {
  * @deprecated
  */
 class LessAssets extends AbstractAssets {
-
   constructor() {
     super('less');
     this.files = this.addToPaths(
@@ -272,7 +257,6 @@ class LessAssets extends AbstractAssets {
     });
     return assetObjects;
   }
-
 } // LessAssets
 
 module.exports = {

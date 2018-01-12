@@ -1,25 +1,23 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    // Main Controller Definition
-    angular.module('ape.app')
-        .controller('mainController', mainCtrl);
+  // Main Controller Definition
+  angular.module('ape.app')
+    .controller('MainController', mainController);
 
-    function mainCtrl() {
-        /* jshint validthis: true */
-        var vm = this;
+  function mainController() {
+    /* jshint validthis: true */
+    var vm = this;
 
-        // Properties
+    // Properties
 
-        // Methods
-        vm.initialize = initialize;
+    // Methods
+    vm.initialize = initialize;
 
-        // Initialization call
-        vm.initialize();
+    // Initialization call
+    vm.initialize();
 
-        function initialize() {
-        }
-
-    }
-
+    function initialize() {
+    } // initialize
+  } // mainController
 })();

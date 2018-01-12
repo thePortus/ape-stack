@@ -37,12 +37,12 @@ module.exports = {
    */
   currentEnvVar(varName) {
     // if no env variable name passed, return list of current env variable names
-    if (typeof(varName) === 'undefined') {
+    if (typeof (varName) === 'undefined') {
       return Object.keys(process.env);
     }
     // if name passed but not a string, throw error
-    if (typeof(varName) !== 'undefined' && typeof(varName) !== 'string') {
-      throw 'Argument varName was non-string, varName must be a string or undefined';
+    if (typeof (varName) !== 'undefined' && typeof (varName) !== 'string') {
+      throw Error('Argument varName was non-string, varName must be a string or undefined');
     }
     // if name passed but is not a current env var return undefined;
     if (!process.env.hasOwnProperty(varName)) {

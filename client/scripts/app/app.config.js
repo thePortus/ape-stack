@@ -1,30 +1,30 @@
 (function() {
-    'use strict';
+  'use strict';
 
   // Module, Dependencies & Constants Definition
   angular.module(
     'ape.app',
     [
-        'ui.router',
-        'ngAria',
-        'ngAnimate',
-        'ngCookies',
-        'ngSanitize',
-        'ngMaterial',
-        'ngMdIcons',
-        'pascalprecht.translate',
-        'angular-translate-loader-pluggable',
-        'tmh.dynamicLocale',
-        'ui.grid',
-        'ape.utils',
-        'ape.common',
-        'ape.auth',
-        'ape.users',
-        'ape.table',
-        'ape.details'/* leave me here: auto module addition */
+      'ui.router',
+      'ngAria',
+      'ngAnimate',
+      'ngCookies',
+      'ngSanitize',
+      'ngMaterial',
+      'ngMdIcons',
+      'pascalprecht.translate',
+      'angular-translate-loader-pluggable',
+      'tmh.dynamicLocale',
+      'ui.grid',
+      'ape.utils',
+      'ape.common',
+      'ape.auth',
+      'ape.users',
+      'ape.table',
+      'ape.details'/* leave me here: auto module addition */
     ]
   )
-    .constant('DEBUG_MODE', /*DEBUG_MODE*/true/*DEBUG_MODE*/)
+    .constant('DEBUG_MODE', /* DEBUG_MODE */ true /* DEBUG_MODE */)
     .constant('APP_TITLE', 'APE Stack Server')
     .constant('APP_VERSION', '0.0.0')
     .constant('APP_CREDITS', 'By David Thomas')
@@ -33,9 +33,9 @@
     .constant('API_VERSION', 'v1')
     .constant('LOCALES', {
       'locales': {
-          'en_US': 'English',
-          'fr_FR': 'Français',
-          'de_DE': 'Duetsche'
+        'en_US': 'English',
+        'fr_FR': 'Français',
+        'de_DE': 'Duetsche'
       },
       'preferredLocale': 'en_US'
     })
@@ -46,28 +46,28 @@
     .config(dynamicLocaleConfig)
     .config(configRouter, ['$stateProvider', '$urlRouterProvider']);
 
-  /*Material Design Theme Configuration*/
+  // Material Design Theme Configuration
   function mdThemeConfig($mdThemingProvider) {
     $mdThemingProvider
       .theme('default')
       .primaryPalette('blue-grey')
       .accentPalette('brown')
       .warnPalette('orange');
-  }
+  } // mdThemeConfig
 
-  /* Material Design Icon Provider Configuration */
+  // Material Design Icon Provider Configuration
   function mdIconConfig($mdIconProvider) {
-      $mdIconProvider
-        .defaultFontSet('mdi')
-        .defaultIconSet('/media/imgs/mdi.svg');
-  }
+    $mdIconProvider
+      .defaultFontSet('mdi')
+      .defaultIconSet('/media/imgs/mdi.svg');
+  } // mdIconConfig
 
   /* Translation debaug mode */
   function debugConfig($compileProvider, DEBUG_MODE) {
     if (!DEBUG_MODE) {
       $compileProvider.debugInfoEnabled(false);// disables AngularJS debug info
     }
-  }
+  } // debugConfig
 
   /* i18n localization configuration */
   function translationConfig($translateProvider, translatePluggableLoaderProvider, DEBUG_MODE, LOCALES) {
@@ -84,49 +84,47 @@
       'suffix': '.json'
     });
     translatePluggableLoaderProvider.useLoader(staticLoader);
-  }
+  } // translationConfig
 
-  /* sets location of dynamic locale files */
+  // sets location of dynamic locale files
   function dynamicLocaleConfig(tmhDynamicLocaleProvider) {
     tmhDynamicLocaleProvider.localeLocationPattern('lib/locales/angular-locale_{{locale}}.js');
   } // dynamicLocaleConfig
 
-  /*UI Router Configuration*/
-    function configRouter($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/');
-      $urlRouterProvider.when('', '/');
-      $stateProvider
-        .state('home', {
-          url: '/',
-          templateUrl: 'scripts/app/home.template.html',
-          controller: 'HomeCtrl',
-          controllerAs: 'vm'
-        })
-        .state('login', {
-          url: '/login',
-          templateUrl: 'scripts/app/login.template.html',
-          controller: 'LoginCtrl',
-          controllerAs: 'vm'
-        })
-        .state('registration', {
-          url: '/register',
-          templateUrl: 'scripts/app/registration.template.html',
-          controller: 'RegistrationCtrl',
-          controllerAs: 'vm'
-        })
-        .state('userlist', {
-          url: '/userlist',
-          templateUrl: 'scripts/app/userList.template.html',
-          controller: 'UserListCtrl',
-          controllerAs: 'vm'
-        })
-        .state('account', {
-          url: '/users',
-          templateUrl: 'scripts/app/account.template.html',
-          controller: 'AccountCtrl',
-          controllerAs: 'vm'
-        });/* leave me here: auto route addition */
-
-    } // UI Router Configuration
-
+  // UI Router Configuration
+  function configRouter($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.when('', '/');
+    $stateProvider
+      .state('home', {
+        url: '/',
+        templateUrl: 'scripts/app/home.template.html',
+        controller: 'HomeController',
+        controllerAs: 'vm'
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'scripts/app/login.template.html',
+        controller: 'LoginController',
+        controllerAs: 'vm'
+      })
+      .state('registration', {
+        url: '/register',
+        templateUrl: 'scripts/app/registration.template.html',
+        controller: 'RegistrationController',
+        controllerAs: 'vm'
+      })
+      .state('userlist', {
+        url: '/userlist',
+        templateUrl: 'scripts/app/userList.template.html',
+        controller: 'UserListController',
+        controllerAs: 'vm'
+      })
+      .state('account', {
+        url: '/users',
+        templateUrl: 'scripts/app/account.template.html',
+        controller: 'AccountController',
+        controllerAs: 'vm'
+      });/* leave me here: auto route addition */
+  } // UI Router Configuration
 })();

@@ -2,12 +2,10 @@
   'use strict';
 
   angular.module('ape.app')
-    .controller('UserListCtrl', userListCtrl);
+    .controller('UserListController', userListController);
 
-  function userListCtrl() {
+  function userListController() {
     /* jshint validthis: true */
-    var vm = this;
-
-  }
-
+    // var vm = this;
+  } // userListController
 })();

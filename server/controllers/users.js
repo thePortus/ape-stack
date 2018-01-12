@@ -26,7 +26,7 @@ function create(req, res) {
 
   if (password !== password2) {
     return res.status(400).send({
-      message: 'Passwords do not match',
+      message: 'Passwords do not match'
     });
   }
   // generating authentication salt/hash
@@ -55,20 +55,20 @@ function list(req, res) {
     return [];
   }
   return User
-      .findAll({
-        attributes: [
-          'username',
-          'email',
-          'firstName',
-          'lastName',
-          'about',
-          'role',
-          'createdAt',
-          'updatedAt'
-        ]
-      })
-      .then(users => res.status(200).send(users))
-      .catch(error => res.status(400).send(error));
+    .findAll({
+      attributes: [
+        'username',
+        'email',
+        'firstName',
+        'lastName',
+        'about',
+        'role',
+        'createdAt',
+        'updatedAt'
+      ]
+    })
+    .then(users => res.status(200).send(users))
+    .catch(error => res.status(400).send(error));
 }
 
 function read(req, res) {
@@ -96,15 +96,15 @@ function read(req, res) {
 function update(req, res) {
   return User
     .findById(req.params.user_id, {
-      //include: [{
+      // include: [{
       //  model: UserMeta,
       //  as: 'userMeta',
-      //}],
+      // }],
     })
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: 'User Not Found',
+          message: 'User Not Found'
         });
       }
       return user
@@ -114,7 +114,7 @@ function update(req, res) {
           lastName: req.body.lastName || user.lastName,
           updatedAt: Date.Now()
         })
-        .then(() => res.status(200).send(user))  // Send back the updated user.
+        .then(() => res.status(200).send(user)) // Send back the updated user.
         .catch((error) => res.status(400).send(error));
     })
     .catch((error) => res.status(400).send(error));
@@ -126,7 +126,7 @@ function destroy(req, res) {
     .then(user => {
       if (!user) {
         return res.status(400).send({
-          message: 'User Not Found',
+          message: 'User Not Found'
         });
       }
       return user

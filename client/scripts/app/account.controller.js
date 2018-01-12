@@ -2,12 +2,10 @@
   'use strict';
 
   angular.module('ape.app')
-    .controller('AccountCtrl', accountCtrl);
+    .controller('AccountController', accountController);
 
-  function accountCtrl() {
+  function accountController() {
     /* jshint validthis: true */
-    var vm = this;
-
-  }
-
+    // var vm = this;
+  } // accountController
 })();

@@ -1,5 +1,5 @@
 (function() {
-    'use strict';
+  'use strict';
 
   // Module Definition
   angular.module('ape.auth', [
@@ -16,14 +16,13 @@
   ])
     .config(translationConfig);
 
-/* component i18n localization configuration */
-function translationConfig($translateProvider, translatePluggableLoaderProvider) {
-  // set translation file locations
-  const staticLoader = $translateProvider.useStaticFilesLoader({
-    'prefix': 'js/auth/resources/locale-',
-    'suffix': '.json'
-  });
-  translatePluggableLoaderProvider.useLoader(staticLoader);
-}
-
+  /* component i18n localization configuration */
+  function translationConfig($translateProvider, translatePluggableLoaderProvider) {
+    // set translation file locations
+    const staticLoader = $translateProvider.useStaticFilesLoader({
+      'prefix': 'js/auth/resources/locale-',
+      'suffix': '.json'
+    });
+    translatePluggableLoaderProvider.useLoader(staticLoader);
+  } // translationConfig
 })();

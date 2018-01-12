@@ -2,13 +2,12 @@
   'use strict';
 
   angular.module('ape.app')
-    .controller('HomeCtrl', homeCtrl);
+    .controller('HomeController', homeController);
 
-  function homeCtrl(UserPanel) {
+  function homeController(UserPanel) {
     /* jshint validthis: true */
     var vm = this;
 
     vm.panel = UserPanel;
-  }
-
+  } // homeController
 })();

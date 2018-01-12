@@ -1,5 +1,5 @@
 (function() {
-    'use strict';
+  'use strict';
 
   // Module Definition
   angular.module('ape.table', [
@@ -19,20 +19,20 @@
 
   /* Custom Filters */
   function orderObjectBy() {
-      return function(items, field, reverse) {
-        var filtered = [];
-        angular.forEach(items, function(item) {
-          filtered.push(item);
-        });
-        filtered.sort(function(a, b) {
-          return (a[field] > b[field] ? 1 : -1);
-        });
-        if (reverse) {
-          filtered.reverse();
-        }
-        return filtered;
-      };
-    }
+    return function(items, field, reverse) {
+      var filtered = [];
+      angular.forEach(items, function(item) {
+        filtered.push(item);
+      });
+      filtered.sort(function(a, b) {
+        return (a[field] > b[field] ? 1 : -1);
+      });
+      if (reverse) {
+        filtered.reverse();
+      }
+      return filtered;
+    };
+  } // orderObjectBy
 
   /* component i18n localization configuration */
   function translationConfig($translateProvider, translatePluggableLoaderProvider) {
@@ -42,7 +42,5 @@
       'suffix': '.json'
     });
     translatePluggableLoaderProvider.useLoader(staticLoader);
-  }
-
-
+  } // translationConfig
 })();

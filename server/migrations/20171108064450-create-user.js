@@ -1,9 +1,7 @@
 'use strict';
 
-const models = require('../models');
-
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Users', {
       id: {
         allowNull: false,
@@ -45,15 +43,15 @@ module.exports = {
       },
       firstName: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true
       },
       lastName: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true
       },
       about: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -71,7 +69,7 @@ module.exports = {
       }
     });
   },
-  down: function (queryInterface, Sequelize) {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');
   }
 };

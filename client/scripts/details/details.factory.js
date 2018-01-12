@@ -14,26 +14,26 @@ into information loaded into the details directive common to all tables.
   function detailsFactory() {
     return detailsCall;
 
-    function detailsCall(id_num, datafactory) {
-      return new Details(id_num, datafactory);
+    function detailsCall(idNum, datafactory) {
+      return new Details(idNum, datafactory);
 
-      function Details(id_num, datafactory) {
+      function Details(idNum, datafactory) {
         /* jshint validthis: true */
         var vm = this;
 
-        /* Properties */
-        vm.id_num = id_num;
+        // properties
+        vm.id_num = idNum;
         vm.from_table = datafactory;
         vm.title_field = datafactory.table_name;
         vm.data = {};
 
-        /* Methods */
+        // methods
         vm.initialize = initialize;
 
         /* Initialization Call */
         vm.initialize();
 
-        /* Method Functions */
+        // functions
         function initialize() {
           // Get the information on the table itself
           datafactory.get(initializationCallBack);
@@ -41,16 +41,8 @@ into information loaded into the details directive common to all tables.
           function initializationCallBack(responseData) {
             vm.data = responseData;
           }
-        }
-        /* close initialize */
-
-      }
-      /*close Details*/
-
-    }
-    /* close detailsCall */
-
-  }
-  /*close detailsFactory*/
-
+        } // initialize
+      } //  Details
+    } //  detailsCall
+  } // detailsFactory
 })();

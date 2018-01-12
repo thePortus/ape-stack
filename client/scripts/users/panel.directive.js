@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.users')
     .directive('apeUserPanel', apeUserPanel);
 
-  /*Directive Definition*/
+  // directive definition
   function apeUserPanel() {
     var directive = {
       templateUrl: 'scripts/users/panel.template.html',
@@ -14,31 +13,29 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeUserPanel
 
-  /*Directive Controller*/
+  // directive controller
   function apeUserPanelController($filter, UserPanel) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.titleMessage = null;
     vm.closeButtonCaption = null;
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.openPanel = openPanel;
 
-    /* Functions */
+    // functions
     function initialize() {
       vm.titleMessage = $filter('translate')('users.panel.directive.titleMessage');
       vm.closeButtonCaption = $filter('translate')('users.panel.directive.closeButtonCaption');
-    }
+    } // initialize
 
     function openPanel() {
       UserPanel.open = !UserPanel.open;
-    }
-  }
-  /*close apeUserPanelController*/
-
+    } // openPanel
+  } // apeUserPanelController
 })();

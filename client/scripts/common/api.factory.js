@@ -1,28 +1,26 @@
 (function() {
   'use strict';
 
-
   angular.module('ape.app')
     .factory('Api', apiFactory);
 
-    /*Table factory function definition*/
-    function apiFactory($http, $location, Auth, Paths) {
-      return apiCall;
+  function apiFactory($http, $location, Auth, Paths) {
+    return apiCall;
 
-    function apiCall(item_type, item_id, item_subtable) {
-      return new API(item_type, item_id, item_subtable);
+    function apiCall(itemType, itemId, itemSubtable) {
+      return new API(itemType, itemId, itemSubtable);
 
-      function API(item_type, item_id, item_subtable) {
+      function API(itemType, itemId, itemSubtable) {
         /* jshint validthis: true */
         var vm = this;
 
-        /* Properties */
-        vm.item_type = item_type;
+        // properties
+        vm.item_type = itemType;
         vm.item_id = null;
         vm.item_subtable = null;
         vm.info = null;
 
-        /* Methods */
+        // methods
         vm.initialize = initialize;
         vm.makeCall = makeCall;
         vm.get = get;
@@ -32,92 +30,87 @@
         /* Initialization Call */
         vm.initialize();
 
-        /*Functions*/
+        // functions
         function initialize() {
-          if(typeof item_id !== 'undefined') {
-            vm.item_id = item_id;
+          if (typeof itemId !== 'undefined') {
+            vm.item_id = itemId;
           }
-          if(typeof item_subtable !== 'undefined') {
-            vm.item_subtable = item_subtable;
+          if (typeof itemSubtable !== 'undefined') {
+            vm.item_subtable = itemSubtable;
           }
         }
-        /* close initialize */
+        // initialize */
 
         function makeCall(options, callBackSuccess, callBackFailure) {
           var path = Paths.api + vm.item_type + '/';
-          if(vm.item_id !== null) {
+          if (vm.item_id !== null) {
             path += vm.item_id;
           }
-          if(vm.item_subtable !== null) {
+          if (vm.item_subtable !== null) {
             path += '/' + vm.item_subtable;
           }
-          if(typeof(options.data) === 'undefined') {
+          if (typeof (options.data) === 'undefined') {
             options.data = {};
           }
 
-          if(Auth.jsonWebToken) {
+          if (Auth.jsonWebToken) {
             $http({
               method: options.method,
               url: path,
               headers: {
-               'Authorization': Auth.jsonWebToken
+                'Authorization': Auth.jsonWebToken
               },
               data: options.data
             })
               // Retrieving data
-              .then(get_info_complete)
+              .then(getInfoComplete)
               // Handling errors
-              .catch(get_info_error);
+              .catch(getInfoError);
           }
-          else{
+          else {
             $http({
               method: options.method,
               url: path,
               data: options.data
             })
               // Retrieving data
-              .then(get_info_complete)
+              .then(getInfoComplete)
               // Handling errors
-              .catch(get_info_error);
+              .catch(getInfoError);
           }
-            function get_info_complete(response) {
-              if(typeof(callBackSuccess) === 'function') {
-                callBackSuccess(response.data);
-              }
+          function getInfoComplete(response) {
+            if (typeof (callBackSuccess) === 'function') {
+              callBackSuccess(response.data);
             }
-            /* close get_info_complete */
+          } // getInfoComplete
 
-            function get_info_error(error) {
-              if(typeof(error.data) !== 'undefined') {
-                console.log('Error:' + error.status + ': ', error.data);
-              }
-              // running failure CB, if passed
-              if(typeof(callBackFailure) === 'function') {
-                callBackFailure(error);
-              }
-              // defaulting to success CB, if no failure CB passed
-              else if(typeof(callBackSuccess) === 'function') {
-                callBackSuccess(error);
-              }
+          function getInfoError(error) {
+            if (typeof (error.data) !== 'undefined') {
+              console.log('Error:' + error.status + ': ', error.data);
             }
-            /* close get_info_error */
-        }
-        /* close makeCall */
+            // running failure CB, if passed
+            if (typeof (callBackFailure) === 'function') {
+              callBackFailure(error);
+            }
+            // defaulting to success CB, if no failure CB passed
+            else if (typeof (callBackSuccess) === 'function') {
+              callBackSuccess(error);
+            }
+          } // getInfoError
+        } // makeCall
 
         function get(callBackSuccess, callBackFailure) {
           vm.makeCall({
             'method': 'GET'
           }, callBackSuccess, callBackFailure);
-        }
-        /* close get */
+        } // get
 
         function post(userData, callBackSuccess, callBackFailure) {
           vm.makeCall({
             'method': 'POST',
             'data': userData
           }, callBackSuccess, callBackFailure);
-        }
-        /* close post */
+        } // post
 
         function update(userData, callBackSuccess, callBackFailure) {
           vm.makeCall({
@@ -125,21 +118,14 @@
             'data': userData
           }, callBackSuccess, callBackFailure);
         }
-        /* close update*/
+        // update*/
 
         function destroy(callBackSuccess, callBackFailure) {
           vm.makeCall({
-            'method': 'DELETE',
+            'method': 'DELETE'
           }, callBackSuccess, callBackFailure);
-        }
-        /*close destroy */
-    }
-    /*close API*/
-
-  }
-  /*close apiCall*/
-
-}
-/*close apiFactory*/
-
+        } // destroy
+      } // API
+    } // apiCall
+  } // apiFactory
 })();

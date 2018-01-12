@@ -4,7 +4,7 @@
   angular.module('ape.common')
     .directive('apeHeader', apeHeader);
 
-  /*Directive Definition*/
+  // directive definition
   function apeHeader() {
     var directive = {
       templateUrl: 'scripts/common/header.template.html',
@@ -17,24 +17,21 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeHeader
 
-  /*Directive Controller*/
+  // directive controller
   function apeHeaderController() {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.details = null;
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
 
-    /* Method Functions */
+    // functions
     function initialize() {
     }
-
-  }
-  /*close eleusisHeaderController*/
-
+  } // apeHeaderController
 })();

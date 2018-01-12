@@ -4,7 +4,7 @@
   angular.module('ape.details')
     .directive('apeDetails', apeDetails);
 
-  /*Directive Definition*/
+  // directive definition
   function apeDetails() {
     var directive = {
       templateUrl: 'scripts/details/details.template.html',
@@ -17,27 +17,24 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeDetails
 
-  /*Directive Controller*/
+  // directive controller
   function apeDetailsController(Details) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.details = null;
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
 
-    /* Method Functions */
+    // functions
     function initialize() {
       vm.details = new Details(vm.parameters.id_num, vm.datafactory);
       vm.fields = vm.details.from_table.fields;
       vm.data = vm.details.data;
     }
-
-  }
-  /*close apeDetailsController*/
-
+  } // apeDetailsController
 })();

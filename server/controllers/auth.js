@@ -1,10 +1,7 @@
 'use strict';
 
-const express = require('express'),
-  passport = require('passport'),
-  jwt = require('jsonwebtoken'),
-  bcrypt = require('bcrypt'),
-  router = express.Router();
+const jwt = require('jsonwebtoken'),
+  bcrypt = require('bcrypt');
 
 const config = require('../../config.json'),
   Models = require('../models');
@@ -25,11 +22,12 @@ const login = (req, res) => {
           message: 'Authentication failed. User not found.'
         }
       );
-    } else {
+    }
+    else {
       var password = req.body.password;
       var hashedPassword = bcrypt.hashSync(password, user.salt);
       // Check if password matches
-      if(hashedPassword === user.password) {
+      if (hashedPassword === user.password) {
         var token = jwt.sign(
           {
             username: user.username,

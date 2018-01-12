@@ -3,8 +3,7 @@
 
 const fs = require('fs'),
   path = require('path'),
-  basename = path.basename(module.filename),
-  env = process.env.NODE_ENV || 'development';
+  basename = path.basename(module.filename);
 
 var exports = {};
 

@@ -2,12 +2,10 @@
   'use strict';
 
   angular.module('ape.app')
-    .controller('LoginCtrl', loginCtrl);
+    .controller('LoginController', loginController);
 
-  function loginCtrl() {
+  function loginController() {
     /* jshint validthis: true */
-    var vm = this;
-
-  }
-
+    // var vm = this;
+  } // loginController
 })();

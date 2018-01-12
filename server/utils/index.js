@@ -5,12 +5,11 @@
  * @description Node server general utility functions and objects
  */
 
- 'use strict';
+'use strict';
 
 const fs = require('fs'),
   path = require('path'),
-  basename = path.basename(module.filename),
-  env = process.env.NODE_ENV || 'development';
+  basename = path.basename(module.filename);
 
 var exports = {};
 

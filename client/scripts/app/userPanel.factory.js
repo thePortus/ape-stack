@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  /*==== Getting App and Chaining Configuration Functions =====*/
   angular.module('ape.app')
     .factory('UserPanel', userPanel);
 
@@ -12,15 +11,8 @@
       /* jshint validthis: true */
       var vm = this;
 
-      /* Properties */
-      vm.isOpen =  false;
-
-      /* Methods */
-
-    }
-    /*close UserPanel*/
-
-  }
-  /*close userPanel*/
-
+      // properties
+      vm.isOpen = false;
+    } // UserPanel
+  } // userPanel
 })();

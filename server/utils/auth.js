@@ -5,16 +5,16 @@
  * @description Passport strategy functions to enable authentication on express server
  */
 
- 'use strict';
+'use strict';
 
 const passport = require('passport'),
-  passportJwt =  require('passport-jwt');
+  passportJwt = require('passport-jwt');
 
 // local dependencies
 const config = require('../../config.json'),
   models = require('../models');
 
-//configure strategy
+// configure strategy
 const JwtStrategy = passportJwt.Strategy,
   ExtractJwt = passportJwt.ExtractJwt;
 
@@ -30,11 +30,12 @@ function enableJsonWebToken(app) {
   jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT');
   jwtOptions.secretOrKey = config.secret;
 
-  let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
-    let user = models.User.findOne({where: {id: jwt_payload.id}});
+  let strategy = new JwtStrategy(jwtOptions, function(jwtPayload, next) {
+    let user = models.User.findOne({where: {id: jwtPayload.id}});
     if (user) {
       next(null, user);
-    } else {
+    }
+    else {
       next(null, false);
     }
   });

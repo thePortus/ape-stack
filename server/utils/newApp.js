@@ -10,7 +10,6 @@
 const express = require('express'),
   path = require('path'),
   bodyParser = require('body-parser'),
-  cookieParser = require('cookie-parser'),
   favicon = require('serve-favicon'),
   logger = require('morgan'),
   jsonParser = bodyParser.json();
@@ -23,7 +22,6 @@ const assets = require('../../assets');
  * @return {}                 express app with initial configurations set
  */
 const configApp = () => {
-
   /* app configuration */
   const app = express();
 

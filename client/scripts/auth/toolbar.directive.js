@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.auth')
     .directive('apeUserStatus', apeUserStatus);
 
-  /*Directive Definition*/
+  // directive definition
   function apeUserStatus() {
     var directive = {
       templateUrl: 'scripts/auth/toolbar.template.html',
@@ -15,17 +14,17 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeUserStatus
 
-  /*Directive Controller*/
+  // directive controller
   function apeUserStatusController(Auth, Interface) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.auth = Auth;
 
-    /* Methods */
+    // methods
     vm.$onInit = initialize;
     vm.Interface = Interface;
     vm.login = login;
@@ -34,7 +33,7 @@
     vm.openAccount = openAccount;
     vm.openUserList = openUserList;
 
-    /* Functions */
+    // functions
     function initialize() {
     }
 
@@ -58,7 +57,5 @@
     function openUserList() {
       Interface.go('userlist');
     }
-  }
-  /*close apeUserStatusController*/
-
+  } // apeUserStatusController
 })();

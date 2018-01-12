@@ -13,20 +13,6 @@
         "fonts": "fonts",
         "maps": "maps"
 	},
-    "dirMap": {
-        "dependencies": "dependencies",
-        "static": {
-            "lib": {
-                "css": "css",
-                "js": "js",
-                "locales": "locales"
-            },
-            "dist": {},
-            "scripts": {},
-            "styles": {},
-            "media": "media"
-        }
-    },
 	"vendor": {
 		"css": [
 			"angular-material/angular-material.css",
@@ -53,8 +39,7 @@
 			"angular-material-icons/angular-material-icons.js",
 			"less/dist/less.js"
 		],
-        "locales": ["angular-i18n/*.js"],
-        "fonts": "fonts.txt"
+        "locales": ["angular-i18n"]
 	},
 	"source": {
 		"css": [

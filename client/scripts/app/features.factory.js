@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  /*==== Getting App and Chaining Configuration Functions =====*/
+  /* ==== Getting App and Chaining Configuration Functions ===== */
   angular.module('ape.app')
     .factory('AppFeatures', appFeatures);
 
@@ -12,7 +12,7 @@
       /* jshint validthis: true */
       var vm = this;
 
-      /* Properties */
+      // properties
       vm.features = [{
         'label': 'NodeJS',
         'caption': 'NodeJS: JavaScript runtime built on Chrome\'s V8 JavaScript engine',
@@ -24,7 +24,7 @@
         },
         'backgroundClass': 'featureBgBeige',
         'iconClass': 'featureLogoWide'
-      },{
+      }, {
         'label': 'PostgreSQL',
         'caption': 'PostgreSQL: Open source database',
         'src': 'media/imgs/vendor_icons/postgresql.svg',
@@ -35,7 +35,7 @@
         },
         'backgroundClass': 'featureBgAliceBlue',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Sequelize',
         'src': 'media/imgs/vendor_icons/sequelize.svg',
         'caption': 'Sequelize is a promise-based ORM for Node.js v4 and up',
@@ -46,7 +46,7 @@
         },
         'backgroundClass': 'featureBgLavender',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Express',
         'src': 'media/imgs/vendor_icons/express.svg',
         'caption': 'ExpressJS: Fast, unopinionated, minimalist web framework for Node.js',
@@ -57,7 +57,7 @@
         },
         'backgroundClass': 'featureBgPaleGreen',
         'iconClass': 'featureLogoWide'
-      },{
+      }, {
         'label': 'AngularJS',
         'src': 'media/imgs/vendor_icons/angular.svg',
         'caption': 'Angular JS: Superheroic JavaScript MVW Framework',
@@ -68,7 +68,7 @@
         },
         'backgroundClass': 'featureBgLavenderBlush',
         'iconClass': 'featureLogoWide'
-      },{
+      }, {
         'label': 'PassportJS',
         'src': 'media/imgs/vendor_icons/passport.svg',
         'caption': 'Passport: Simple, unobtrusive authentication for Node.js',
@@ -79,7 +79,7 @@
         },
         'backgroundClass': 'featureBgDarkSlateGrey',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Yeoman',
         'src': 'media/imgs/vendor_icons/yeoman.svg',
         'caption': 'Yeoman Scaffolding Tool',
@@ -90,7 +90,7 @@
         },
         'backgroundClass': 'featureBgWhite',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Gulp',
         'src': 'media/imgs/vendor_icons/gulp.svg',
         'caption': 'Gulp: an automation toolkit',
@@ -101,7 +101,7 @@
         },
         'backgroundClass': 'featureBgLavenderBlush',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Protractor',
         'src': 'media/imgs/vendor_icons/protractor.svg',
         'caption': 'Protractor: End to end testing for AngularJS',
@@ -112,7 +112,7 @@
         },
         'backgroundClass': 'featureBgWhite',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Mocha',
         'src': 'media/imgs/vendor_icons/mocha.svg',
         'caption': 'Feature-Rich JavaScript test framework',
@@ -123,7 +123,7 @@
         },
         'backgroundClass': 'featureBgBeige',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Chai',
         'src': 'media/imgs/vendor_icons/chai.svg',
         'caption': 'Chai: An assertion library for NodeJS',
@@ -134,7 +134,7 @@
         },
         'backgroundClass': 'featureBgLavenderBlush',
         'iconClass': 'featureLogo'
-      },{
+      }, {
         'label': 'Less',
         'src': 'media/imgs/vendor_icons/less.svg',
         'caption': 'Less: CSS precompiler',
@@ -146,13 +146,6 @@
         'backgroundClass': 'featureBgDarkSlateGrey',
         'iconClass': 'featureLogoWide'
       }];
-
-      /* Methods */
-
-    }
-    /*close AppFeatures*/
-
-  }
-  /*close appFeatures*/
-
+    } // AppFeatures
+  } // appFeatures
 })();

@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.app')
     .directive('apeSiteHeader', apeSiteHeader);
 
-  /*Directive Definition*/
+  // directive definition
   function apeSiteHeader() {
     var directive = {
       templateUrl: 'scripts/app/header.template.html',
@@ -15,43 +14,38 @@
       bindToController: true // because the scope is isolated
     };
     return directive;
-  }
+  } // apeSiteHeader
 
-  /*Directive Controller*/
+  // directive controller
   function apeSiteHeaderController(APP_TITLE, APP_VERSION, APP_CREDITS, APP_RIGHTS, Interface, UserPanel) {
     /* jshint validthis: true */
     var vm = this;
-    var originatorEv;
 
-    /* Properties */
+    // properties
     vm.app_title = APP_TITLE;
     vm.app_version = APP_VERSION;
     vm.app_credits = APP_CREDITS;
     vm.app_rights = APP_RIGHTS;
     vm.menuItems = [
-        {'label': 'Home', 'value': 'home'}
+      {'label': 'Home', 'value': 'home'}
     ];
 
-    /* Methods */
+    // methods
     vm.openMenu = openMenu;
     vm.openPanel = openPanel;
     vm.go = go;
 
-    /* Functions */
-
+    // functions
     function openMenu($mdMenu, ev) {
-      originatorEv = ev;
       $mdMenu.open(ev);
-    }
+    } // openMenu
 
     function openPanel() {
       UserPanel.isOpen = !UserPanel.isOpen;
-    }
+    } // openPanel
 
     function go(toState) {
       Interface.go(toState);
-    }
-  }
-  /*close eleusisHeaderController*/
-
+    } // go
+  } // eleusisHeaderController
 })();

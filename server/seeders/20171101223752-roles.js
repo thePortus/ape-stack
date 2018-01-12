@@ -3,9 +3,9 @@
 const seederData = require('./data/roles.json');
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up: (queryInterface, Sequelize) => {
     var processedRecords = [];
-    for(var x = 0; x < seederData.length; x += 1) {
+    for (var x = 0; x < seederData.length; x += 1) {
       var seedRecord = seederData[x];
       processedRecords.push({
         'role': seedRecord.role,
@@ -15,7 +15,7 @@ module.exports = {
     return queryInterface.bulkInsert('Roles', processedRecords);
   },
 
-  down: function (queryInterface, Sequelize) {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Roles', seederData);
   }
 };

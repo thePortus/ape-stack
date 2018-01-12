@@ -1,11 +1,10 @@
 (function() {
   'use strict';
 
-  /*Directive Definition*/
   angular.module('ape.common')
     .directive('apeLanguageSelect', apeLanguageSelect);
 
-  /*Directive Definition*/
+  // directive definition
   function apeLanguageSelect() {
     var directive = {
       templateUrl: 'scripts/common/languageSelect.template.html',
@@ -17,30 +16,28 @@
     return directive;
   } // apeLanguageSelect
 
-  /*Directive Controller*/
+  // directive controller
   function apeLanguageSelectController(LocaleService) {
     /* jshint validthis: true */
     var vm = this;
 
-    /* Properties */
+    // properties
     vm.currentLocaleDisplayName = null;
     vm.localesDisplayNames = null;
-    vm.visible = true; //TODO: CHANGE BACK to vm.localesDisplayNames && vm.localesDisplayNames.length > 1;
+    vm.visible = true; // TODO: CHANGE BACK to vm.localesDisplayNames && vm.localesDisplayNames.length > 1;
 
     vm.$onInit = initialize;
 
     vm.changeLanguage = changeLanguage;
 
-    /* Functions */
+    // functions
     function initialize() {
       vm.currentLocaleDisplayName = LocaleService.getLocaleDisplayName();
       vm.localesDisplayNames = LocaleService.getLocalesDisplayNames();
-    }
+    } // initialize
 
     function changeLanguage(locale) {
-        LocaleService.setLocaleByDisplayName(locale);
-    }
-
+      LocaleService.setLocaleByDisplayName(locale);
+    } // changeLanguage
   } // apeLanguageSelectController
-
 })();

@@ -28,31 +28,8 @@ module.exports = {
    * @throws    {Error}                         if object does not exist
    */
   isIterable(object) {
-    return typeof(object[Symbol.iterator]) === 'function';
+    return typeof (object[Symbol.iterator]) === 'function';
   }, // isIterable
-
-  /**
-   * Checks if an iterable objects contains only items of a specified type (e.g. 'string')
-   * (shallow search only)
-   * @memberof utils.paths
-   * @param     {*[]}             object        iterable object whose contents will be checked
-   * @param     {string}          typeof        specifies type of variables inside object
-   * @return    {boolean}                       true if every item
-   * @throws    {Error}                         if non iterable object passed
-   * @throws    {Error}                         if type is unspecified or a non-string
-   */
-  iterableOnlyContainsType(object, type) {
-    // ensure iterable object passed and type is a valid string
-    if(!this.isIterable(object)) { return errorNonIterable(); }
-    if(typeof(type) !== 'string') { throw new Error('Arg "type" must be specified and a string'); }
-    // iterate through object
-    for(let x = 0; x < object.length; x += 1) {
-      // immediately return false if item found not matching type
-      if(typeof(object[x]) !== type) { return false; }
-    }
-    // return true if loop completed without finding a mismatch
-    return true;
-  }, // iterableContainsNonStrings
 
   /**
    * Gets a list of full paths and returns a list of each basename.
@@ -68,7 +45,7 @@ module.exports = {
     if (!this.isIterable(paths)) { return errorNonIterable(); }
     if (!this.iterableOnlyContainsType(paths, 'string')) { return errorNonStringInIterable(); }
     // loop through each path and push basename
-    for (let x = 0;  x < paths.length; x += 1) {
+    for (let x = 0; x < paths.length; x += 1) {
       basenames.push(path.basename(paths[x]));
     }
     return basenames;
@@ -91,28 +68,28 @@ module.exports = {
 
     // throw errors if paths not iterable or if passed prefix/suffix is either string or list of string elements
     if (!this.isIterable(paths)) { return errorNonIterable(); }
-    if(prefix && typeof(prefix) !== 'undefined' && typeof(prefix !== 'string')) {
+    if (prefix && typeof (prefix) !== 'undefined' && typeof (prefix !== 'string')) {
       if (!this.isIterable(prefix)) { return errorNonIterable(); }
       if (!this.iterableOnlyContainsType(prefix, 'string')) { return errorNonStringInIterable(); }
     }
-    if(suffix && typeof(suffix) !== 'undefined' && typeof(suffix !== 'string')) {
+    if (suffix && typeof (suffix) !== 'undefined' && typeof (suffix !== 'string')) {
       if (!this.isIterable(suffix)) { return errorNonIterable(); }
       if (!this.iterableOnlyContainsType(suffix, 'string')) { return errorNonStringInIterable(); }
     }
 
     // at this point if prefix/suffix is non-string, it must be array of
     // path elements, so apply array elements to path.join arguments
-    if (typeof(prefix) !== 'string') {prefix = path.join.apply(prefix);}
-    if (typeof(prefix) !== 'string') {suffix = path.join.apply(suffix);}
+    if (typeof (prefix) !== 'string') { prefix = path.join.apply(prefix); }
+    if (typeof (prefix) !== 'string') { suffix = path.join.apply(suffix); }
     // set prefix and suffix to false if they are not strings or are empty
-    prefix = typeof(prefix) === 'string' && prefix.length ? prefix : false;
-    suffix = typeof(suffix) === 'string' && suffix.length ? suffix : false;
+    prefix = typeof (prefix) === 'string' && prefix.length ? prefix : false;
+    suffix = typeof (suffix) === 'string' && suffix.length ? suffix : false;
 
     // loop through list of partial paths
     for (let x = 0; x < paths.length; x += 1) {
       let currentPath = paths[x];
       // throw error if non-string found
-      if (typeof(currentPath) !== 'string') {return errorNonStringInIterable();}
+      if (typeof (currentPath) !== 'string') { return errorNonStringInIterable(); }
       // add prefix if extant, then append suffix if extant, then append
       currentPath = prefix ? path.join(prefix, currentPath) : currentPath;
       currentPath = suffix ? path.join(currentPath, suffix) : currentPath;

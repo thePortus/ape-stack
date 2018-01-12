@@ -21,11 +21,11 @@ module.exports = {
     // if in a testing or production env, only return minified css
     if (!utils.env.isDevEnv()) {
       return {
-          'css': [
-            path.join(assets.dirs.dist, 'lib.min.css'),
-            path.join(assets.dirs.dist, 'app.min.css')
-          ],
-          'less': []
+        'css': [
+          path.join(assets.dirs.dist, 'lib.min.css'),
+          path.join(assets.dirs.dist, 'app.min.css')
+        ],
+        'less': []
       };
     }
     // build and append vendor css filepaths
@@ -62,7 +62,7 @@ module.exports = {
     if (!utils.env.isDevEnv()) {
       return [
         path.join(assets.dirs.dist, 'lib.min.js'),
-        path.join(assets.dirs.dist, 'app.min.js'),
+        path.join(assets.dirs.dist, 'app.min.js')
       ];
     }
     // build and append vendor js filepaths
